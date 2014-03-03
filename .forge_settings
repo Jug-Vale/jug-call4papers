@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<forge>
+<analytics>
+<enabled>false</enabled>
+</analytics>
+</forge>
+<activatorChoice>WEB_XML</activatorChoice>
+<rootpath>/rest</rootpath>
+<org>
+<jboss>
+<forge>
+<scaffold>
+<faces>
+<FacesScaffold_targetDir>admin</FacesScaffold_targetDir>
+</faces>
+</scaffold>
+</forge>
+</jboss>
+</org>
+<jboss-as>
+<as7>
+<configured>PROJECT</configured>
+<jboss-home>/opt/jboss/AS/jboss-as-7.1.1.Final</jboss-home>
+</as7>
+</jboss-as>
+</configuration>

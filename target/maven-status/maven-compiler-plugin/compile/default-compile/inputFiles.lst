@@ -1,0 +1,8 @@
+/opt/projects/jug-call4papers/src/main/java/org/jugvale/call4papers/rest/EventoEndpoint.java
+/opt/projects/jug-call4papers/src/main/java/org/jugvale/call4papers/model/Evento.java
+/opt/projects/jug-call4papers/src/main/java/org/jugvale/call4papers/rest/AutorEndpoint.java
+/opt/projects/jug-call4papers/src/main/java/org/jugvale/call4papers/rest/utils/RESTUtils.java
+/opt/projects/jug-call4papers/src/main/java/org/jugvale/call4papers/rest/PaperEndpoint.java
+/opt/projects/jug-call4papers/src/main/java/org/jugvale/call4papers/inicio/CarregaDadosIniciais.java
+/opt/projects/jug-call4papers/src/main/java/org/jugvale/call4papers/model/Paper.java
+/opt/projects/jug-call4papers/src/main/java/org/jugvale/call4papers/model/Autor.java
