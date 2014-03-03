@@ -1,8 +1,0 @@
-org/jugvale/call4papers/rest/EventoEndpoint.class
-org/jugvale/call4papers/model/Evento.class
-org/jugvale/call4papers/model/Autor.class
-org/jugvale/call4papers/rest/PaperEndpoint.class
-org/jugvale/call4papers/model/Paper.class
-org/jugvale/call4papers/rest/utils/RESTUtils.class
-org/jugvale/call4papers/inicio/CarregaDadosIniciais.class
-org/jugvale/call4papers/rest/AutorEndpoint.class

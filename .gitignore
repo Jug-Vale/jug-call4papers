@@ -6,10 +6,15 @@
 *.ear
 
 # Maven Build
-*/target/**
+target/
 
 # Eclipse directories
-*/bin/**
+bin/
 .settings
 .classpath
 .project
+
+#forge file
+.forge_settings
+
+
