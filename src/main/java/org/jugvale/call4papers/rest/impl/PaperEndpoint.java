@@ -1,7 +1,5 @@
 package org.jugvale.call4papers.rest.impl;
 
-import static org.jugvale.call4papers.rest.utils.RESTUtils.lanca404SeNulo;
-
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -18,7 +16,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import org.jugvale.call4papers.model.Paper;
-import org.jugvale.call4papers.rest.RestGererico;
+import org.jugvale.call4papers.rest.RestAbstrato;
 import org.jugvale.call4papers.service.impl.PaperService;
 
 /**
@@ -26,7 +24,7 @@ import org.jugvale.call4papers.service.impl.PaperService;
  */
 @Stateless
 @Path("/papers")
-public class PaperEndpoint implements RestGererico<Paper>{
+public class PaperEndpoint extends RestAbstrato<Paper>{
 
 	@Inject
 	PaperService service;
@@ -73,11 +71,5 @@ public class PaperEndpoint implements RestGererico<Paper>{
 		verificaSeEhNulo(findById(id), id);
 		paper.setId(id);
 		service.atualizar(paper);
-	}
-
-
-	@Override
-	public Paper verificaSeEhNulo(Paper entidade, long id) {
-		return lanca404SeNulo(entidade, "Paper com ID '" + id + "' não encontrado");
 	}
 }

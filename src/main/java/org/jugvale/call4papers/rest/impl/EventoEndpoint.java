@@ -1,7 +1,5 @@
 package org.jugvale.call4papers.rest.impl;
 
-import static org.jugvale.call4papers.rest.utils.RESTUtils.lanca404SeNulo;
-
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -18,12 +16,12 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import org.jugvale.call4papers.model.Evento;
-import org.jugvale.call4papers.rest.RestGererico;
+import org.jugvale.call4papers.rest.RestAbstrato;
 import org.jugvale.call4papers.service.impl.EventoService;
 
 @Stateless
 @Path("/eventos")
-public class EventoEndpoint implements RestGererico<Evento>{
+public class EventoEndpoint extends RestAbstrato<Evento>{
 
 	@Inject
 	EventoService service;
@@ -72,11 +70,5 @@ public class EventoEndpoint implements RestGererico<Evento>{
 		evento.setId(id);
 		service.atualizar(evento);
 	}
-
-	@Override
-	public Evento verificaSeEhNulo(Evento entidade, long id) {
-		return lanca404SeNulo(entidade, "Evento com ID '" + id + "' não encontrado");
-	}
-
 
 }

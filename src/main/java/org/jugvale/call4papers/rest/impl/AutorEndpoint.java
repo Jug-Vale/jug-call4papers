@@ -1,7 +1,5 @@
 package org.jugvale.call4papers.rest.impl;
 
-import static org.jugvale.call4papers.rest.utils.RESTUtils.lanca404SeNulo;
-
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -18,7 +16,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import org.jugvale.call4papers.model.Autor;
-import org.jugvale.call4papers.rest.RestGererico;
+import org.jugvale.call4papers.rest.RestAbstrato;
 import org.jugvale.call4papers.service.impl.AutorService;
 
 /**
@@ -26,7 +24,7 @@ import org.jugvale.call4papers.service.impl.AutorService;
  */
 @Stateless
 @Path("/autores")
-public class AutorEndpoint implements RestGererico<Autor>{
+public class AutorEndpoint extends RestAbstrato<Autor>{
 
 	@Inject
 	AutorService service;
@@ -73,18 +71,5 @@ public class AutorEndpoint implements RestGererico<Autor>{
 		verificaSeEhNulo(findById(id), id);
 		novoAutor.setId(id);
 		service.atualizar(novoAutor);
-	}
-
-	/**
-	 * 
-	 * Lança exceção de 404 se o Autor for nulo.
-	 * @param autor
-	 * @param id
-	 * @return
-	 */
-
-	@Override
-	public Autor verificaSeEhNulo(Autor entidade, long id) {
-		return lanca404SeNulo(entidade, "Autor com ID '" + id + "' não encontrado");
 	}
 }
