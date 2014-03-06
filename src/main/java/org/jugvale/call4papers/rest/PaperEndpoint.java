@@ -5,8 +5,7 @@ import static org.jugvale.call4papers.rest.utils.RESTUtils.lanca404SeNulo;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,56 +18,55 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import org.jugvale.call4papers.model.Paper;
+import org.jugvale.call4papers.service.impl.PaperService;
 
 /**
- * 
+ * Classe boileplate para expor as operações do Paper em uma interface REST
  */
 @Stateless
 @Path("/papers")
 public class PaperEndpoint {
-	@PersistenceContext(unitName = "primary")
-	private EntityManager em;
+
+	@Inject
+	PaperService service;
 
 	@POST
 	@Consumes("application/json")
-	public Response create(Paper entity) {
-		em.persist(entity);
+	public Response create(Paper paper) {
+		service.salvar(paper);
 		return Response.created(
 				UriBuilder.fromResource(PaperEndpoint.class)
-						.path(String.valueOf(entity.getId())).build()).build();
+						.path(String.valueOf(paper.getId())).build()).build();
 	}
 
 	@DELETE
 	@Path("/{id:[0-9][0-9]*}")
 	public void deleteById(@PathParam("id") Long id) {
-		Paper paper = findById(id);
-		em.remove(verificaSePaperEhNulo(paper, id));		
+		Paper paper = service.buscarPorId(id);
+		service.remover(verificaSePaperEhNulo(paper, id));
 	}
 
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces("application/json")
 	public Paper findById(@PathParam("id") Long id) {
-		Paper paper = em.find(Paper.class, id);
+		Paper paper = service.buscarPorId(id);
 		return verificaSePaperEhNulo(paper, id);
 	}
 
 	@GET
 	@Produces("application/json")
 	public List<Paper> listAll() {
-		final List<Paper> results = em
-				.createQuery(
-						"SELECT DISTINCT p FROM Paper p LEFT JOIN FETCH p.autores LEFT JOIN FETCH p.evento ORDER BY p.id",
-						Paper.class).getResultList();
-		return results;
+		return service.buscaTodos();
 	}
 
 	@PUT
 	@Path("/{id:[0-9][0-9]*}")
 	@Consumes("application/json")
 	public void update(@PathParam("id") long id, Paper paper) {
-		paper = em.merge(paper);
-		verificaSePaperEhNulo(paper, id);
+		verificaSePaperEhNulo(findById(id), id);
+		paper.setId(id);
+		service.atualizar(paper);		
 	}
 
 	private Paper verificaSePaperEhNulo(Paper paper, long id) {

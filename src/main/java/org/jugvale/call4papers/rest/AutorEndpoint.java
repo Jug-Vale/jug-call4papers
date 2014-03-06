@@ -5,8 +5,7 @@ import static org.jugvale.call4papers.rest.utils.RESTUtils.lanca404SeNulo;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,6 +18,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import org.jugvale.call4papers.model.Autor;
+import org.jugvale.call4papers.service.impl.AutorService;
 
 /**
  * 
@@ -26,41 +26,38 @@ import org.jugvale.call4papers.model.Autor;
 @Stateless
 @Path("/autores")
 public class AutorEndpoint {
-	@PersistenceContext(unitName = "primary")
-	private EntityManager em;
+
+	@Inject
+	AutorService service;
 
 	@POST
 	@Consumes("application/json")
-	public Response create(Autor entity) {
-		em.persist(entity);
+	public Response create(Autor entidade) {
+		service.salvar(entidade);
 		return Response.created(
 				UriBuilder.fromResource(AutorEndpoint.class)
-						.path(String.valueOf(entity.getId())).build()).build();
+						.path(String.valueOf(entidade.getId())).build()).build();
 	}
 
 	@DELETE
 	@Path("/{id:[0-9][0-9]*}")
 	public void deleteById(@PathParam("id") Long id) {
-		Autor autor = em.find(Autor.class, id);
-		em.remove(verificaSeAutorEhNulo(autor, id));		
+		Autor autor = service.buscarPorId(id);
+		service.remover(verificaSeAutorEhNulo(autor, id));		
 	}
 
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces("application/json")
 	public Autor findById(@PathParam("id") Long id) {
-		Autor autor = em.find(Autor.class, id);
+		Autor autor = service.buscarPorId(id);
 		return verificaSeAutorEhNulo(autor, id);
 	}
 
 	@GET
 	@Produces("application/json")
-	public List<Autor> listAll() {
-		final List<Autor> results = em
-				.createQuery(
-						"SELECT DISTINCT a FROM Autor a LEFT JOIN FETCH a.papers ORDER BY a.id",
-						Autor.class).getResultList();
-		return results;
+	public List<Autor> listAll() {	
+		return service.buscaTodos();
 	}	
 
 	@PUT
@@ -69,7 +66,7 @@ public class AutorEndpoint {
 	public void update(@PathParam("id") long id, Autor novoAutor) {
 		verificaSeAutorEhNulo(findById(id), id);
 		novoAutor.setId(id);
-		em.merge(novoAutor);
+		service.atualizar(novoAutor);
 	}
 
 	/**
