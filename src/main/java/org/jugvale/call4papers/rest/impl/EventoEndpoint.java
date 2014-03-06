@@ -1,4 +1,4 @@
-package org.jugvale.call4papers.rest;
+package org.jugvale.call4papers.rest.impl;
 
 import static org.jugvale.call4papers.rest.utils.RESTUtils.lanca404SeNulo;
 
