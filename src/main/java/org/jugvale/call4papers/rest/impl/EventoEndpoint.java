@@ -18,60 +18,65 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import org.jugvale.call4papers.model.Evento;
+import org.jugvale.call4papers.rest.RestGererico;
 import org.jugvale.call4papers.service.impl.EventoService;
 
-/**
- * 
- */
 @Stateless
 @Path("/eventos")
-public class EventoEndpoint {
+public class EventoEndpoint implements RestGererico<Evento>{
 
 	@Inject
 	EventoService service;
 
+	@Override
 	@POST
 	@Consumes("application/json")
 	public Response create(Evento entidade) {
 		service.salvar(entidade);
 		return Response.created(
 				UriBuilder.fromResource(EventoEndpoint.class)
-						.path(String.valueOf(entidade.getId())).build())
+				.path(String.valueOf(entidade.getId())).build())
 				.build();
 	}
 
+	@Override
 	@DELETE
 	@Path("/{id:[0-9][0-9]*}")
 	public void deleteById(@PathParam("id") Long id) {
 		Evento evento = findById(id);
-		service.remover(verificaSeEventoEhNulo(evento, id));
+		service.remover(verificaSeEhNulo(evento, id));
 	}
 
+	@Override
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces("application/json")
 	public Evento findById(@PathParam("id") Long id) {
 		Evento evento = service.buscarPorId(id);
-		return verificaSeEventoEhNulo(evento, id);
+		return verificaSeEhNulo(evento, id);
 	}
 
+	@Override
 	@GET
 	@Produces("application/json")
 	public List<Evento> listAll() {
 		return service.buscaTodos();
 	}
 
+	@Override
 	@PUT
 	@Path("/{id:[0-9][0-9]*}")
 	@Consumes("application/json")
 	public void update(@PathParam("id") long id, Evento evento) {
-		verificaSeEventoEhNulo(findById(id), id);
+		verificaSeEhNulo(findById(id), id);
 		evento.setId(id);
 		service.atualizar(evento);
 	}
 
-	private Evento verificaSeEventoEhNulo(Evento evento, long id) {
-		return lanca404SeNulo(evento, "Evento com ID '" + id
-				+ "' não encontrado");
+	@Override
+	public Evento verificaSeEhNulo(Evento entidade, long id) {
+		return lanca404SeNulo(entidade, "Evento com ID '" + id + "' não encontrado");
 	}
+
+
 }

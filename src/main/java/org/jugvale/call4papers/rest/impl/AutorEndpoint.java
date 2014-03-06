@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import org.jugvale.call4papers.model.Autor;
+import org.jugvale.call4papers.rest.RestGererico;
 import org.jugvale.call4papers.service.impl.AutorService;
 
 /**
@@ -25,46 +26,51 @@ import org.jugvale.call4papers.service.impl.AutorService;
  */
 @Stateless
 @Path("/autores")
-public class AutorEndpoint {
+public class AutorEndpoint implements RestGererico<Autor>{
 
 	@Inject
 	AutorService service;
 
+	@Override
 	@POST
 	@Consumes("application/json")
 	public Response create(Autor entidade) {
 		service.salvar(entidade);
 		return Response.created(
 				UriBuilder.fromResource(AutorEndpoint.class)
-						.path(String.valueOf(entidade.getId())).build()).build();
+				.path(String.valueOf(entidade.getId())).build()).build();
 	}
 
+	@Override
 	@DELETE
 	@Path("/{id:[0-9][0-9]*}")
 	public void deleteById(@PathParam("id") Long id) {
 		Autor autor = service.buscarPorId(id);
-		service.remover(verificaSeAutorEhNulo(autor, id));		
+		service.remover(verificaSeEhNulo(autor, id));
 	}
 
+	@Override
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces("application/json")
 	public Autor findById(@PathParam("id") Long id) {
 		Autor autor = service.buscarPorId(id);
-		return verificaSeAutorEhNulo(autor, id);
+		return verificaSeEhNulo(autor, id);
 	}
 
+	@Override
 	@GET
 	@Produces("application/json")
-	public List<Autor> listAll() {	
+	public List<Autor> listAll() {
 		return service.buscaTodos();
-	}	
+	}
 
+	@Override
 	@PUT
 	@Path("/{id:[0-9][0-9]*}")
 	@Consumes("application/json")
 	public void update(@PathParam("id") long id, Autor novoAutor) {
-		verificaSeAutorEhNulo(findById(id), id);
+		verificaSeEhNulo(findById(id), id);
 		novoAutor.setId(id);
 		service.atualizar(novoAutor);
 	}
@@ -76,7 +82,9 @@ public class AutorEndpoint {
 	 * @param id
 	 * @return
 	 */
-	private Autor verificaSeAutorEhNulo(Autor autor, long id) {
-		return lanca404SeNulo(autor, "Autor com ID '" + id + "' não encontrado");
+
+	@Override
+	public Autor verificaSeEhNulo(Autor entidade, long id) {
+		return lanca404SeNulo(entidade, "Autor com ID '" + id + "' não encontrado");
 	}
 }

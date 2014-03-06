@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import org.jugvale.call4papers.model.Paper;
+import org.jugvale.call4papers.rest.RestGererico;
 import org.jugvale.call4papers.service.impl.PaperService;
 
 /**
@@ -25,51 +26,58 @@ import org.jugvale.call4papers.service.impl.PaperService;
  */
 @Stateless
 @Path("/papers")
-public class PaperEndpoint {
+public class PaperEndpoint implements RestGererico<Paper>{
 
 	@Inject
 	PaperService service;
 
+	@Override
 	@POST
 	@Consumes("application/json")
 	public Response create(Paper paper) {
 		service.salvar(paper);
 		return Response.created(
 				UriBuilder.fromResource(PaperEndpoint.class)
-						.path(String.valueOf(paper.getId())).build()).build();
+				.path(String.valueOf(paper.getId())).build()).build();
 	}
 
+	@Override
 	@DELETE
 	@Path("/{id:[0-9][0-9]*}")
 	public void deleteById(@PathParam("id") Long id) {
 		Paper paper = service.buscarPorId(id);
-		service.remover(verificaSePaperEhNulo(paper, id));
+		service.remover(verificaSeEhNulo(paper, id));
 	}
 
+	@Override
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces("application/json")
 	public Paper findById(@PathParam("id") Long id) {
 		Paper paper = service.buscarPorId(id);
-		return verificaSePaperEhNulo(paper, id);
+		return verificaSeEhNulo(paper, id);
 	}
 
+	@Override
 	@GET
 	@Produces("application/json")
 	public List<Paper> listAll() {
 		return service.buscaTodos();
 	}
 
+	@Override
 	@PUT
 	@Path("/{id:[0-9][0-9]*}")
 	@Consumes("application/json")
 	public void update(@PathParam("id") long id, Paper paper) {
-		verificaSePaperEhNulo(findById(id), id);
+		verificaSeEhNulo(findById(id), id);
 		paper.setId(id);
-		service.atualizar(paper);		
+		service.atualizar(paper);
 	}
 
-	private Paper verificaSePaperEhNulo(Paper paper, long id) {
-		return lanca404SeNulo(paper, "Paper com ID '" + id + "' não encontrado");
+
+	@Override
+	public Paper verificaSeEhNulo(Paper entidade, long id) {
+		return lanca404SeNulo(entidade, "Paper com ID '" + id + "' não encontrado");
 	}
 }
