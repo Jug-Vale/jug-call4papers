@@ -2,7 +2,6 @@ package org.jugvale.call4papers.rest.impl;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -22,7 +21,6 @@ import org.jugvale.call4papers.service.impl.PaperService;
 /**
  * Classe boileplate para expor as operações do Paper em uma interface REST
  */
-@Stateless
 @Path("/papers")
 public class PaperEndpoint extends RestAbstrato<Paper>{
 
@@ -32,7 +30,7 @@ public class PaperEndpoint extends RestAbstrato<Paper>{
 	@Override
 	@POST
 	@Consumes("application/json")
-	public Response create(Paper paper) {
+	public Response criar(Paper paper) {
 		service.salvar(paper);
 		return Response.created(
 				UriBuilder.fromResource(PaperEndpoint.class)
@@ -42,7 +40,7 @@ public class PaperEndpoint extends RestAbstrato<Paper>{
 	@Override
 	@DELETE
 	@Path("/{id:[0-9][0-9]*}")
-	public void deleteById(@PathParam("id") Long id) {
+	public void apagaPorId(@PathParam("id") Long id) {
 		Paper paper = service.buscarPorId(id);
 		service.remover(verificaSeEhNulo(paper, id));
 	}
@@ -51,7 +49,7 @@ public class PaperEndpoint extends RestAbstrato<Paper>{
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces("application/json")
-	public Paper findById(@PathParam("id") Long id) {
+	public Paper buscaPorId(@PathParam("id") Long id) {
 		Paper paper = service.buscarPorId(id);
 		return verificaSeEhNulo(paper, id);
 	}
@@ -59,7 +57,7 @@ public class PaperEndpoint extends RestAbstrato<Paper>{
 	@Override
 	@GET
 	@Produces("application/json")
-	public List<Paper> listAll() {
+	public List<Paper> listarTodos() {
 		return service.buscaTodos();
 	}
 
@@ -67,8 +65,8 @@ public class PaperEndpoint extends RestAbstrato<Paper>{
 	@PUT
 	@Path("/{id:[0-9][0-9]*}")
 	@Consumes("application/json")
-	public void update(@PathParam("id") long id, Paper paper) {
-		verificaSeEhNulo(findById(id), id);
+	public void atualizar(@PathParam("id") long id, Paper paper) {
+		verificaSeEhNulo(buscaPorId(id), id);
 		paper.setId(id);
 		service.atualizar(paper);
 	}

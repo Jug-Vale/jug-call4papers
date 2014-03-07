@@ -4,14 +4,8 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
@@ -22,7 +16,6 @@ import org.jugvale.call4papers.service.impl.AutorService;
 /**
  * 
  */
-@Stateless
 @Path("/autores")
 public class AutorEndpoint extends RestAbstrato<Autor>{
 
@@ -30,9 +23,7 @@ public class AutorEndpoint extends RestAbstrato<Autor>{
 	AutorService service;
 
 	@Override
-	@POST
-	@Consumes("application/json")
-	public Response create(Autor entidade) {
+	public Response criar(Autor entidade) {
 		service.salvar(entidade);
 		return Response.created(
 				UriBuilder.fromResource(AutorEndpoint.class)
@@ -40,35 +31,25 @@ public class AutorEndpoint extends RestAbstrato<Autor>{
 	}
 
 	@Override
-	@DELETE
-	@Path("/{id:[0-9][0-9]*}")
-	public void deleteById(@PathParam("id") Long id) {
+	public void apagaPorId(@PathParam("id") Long id) {
 		Autor autor = service.buscarPorId(id);
 		service.remover(verificaSeEhNulo(autor, id));
 	}
 
 	@Override
-	@GET
-	@Path("/{id:[0-9][0-9]*}")
-	@Produces("application/json")
-	public Autor findById(@PathParam("id") Long id) {
+	public Autor buscaPorId(@PathParam("id") Long id) {
 		Autor autor = service.buscarPorId(id);
 		return verificaSeEhNulo(autor, id);
 	}
 
 	@Override
-	@GET
-	@Produces("application/json")
-	public List<Autor> listAll() {
+	public List<Autor> listarTodos() {
 		return service.buscaTodos();
 	}
 
 	@Override
-	@PUT
-	@Path("/{id:[0-9][0-9]*}")
-	@Consumes("application/json")
-	public void update(@PathParam("id") long id, Autor novoAutor) {
-		verificaSeEhNulo(findById(id), id);
+	public void atualizar(@PathParam("id") long id, Autor novoAutor) {
+		verificaSeEhNulo(buscaPorId(id), id);
 		novoAutor.setId(id);
 		service.atualizar(novoAutor);
 	}
