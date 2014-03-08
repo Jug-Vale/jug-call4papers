@@ -14,7 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
-import org.jugvale.call4papers.model.Paper;
+import org.jugvale.call4papers.model.impl.Paper;
 import org.jugvale.call4papers.rest.RestAbstrato;
 import org.jugvale.call4papers.service.impl.PaperService;
 

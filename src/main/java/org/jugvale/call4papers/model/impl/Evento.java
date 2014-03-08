@@ -1,26 +1,21 @@
-package org.jugvale.call4papers.model;
+package org.jugvale.call4papers.model.impl;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.jugvale.call4papers.model.EntidadeAbstrata;
+
 @Entity
 @XmlRootElement
-public class Evento implements Serializable {
+public class Evento extends EntidadeAbstrata {
 
 	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", updatable = false, nullable = false)
-	private Long id = null;
+
 	@Column
 	private String nome;
 
@@ -42,22 +37,11 @@ public class Evento implements Serializable {
 	@Column
 	private boolean aceitandoTrabalhos;
 
-	public Long getId() {
-		return this.id;
-	}
-
-	public void setId(final Long id) {
-		this.id = id;
-	}
-
-	
-	
 	public Evento() {
 		super();
 	}
-	
-	public Evento(String nome, String descricao, Date dataInicio, Date dataFim,
-			String local, String url, boolean aceitandoTrabalhos) {
+
+	public Evento(String nome, String descricao, Date dataInicio, Date dataFim, String local, String url, boolean aceitandoTrabalhos) {
 		super();
 		this.nome = nome;
 		this.descricao = descricao;
@@ -67,7 +51,6 @@ public class Evento implements Serializable {
 		this.url = url;
 		this.aceitandoTrabalhos = aceitandoTrabalhos;
 	}
-	
 
 	@Override
 	public boolean equals(Object that) {

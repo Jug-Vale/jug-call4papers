@@ -8,7 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
-import org.jugvale.call4papers.model.Evento;
+import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.rest.RestAbstrato;
 import org.jugvale.call4papers.service.impl.EventoService;
 
