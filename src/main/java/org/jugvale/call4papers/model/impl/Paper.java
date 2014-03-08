@@ -1,28 +1,22 @@
-package org.jugvale.call4papers.model;
+package org.jugvale.call4papers.model.impl;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.jugvale.call4papers.model.EntidadeAbstrata;
+import org.jugvale.call4papers.model.constantes.Tipo;
+
 @Entity
 @XmlRootElement
-public class Paper implements Serializable {
+public class Paper extends EntidadeAbstrata {
 
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", updatable = false, nullable = false)
-	private Long id = null;
 
 	@Column
 	private String titulo;
@@ -45,13 +39,8 @@ public class Paper implements Serializable {
 	@ManyToOne
 	private Evento evento;
 
-	public Long getId() {
-		return this.id;
-	}
-
-	public void setId(final Long id) {
-		this.id = id;
-	}
+	@Column
+	private Tipo tipo;
 
 	@Override
 	public boolean equals(Object that) {
@@ -149,4 +138,12 @@ public class Paper implements Serializable {
 	public void setEvento(final Evento evento) {
 		this.evento = evento;
 	}
+
+	public Tipo getTipo() {
+	    return tipo;
+    }
+
+	public void setTipo(Tipo tipo) {
+	    this.tipo = tipo;
+    }
 }
