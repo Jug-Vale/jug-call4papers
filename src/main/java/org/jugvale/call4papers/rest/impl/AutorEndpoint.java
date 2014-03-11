@@ -2,7 +2,6 @@ package org.jugvale.call4papers.rest.impl;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;

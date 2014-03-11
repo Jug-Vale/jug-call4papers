@@ -10,6 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.jugvale.call4papers.model.Evento;
+import org.jugvale.call4papers.model.Role;
+import org.jugvale.call4papers.model.Usuario;
 
 /**
  * 
@@ -22,6 +24,8 @@ import org.jugvale.call4papers.model.Evento;
 @Singleton
 @Startup
 public class CarregaDadosIniciais {
+	
+	//TODO: Abrir issue para carregar isso de um arquivo. Os dados deverão ser diferentes em teste.
 
 	@PersistenceContext
 	EntityManager em;
@@ -37,6 +41,9 @@ public class CarregaDadosIniciais {
 				new Date(), new Date(), "Rua dos grandes eventos",
 				"http://www.ograndeevento.com", true);
 		em.persist(evt);
+		// adiciona um usuário administrador
+		Usuario adm = new Usuario("adm", "adm123", Role.ADMINISTRADOR);
+		em.persist(adm);
 		log.fine("Dados iniciais salvos.");
 	}
 }
