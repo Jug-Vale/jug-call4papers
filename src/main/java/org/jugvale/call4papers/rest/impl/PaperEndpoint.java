@@ -2,6 +2,8 @@ package org.jugvale.call4papers.rest.impl;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -21,6 +23,8 @@ import org.jugvale.call4papers.service.impl.PaperService;
 /**
  * Classe boileplate para expor as operações do Paper em uma interface REST
  */
+@Stateless
+@LocalBean
 @Path("/papers")
 public class PaperEndpoint extends RestAbstrato<Paper>{
 
