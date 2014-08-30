@@ -9,9 +9,8 @@ import org.jugvale.call4papers.model.DefaultModel;
 import org.jugvale.call4papers.model.enuns.Role;
 
 @Entity
+@SuppressWarnings("serial")
 public class Usuario extends DefaultModel {
-
-	private static final long serialVersionUID = 1L;
 
 	@Column
 	private String login;

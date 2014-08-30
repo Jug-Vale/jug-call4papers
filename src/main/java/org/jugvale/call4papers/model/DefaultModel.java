@@ -8,6 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+/**
+ * @author Pedro Hos
+ */
 @MappedSuperclass
 public class DefaultModel implements Serializable {
 

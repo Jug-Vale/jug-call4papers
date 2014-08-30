@@ -16,7 +16,7 @@ import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.rest.RestAbstrato;
 import org.jugvale.call4papers.service.impl.EventoService;
 
-@Path("/eventos")
+@Path("/v1/eventos")
 @Stateless
 @LocalBean
 public class EventoEndpoint extends RestAbstrato<Evento> {
@@ -29,10 +29,8 @@ public class EventoEndpoint extends RestAbstrato<Evento> {
 	@Consumes("application/json")
 	public Response criar(Evento entidade) {
 		service.salvar(entidade);
-		return Response.created(
-				UriBuilder.fromResource(EventoEndpoint.class)
-						.path(String.valueOf(entidade.getId())).build())
-				.build();
+		return Response.created( UriBuilder.fromResource(EventoEndpoint.class)
+								.path( String.valueOf(entidade.getId()) ).build() ).build();
 	}
 
 	@Override

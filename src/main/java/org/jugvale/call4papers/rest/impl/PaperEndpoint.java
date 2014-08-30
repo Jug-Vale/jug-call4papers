@@ -25,7 +25,7 @@ import org.jugvale.call4papers.service.impl.PaperService;
  */
 @Stateless
 @LocalBean
-@Path("/papers")
+@Path("/v1/papers")
 public class PaperEndpoint extends RestAbstrato<Paper>{
 
 	@Inject

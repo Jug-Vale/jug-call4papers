@@ -18,7 +18,7 @@ import org.jugvale.call4papers.service.impl.AutorService;
 
 @Stateless
 @LocalBean
-@Path("/autores")
+@Path("/v1/autores")
 public class AutorEndpoint extends RestAbstrato<Autor>{
 
 	@Inject
