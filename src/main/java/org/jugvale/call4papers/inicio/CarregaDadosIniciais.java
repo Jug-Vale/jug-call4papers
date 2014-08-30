@@ -9,9 +9,9 @@ import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.jugvale.call4papers.model.Evento;
-import org.jugvale.call4papers.model.Role;
-import org.jugvale.call4papers.model.Usuario;
+import org.jugvale.call4papers.model.enuns.Role;
+import org.jugvale.call4papers.model.impl.Evento;
+import org.jugvale.call4papers.model.impl.Usuario;
 
 /**
  * 

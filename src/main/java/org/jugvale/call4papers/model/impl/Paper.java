@@ -1,28 +1,20 @@
-package org.jugvale.call4papers.model;
+package org.jugvale.call4papers.model.impl;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.jugvale.call4papers.model.DefaultModel;
+
 @Entity
 @XmlRootElement
-public class Paper implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", updatable = false, nullable = false)
-	private Long id = null;
+@SuppressWarnings("serial")
+public class Paper extends DefaultModel {
 
 	@Column
 	private String titulo;
@@ -44,39 +36,6 @@ public class Paper implements Serializable {
 
 	@ManyToOne
 	private Evento evento;
-
-	public Long getId() {
-		return this.id;
-	}
-
-	public void setId(final Long id) {
-		this.id = id;
-	}
-
-	@Override
-	public boolean equals(Object that) {
-		if (this == that) {
-			return true;
-		}
-		if (that == null) {
-			return false;
-		}
-		if (getClass() != that.getClass()) {
-			return false;
-		}
-		if (id != null) {
-			return id.equals(((Paper) that).id);
-		}
-		return super.equals(that);
-	}
-
-	@Override
-	public int hashCode() {
-		if (id != null) {
-			return id.hashCode();
-		}
-		return super.hashCode();
-	}
 
 	public String getTitulo() {
 		return this.titulo;
@@ -124,22 +83,6 @@ public class Paper implements Serializable {
 
 	public void setAutores(final Set<Autor> autores) {
 		this.autores = autores;
-	}
-
-	@Override
-	public String toString() {
-		String result = getClass().getSimpleName() + " ";
-		if (id != null)
-			result += "id: " + id;
-		if (titulo != null && !titulo.trim().isEmpty())
-			result += ", titulo: " + titulo;
-		if (descricao != null && !descricao.trim().isEmpty())
-			result += ", descricao: " + descricao;
-		if (dataSubmissao != null && !dataSubmissao.trim().isEmpty())
-			result += ", dataSubmissao: " + dataSubmissao;
-		result += ", nota: " + nota;
-		result += ", aceito: " + aceito;
-		return result;
 	}
 
 	public Evento getEvento() {

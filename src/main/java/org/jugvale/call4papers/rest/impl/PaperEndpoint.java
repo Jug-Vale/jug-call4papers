@@ -16,7 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
-import org.jugvale.call4papers.model.Paper;
+import org.jugvale.call4papers.model.impl.Paper;
 import org.jugvale.call4papers.rest.RestAbstrato;
 import org.jugvale.call4papers.service.impl.PaperService;
 
@@ -36,9 +36,8 @@ public class PaperEndpoint extends RestAbstrato<Paper>{
 	@Consumes("application/json")
 	public Response criar(Paper paper) {
 		service.salvar(paper);
-		return Response.created(
-				UriBuilder.fromResource(PaperEndpoint.class)
-				.path(String.valueOf(paper.getId())).build()).build();
+		return Response.created( UriBuilder.fromResource(PaperEndpoint.class)
+								.path(String.valueOf(paper.getId())).build() ).build();
 	}
 
 	@Override
