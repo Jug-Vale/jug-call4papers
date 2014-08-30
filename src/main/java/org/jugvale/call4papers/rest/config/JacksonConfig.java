@@ -17,12 +17,14 @@ import org.codehaus.jackson.map.SerializationConfig;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class JacksonConfig implements ContextResolver<ObjectMapper> {
+	
+	final String FORMATO_DATA = "dd.MM.yyyy";
 
     private final ObjectMapper objectMapper;
 
     public JacksonConfig() {        
         objectMapper = new ObjectMapper();
-        objectMapper.setDateFormat(new SimpleDateFormat("dd.MM.yyyy"));
+        objectMapper.setDateFormat(new SimpleDateFormat(FORMATO_DATA));
         objectMapper.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS, false);
     }
 
