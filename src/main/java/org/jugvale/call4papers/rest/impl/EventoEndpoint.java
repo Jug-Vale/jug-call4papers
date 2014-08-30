@@ -16,7 +16,7 @@ import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.rest.RestAbstrato;
 import org.jugvale.call4papers.service.impl.EventoService;
 
-@Path("/v1/eventos")
+@Path("/eventos")
 @Stateless
 @LocalBean
 public class EventoEndpoint extends RestAbstrato<Evento> {
