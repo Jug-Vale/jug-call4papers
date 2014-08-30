@@ -2,7 +2,11 @@ package org.jugvale.call4papers.rest.impl;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
@@ -13,12 +17,16 @@ import org.jugvale.call4papers.rest.RestAbstrato;
 import org.jugvale.call4papers.service.impl.EventoService;
 
 @Path("/eventos")
+@Stateless
+@LocalBean
 public class EventoEndpoint extends RestAbstrato<Evento> {
 
 	@Inject
 	EventoService service;
 
 	@Override
+	@POST
+	@Consumes("application/json")
 	public Response criar(Evento entidade) {
 		service.salvar(entidade);
 		return Response.created(

@@ -2,7 +2,11 @@ package org.jugvale.call4papers.rest.impl;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
@@ -12,9 +16,8 @@ import org.jugvale.call4papers.model.Autor;
 import org.jugvale.call4papers.rest.RestAbstrato;
 import org.jugvale.call4papers.service.impl.AutorService;
 
-/**
- * 
- */
+@Stateless
+@LocalBean
 @Path("/autores")
 public class AutorEndpoint extends RestAbstrato<Autor>{
 
@@ -22,6 +25,8 @@ public class AutorEndpoint extends RestAbstrato<Autor>{
 	AutorService service;
 
 	@Override
+	@POST
+	@Consumes("application/json")
 	public Response criar(Autor entidade) {
 		service.salvar(entidade);
 		return Response.created(
