@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.jugvale.call4papers.model.impl.Evento;
+import org.jugvale.call4papers.model.impl.Paper;
 
 @Path("evento")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -27,15 +28,19 @@ public interface EventoResource {
 	public List<Evento> listarTodos();
 
 	@DELETE
-	@Path("/{id:[0-9][0-9]*}")
+	@Path("/{id}")
 	public void apagaPorId(@PathParam("id") Long id);
 
 	@GET
-	@Path("/{id:[0-9][0-9]*}")
+	@Path("/{id}")
 	public Evento buscaPorId(@PathParam("id") Long id);
 
 	@PUT
-	@Path("/{id:[0-9][0-9]*}")
+	@Path("/{id}")
 	public void atualizar(@PathParam("id") long id, Evento evento);
+
+	@GET
+	@Path("/{eventoId}/papers")
+	public List<Paper> listaPapersPorEvento(@PathParam("eventoId") Long eventoId);
 
 }

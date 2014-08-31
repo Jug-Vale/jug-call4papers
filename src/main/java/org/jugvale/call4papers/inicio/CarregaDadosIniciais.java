@@ -1,6 +1,8 @@
 package org.jugvale.call4papers.inicio;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -10,7 +12,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.jugvale.call4papers.model.enuns.Role;
+import org.jugvale.call4papers.model.impl.Autor;
 import org.jugvale.call4papers.model.impl.Evento;
+import org.jugvale.call4papers.model.impl.Paper;
 import org.jugvale.call4papers.model.impl.Usuario;
 
 /**
@@ -41,6 +45,22 @@ public class CarregaDadosIniciais {
 				new Date(), new Date(), "Rua dos grandes eventos",
 				"http://www.ograndeevento.com", true);
 		em.persist(evt);
+		Autor maria = new Autor();
+		maria.setEmail("meuemail@gmail.com");
+		maria.setMiniCurriculo("Grande conhecida no mundo Java...");
+		maria.setNome("Maria");
+		maria.setTelefone("123456789");
+		maria.setSite("www.mariajava.com");
+		em.persist(maria);
+		Paper javaParaFodoes = new Paper();
+		javaParaFodoes.setDataSubmissao(new Date());
+		javaParaFodoes.setDescricao("Java para quem ama Java. Java para fodões");
+		javaParaFodoes.setTitulo("Java para Fodões");
+		javaParaFodoes.setEvento(evt);
+		Set<Autor> autores = new HashSet<Autor>();
+		autores.add(maria);
+		javaParaFodoes.setAutores(autores);
+		em.persist(javaParaFodoes);
 		// adiciona um usuário administrador
 		Usuario adm = new Usuario("adm", "adm123", Role.ADMINISTRADOR);
 		em.persist(adm);

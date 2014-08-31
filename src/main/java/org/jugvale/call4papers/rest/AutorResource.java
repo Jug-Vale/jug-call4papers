@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.jugvale.call4papers.model.impl.Autor;
+import org.jugvale.call4papers.model.impl.Paper;
 
 @Path("autor")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -33,6 +34,10 @@ public interface AutorResource {
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
 	public Autor buscaPorId(@PathParam("id") Long id);
+
+	@GET
+	@Path("/{autorId:[0-9][0-9]*}/papers")
+	public List<Paper> listaPapersPorAutor(@PathParam("autorId") Long autorId);
 
 	@PUT
 	@Path("/{id:[0-9][0-9]*}")
