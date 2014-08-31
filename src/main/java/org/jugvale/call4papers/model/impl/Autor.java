@@ -1,21 +1,14 @@
 package org.jugvale.call4papers.model.impl;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.persistence.OneToOne;
-
-import org.jugvale.call4papers.model.impl.Usuario;
-
-import java.lang.Override;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
@@ -41,9 +34,6 @@ public class Autor implements Serializable
 
    @Column
    private String miniCurriculo;
-
-   @ManyToMany
-   private Set<Paper> papers = new HashSet<Paper>();
 
    @OneToOne
    private Usuario usuario;
@@ -139,17 +129,7 @@ public class Autor implements Serializable
    {
       this.miniCurriculo = miniCurriculo;
    }
-
-   public Set<Paper> getPapers()
-   {
-      return this.papers;
-   }
-
-   public void setPapers(final Set<Paper> papers)
-   {
-      this.papers = papers;
-   }
-
+   
    public Usuario getUsuario()
    {
       return this.usuario;
