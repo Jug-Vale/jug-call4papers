@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -40,7 +41,7 @@ public class Paper extends DefaultModel {
 	@Column
 	private boolean aceito;
 
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	private Set<Autor> autores = new HashSet<Autor>();
 
 	@ManyToOne
