@@ -1,4 +1,4 @@
-package org.jugvale.call4papers.rest.utils;
+package org.jugvale.call4papers.rest.config;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
