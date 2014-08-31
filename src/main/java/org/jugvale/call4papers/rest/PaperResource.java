@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 
 import org.jugvale.call4papers.model.impl.Paper;
 
-@Path("Paper")
+@Path("paper")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface PaperResource {
