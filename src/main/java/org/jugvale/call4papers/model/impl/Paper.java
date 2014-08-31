@@ -1,5 +1,6 @@
 package org.jugvale.call4papers.model.impl;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +12,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jugvale.call4papers.model.DefaultModel;
 
+/**
+ * 
+ * A classe de modelo para o Paper <br>
+ * Aqui colocamos infomações a respeito do Paper para o Evento.
+ * 
+ * @author william
+ * 
+ */
 @Entity
 @XmlRootElement
 @SuppressWarnings("serial")
@@ -23,7 +32,7 @@ public class Paper extends DefaultModel {
 	private String descricao;
 
 	@Column
-	private String dataSubmissao;
+	private Date dataSubmissao;
 
 	@Column
 	private long nota;
@@ -53,11 +62,11 @@ public class Paper extends DefaultModel {
 		this.descricao = descricao;
 	}
 
-	public String getDataSubmissao() {
-		return this.dataSubmissao;
+	public Date getDataSubmissao() {
+		return dataSubmissao;
 	}
 
-	public void setDataSubmissao(final String dataSubmissao) {
+	public void setDataSubmissao(Date dataSubmissao) {
 		this.dataSubmissao = dataSubmissao;
 	}
 
