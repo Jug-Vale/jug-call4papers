@@ -33,12 +33,14 @@ Para entender a aplicação, olhe o resumo dos métodos REST abaixo:
 
 ### Empacotando e rodando a aplicação
 
-Temos uma aplicação Maven aqui com JEE 6 e Java 7. Para realizar o build (construir um WAR) você pode rodar:
+Temos uma aplicação Maven aqui com JEE 6 e Java 7, usando o JBoss AS7. Para realizar o build (construir um WAR) você pode rodar:
 
 `mvn clean package -DskipTests`
 
 Aí teremos um projeto construido e pronto para se realizar o deploy. Recomendamos o JBoss AS 7, pois assim você não precisará configurar o banco de dados.
 Se você já baixou e descompactou o JBoss AS 7, suba ele usando `bin/standalone.sh`. Aí, você pode fazer deploy do WAR nosso. 
+
+Você então deve adicionar a configuração de segurança como descrito em `configuracao-jboss-login.md`. Ela irá buscar dados nas tabelas que serão criadas após o deploy da aplicação, então faça o deploy antes!
 
 Fazendo o deploy, uns dados inicíais você já terá para ver a aplicação rodando. Você pode ver o evento de teste em: `http://localhost:8080/jugvale-call4papers/rest/v1/evento/`.
 

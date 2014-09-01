@@ -7,6 +7,7 @@ import javax.persistence.Enumerated;
 
 import org.jugvale.call4papers.model.DefaultModel;
 import org.jugvale.call4papers.model.enuns.Role;
+import org.jugvale.call4papers.util.SenhaUtil;
 
 /**
  * 
@@ -33,9 +34,9 @@ public class Usuario extends DefaultModel {
 	}
 
 	public Usuario(String login, String senha, Role role) {
-		this.login = login;
-		this.senha = senha;
-		this.role = role;
+		setLogin(login);
+		setSenha(senha);
+		setRole(role);
 	}
 
 	public String getLogin() {
@@ -51,7 +52,7 @@ public class Usuario extends DefaultModel {
 	}
 
 	public void setSenha(final String senha) {
-		this.senha = senha;
+		this.senha = SenhaUtil.gerarHash(senha);
 	}
 
 	public Role getRole() {

@@ -2,6 +2,8 @@ package org.jugvale.call4papers.rest;
 
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -22,25 +24,31 @@ import org.jugvale.call4papers.model.impl.Paper;
 public interface AutorResource {
 
 	@POST
+	@PermitAll
 	public Response criar(Autor autor);
 
 	@GET
+	@PermitAll
 	public List<Autor> listarTodos();
 
 	@DELETE
-	@Path("/{id:[0-9][0-9]*}")
+	@Path("/{id}")
+	@RolesAllowed({ "ADMINISTRADOR" })
 	public void apagaPorId(@PathParam("id") Long id);
 
 	@GET
-	@Path("/{id:[0-9][0-9]*}")
+	@Path("/{id}")
+	@PermitAll
 	public Autor buscaPorId(@PathParam("id") Long id);
 
 	@GET
-	@Path("/{autorId:[0-9][0-9]*}/papers")
+	@Path("/{autorId}/papers")
+	@PermitAll
 	public List<Paper> listaPapersPorAutor(@PathParam("autorId") Long autorId);
 
 	@PUT
-	@Path("/{id:[0-9][0-9]*}")
+	@Path("/{id}")
+	@RolesAllowed({ "ADMINISTRADOR", "AUTOR" })
 	public void atualizar(@PathParam("id") long id, Autor entidade);
 
 }
