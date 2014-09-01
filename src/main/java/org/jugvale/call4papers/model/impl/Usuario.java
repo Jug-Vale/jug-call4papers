@@ -8,6 +8,13 @@ import javax.persistence.Enumerated;
 import org.jugvale.call4papers.model.DefaultModel;
 import org.jugvale.call4papers.model.enuns.Role;
 
+/**
+ * 
+ * Classe com os usuários da aplicação.
+ * 
+ * @author william
+ * 
+ */
 @Entity
 @SuppressWarnings("serial")
 public class Usuario extends DefaultModel {
@@ -22,8 +29,9 @@ public class Usuario extends DefaultModel {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-	public Usuario() { }
-	
+	public Usuario() {
+	}
+
 	public Usuario(String login, String senha, Role role) {
 		this.login = login;
 		this.senha = senha;
