@@ -40,6 +40,12 @@ public class CarregaDadosIniciais {
 	@PostConstruct
 	public void carregaDadosIniciais() {
 		log.fine("Salvando dados iniciais.");
+		// adiciona um usuário administrador
+		Usuario adm = new Usuario("adm", "adm123", Role.ADMINISTRADOR);
+		em.persist(adm);
+		// Um usuário para a Maria
+		Usuario mariaUsr = new Usuario("maria", "maria123", Role.AUTOR);
+		em.persist(mariaUsr);
 		Evento evt = new Evento("O Grande Evento",
 				"Esse é o melhor evento do mundo, o grande evento...",
 				new Date(), new Date(), "Rua dos grandes eventos",
@@ -61,9 +67,6 @@ public class CarregaDadosIniciais {
 		autores.add(maria);
 		javaParaFodoes.setAutores(autores);
 		em.persist(javaParaFodoes);
-		// adiciona um usuário administrador
-		Usuario adm = new Usuario("adm", "adm123", Role.ADMINISTRADOR);
-		em.persist(adm);
 		log.fine("Dados iniciais salvos.");
 	}
 }
