@@ -1,0 +1,41 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>JUG Vale - Call 4 Papers</display-name>
+
+	<!-- Fala para o RESTEasy que a gente vai usar as anotações de segurança -->
+	<context-param>
+		<param-name>resteasy.role.based.security</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<!-- Configuração de segurança da camada de WEB -->
+	<security-constraint>
+		<display-name>Segurança do REST</display-name>
+		<web-resource-collection>
+			<web-resource-name>rest</web-resource-name>
+			<url-pattern>/rest/v1/*</url-pattern>
+			<http-method>DELETE</http-method>
+			<http-method>POST</http-method>
+			<http-method>PUT</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>ADMINISTRADOR</role-name>
+			<role-name>AUTOR</role-name>
+			<role-name>ANONIMO</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>other</realm-name>
+	</login-config>
+	<security-role>
+		<role-name>ADMINISTRADOR</role-name>
+	</security-role>
+	<security-role>
+		<role-name>AUTOR</role-name>
+	</security-role>
+	<security-role>
+		<role-name>ANONIMO</role-name>
+	</security-role>
+</web-app>
