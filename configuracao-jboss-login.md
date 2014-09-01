@@ -15,7 +15,7 @@ Caso queira modificar o arquivo standalone.xml para adicionar isso, aqui vai a v
     <authentication>
           <login-module code="Database" flag="required">
                <module-option name="dsJndiName" value="java:jboss/datasources/JUGCall4PapersDS"/>
-               <module-option name="principalsQuery" value="SELECT senha FROM Usuario WHERE senha=?"/>
+               <module-option name="principalsQuery" value="SELECT senha FROM Usuario WHERE login=?"/>
                <module-option name="rolesQuery">
                  SELECT role,'Roles' FROM Usuario WHERE login=?
                 </module-option>
