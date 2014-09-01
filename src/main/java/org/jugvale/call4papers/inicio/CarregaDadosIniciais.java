@@ -43,6 +43,7 @@ public class CarregaDadosIniciais {
 		// adiciona um usuário administrador
 		Usuario adm = new Usuario("adm", "adm123", Role.ADMINISTRADOR);
 		em.persist(adm);
+		System.out.println(adm.getSenha());
 		// Um usuário para a Maria
 		Usuario mariaUsr = new Usuario("maria", "maria123", Role.AUTOR);
 		em.persist(mariaUsr);

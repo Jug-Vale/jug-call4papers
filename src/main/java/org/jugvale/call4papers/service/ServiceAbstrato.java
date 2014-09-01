@@ -44,7 +44,7 @@ public abstract class ServiceAbstrato<T> {
 	public T buscarPorId(long id) {
 		return em.find(tipo, id);
 	}
-	
+
 	public T atualizar(T entidade){
 		return em.merge(entidade);
 	}

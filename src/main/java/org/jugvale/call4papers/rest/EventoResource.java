@@ -2,6 +2,8 @@ package org.jugvale.call4papers.rest;
 
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -22,25 +24,31 @@ import org.jugvale.call4papers.model.impl.Paper;
 public interface EventoResource {
 
 	@POST
+	@RolesAllowed({ "ADMINISTRADOR" })
 	public Response criar(Evento Evento);
 
 	@GET
+	@PermitAll
 	public List<Evento> listarTodos();
 
 	@DELETE
 	@Path("/{id}")
+	@RolesAllowed({ "ADMINISTRADOR" })
 	public void apagaPorId(@PathParam("id") Long id);
 
 	@GET
 	@Path("/{id}")
+	@PermitAll
 	public Evento buscaPorId(@PathParam("id") Long id);
 
 	@PUT
 	@Path("/{id}")
+	@RolesAllowed({"ADMINISTRADOR"})
 	public void atualizar(@PathParam("id") long id, Evento evento);
 
 	@GET
 	@Path("/{eventoId}/papers")
+	@PermitAll
 	public List<Paper> listaPapersPorEvento(@PathParam("eventoId") Long eventoId);
 
 }
