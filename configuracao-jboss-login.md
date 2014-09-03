@@ -1,7 +1,8 @@
 ## Configuração do JBoss para a autenticação
+
 Essa é a configuração do JBoss para criar o security domain e login module para acesso ao banco de dados e retirar informação de usuário/senha e Roles.
 
-Caso queria usar CLI, use:
+Caso queria usar *CLI* (jboss-cli), que se encontra em `{WILDFLY_HOME}/bin`, use:
 ```
 /subsystem=security/security-domain=jug-call4papers:add
 /subsystem=security/security-domain=jug-call4papers/authentication=classic:add(login-modules=[{"code"=>"Database","flag"=>"required","module-options"=>[("unauthenticatedIdentity"=>"ANONIMO"),("dsJndiName"=>"java:jboss/datasources/JUGCall4PapersDS"),("principalsQuery"=>"SELECT senha AS password FROM Usuario WHERE login=?"),("rolesQuery"=>"SELECT role,'Roles' FROM Usuario WHERE login=?"),("hashAlgorithm"=>"MD5"),("hashEncoding"=>"hex")]}]){allow-resource-service-restart=true}
