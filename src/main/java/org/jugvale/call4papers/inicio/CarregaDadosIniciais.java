@@ -69,6 +69,7 @@ public class CarregaDadosIniciais {
 		maria.setTelefone("123456789");
 		maria.setSite("www.mariajava.com");
 		em.persist(maria);
+		
 		Paper javaParaFodoes = new Paper();
 		javaParaFodoes.setDataSubmissao(new Date());
 		javaParaFodoes.setDescricao("Java para quem ama Java. Java para fodões");

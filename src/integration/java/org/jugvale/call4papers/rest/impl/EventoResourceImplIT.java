@@ -1,5 +1,7 @@
 package org.jugvale.call4papers.rest.impl;
 
+import java.util.Date;
+
 import javax.ws.rs.core.MediaType;
 
 import org.jboss.resteasy.client.ClientRequest;
@@ -34,7 +36,16 @@ public class EventoResourceImplIT {
 	// ###### ESTE TESTE FALHA, VER COMO FAZER AUTENTICACAO #####
 	@Test
 	public void deveCriarEventoERetornarStatus201() throws Exception {
-		Evento evento = null;
+		Evento evento =  new Evento.Builder()
+							   .comNome("O Grande Evento Segunda Edição")
+							   .comDescricao("Esse é o melhor evento do mundo, o grande evento, "+
+									   		 "se o primeiro foi melhor, o segundo melhor ainda...")
+							   .comDataInicio(new Date())
+							   .comDataFim(new Date())
+							   .noLocal("Rua dos grandes eventos, numero: 88")
+							   .comSite("http://www.ograndeevento.com")
+							   .aceitandoTrabalhos()
+							   .build();
 		
 		ClientResponse<?> response = new ClientRequest(EVENTO_CONTEXT)
 											.body(MediaType.APPLICATION_JSON, evento)
