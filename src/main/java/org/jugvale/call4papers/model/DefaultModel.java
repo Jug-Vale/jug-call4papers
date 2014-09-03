@@ -19,7 +19,7 @@ public class DefaultModel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", updatable = false, nullable = false)
-	private Long id = null;
+	protected Long id = null;
 
 	public Long getId() {
 		return id;

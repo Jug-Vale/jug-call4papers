@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 
 import org.jugvale.call4papers.model.enuns.Role;
 import org.jugvale.call4papers.model.impl.Autor;
+
 import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.model.impl.Paper;
 import org.jugvale.call4papers.model.impl.Usuario;
@@ -34,24 +35,33 @@ public class CarregaDadosIniciais {
 	@PersistenceContext
 	EntityManager em;
 
-	Logger log = Logger
-			.getLogger(CarregaDadosIniciais.class.getCanonicalName());
+	Logger log = Logger.getLogger(CarregaDadosIniciais.class.getCanonicalName());
 
 	@PostConstruct
 	public void carregaDadosIniciais() {
 		log.fine("Salvando dados iniciais.");
+		
 		// adiciona um usuário administrador
 		Usuario adm = new Usuario("adm", "adm123", Role.ADMINISTRADOR);
 		em.persist(adm);
 		System.out.println(adm.getSenha());
+		
 		// Um usuário para a Maria
 		Usuario mariaUsr = new Usuario("maria", "maria123", Role.AUTOR);
 		em.persist(mariaUsr);
-		Evento evt = new Evento("O Grande Evento",
-				"Esse é o melhor evento do mundo, o grande evento...",
-				new Date(), new Date(), "Rua dos grandes eventos",
-				"http://www.ograndeevento.com", true);
-		em.persist(evt);
+		
+		Evento grandeEvento =  new Evento.Builder()
+							   .comNome("O Grande Evento")
+							   .comDescricao("Esse é o melhor evento do mundo, o grande evento...")
+							   .comDataInicio(new Date())
+							   .comDataFim(new Date())
+							   .noLocal("Rua dos grandes eventos")
+							   .comSite("http://www.ograndeevento.com")
+							   .aceitandoTrabalhos()
+							   .build();
+						
+		em.persist(grandeEvento);
+		
 		Autor maria = new Autor();
 		maria.setEmail("meuemail@gmail.com");
 		maria.setMiniCurriculo("Grande conhecida no mundo Java...");
@@ -63,7 +73,7 @@ public class CarregaDadosIniciais {
 		javaParaFodoes.setDataSubmissao(new Date());
 		javaParaFodoes.setDescricao("Java para quem ama Java. Java para fodões");
 		javaParaFodoes.setTitulo("Java para Fodões");
-		javaParaFodoes.setEvento(evt);
+		javaParaFodoes.setEvento(grandeEvento);
 		Set<Autor> autores = new HashSet<Autor>();
 		autores.add(maria);
 		javaParaFodoes.setAutores(autores);

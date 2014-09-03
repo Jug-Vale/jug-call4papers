@@ -20,8 +20,8 @@ public class RESTUtils {
 	}
 
 	public static Response recursoCriado(Class<?> t, long id) {
-		return Response.created(
-				UriBuilder.fromResource(t).path(String.valueOf(id)).build())
-				.build();
+		return Response.created( UriBuilder.fromResource(t)
+								.path(String.valueOf(id)).build())
+								.build();
 	}
 }

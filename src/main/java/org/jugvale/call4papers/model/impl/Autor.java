@@ -1,25 +1,18 @@
 package org.jugvale.call4papers.model.impl;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.jugvale.call4papers.model.DefaultModel;
+
 @Entity
 @XmlRootElement
-public class Autor implements Serializable
-{
+public class Autor extends DefaultModel {
 
-   private static final long serialVersionUID = 3253089299207253810L;
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   @Column(name = "id", updatable = false, nullable = false)
-   private Long id = null;
+	private static final long serialVersionUID = 2467078273125922962L;
+
    @Column
    private String nome;
 
@@ -37,16 +30,6 @@ public class Autor implements Serializable
 
    @OneToOne
    private Usuario usuario;
-
-   public Long getId()
-   {
-      return this.id;
-   }
-
-   public void setId(final Long id)
-   {
-      this.id = id;
-   }
 
    @Override
    public boolean equals(Object that)

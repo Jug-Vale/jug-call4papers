@@ -38,9 +38,7 @@ public class Evento extends DefaultModel {
 
 	public Evento() { }
 	
-	public Evento(String nome, String descricao, Date dataInicio, Date dataFim,
-			String local, String url, boolean aceitandoTrabalhos) {
-		super();
+	public Evento(String nome, String descricao, Date dataInicio, Date dataFim, String local, String url, boolean aceitandoTrabalhos) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.dataInicio = dataInicio;
@@ -48,6 +46,58 @@ public class Evento extends DefaultModel {
 		this.local = local;
 		this.url = url;
 		this.aceitandoTrabalhos = aceitandoTrabalhos;
+	}
+	
+	public static class Builder {
+		private Evento evento;
+		
+		public Builder() {
+			this.evento = new Evento();
+		}
+		
+		public Evento build() {
+			return evento;
+		}
+		
+		public Builder comNome (String nome) {
+			evento.nome = nome;
+			return this;
+		}
+		
+		public Builder comDescricao(String descricao) {
+			evento.descricao = descricao;
+			return this;
+		}
+		
+		public Builder comDataInicio(Date data) {
+			evento.dataInicio = data;
+			return this;
+		}
+		
+		public Builder comDataFim(Date data) {
+			evento.dataFim = data;
+			return this;
+		}
+		
+		public Builder noLocal(String local) {
+			evento.local = local;
+			return this;
+		}
+		
+		public Builder comSite(String url) {
+			evento.url = url;
+			return this;
+		}
+		
+		public Builder aceitandoTrabalhos() {
+			evento.aceitandoTrabalhos = true;
+			return this;
+		}
+		
+		public Builder naoAceitandoTrabalhos() {
+			evento.aceitandoTrabalhos = true;
+			return this;
+		}
 	}
 	
 	public String getNome() {
