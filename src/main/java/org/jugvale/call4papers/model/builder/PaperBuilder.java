@@ -5,6 +5,7 @@ package org.jugvale.call4papers.model.builder;
 
 import java.util.Date;
 
+import org.jugvale.call4papers.model.enuns.Tipo;
 import org.jugvale.call4papers.model.impl.Autor;
 import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.model.impl.Paper;
@@ -26,6 +27,21 @@ public class PaperBuilder {
 		return paper;
 	}
 
+	public PaperBuilder handsOn() {
+		paper.setTipo(Tipo.HANDS_ON);
+		return this;
+	}
+	
+	public PaperBuilder palestra() {
+		paper.setTipo(Tipo.PALESTRA);
+		return this;
+	}
+	
+	public PaperBuilder miniCurso() {
+		paper.setTipo(Tipo.MINI_CURSO);
+		return this;
+	}
+	
 	public PaperBuilder comTitulo(String titulo) {
 		paper.setTitulo(titulo);
 		return this;

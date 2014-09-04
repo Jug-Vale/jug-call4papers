@@ -85,6 +85,7 @@ public class CarregaDadosIniciais {
 		em.persist(maria);
 		
 		Paper javaParaFodoes = Paper.newPapper()
+									.palestra()
 									.submetidoEm(new Date())
 									.comDescricao("ava para quem ama Java. Java para fodões")
 									.comTitulo("Java para Fodões")

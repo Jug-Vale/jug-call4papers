@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -18,6 +20,7 @@ import lombok.ToString;
 
 import org.jugvale.call4papers.model.DefaultModel;
 import org.jugvale.call4papers.model.builder.PaperBuilder;
+import org.jugvale.call4papers.model.enuns.Tipo;
 
 /**
  * 
@@ -56,6 +59,10 @@ public class Paper extends DefaultModel {
 	@ManyToOne
 	private Evento evento;
 
+	@Column
+	@Enumerated(EnumType.STRING)
+	private Tipo tipo;
+	
 	public static PaperBuilder newPapper() {
 		return new PaperBuilder();
 	}
