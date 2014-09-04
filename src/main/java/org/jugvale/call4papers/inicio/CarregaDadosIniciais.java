@@ -1,8 +1,6 @@
 package org.jugvale.call4papers.inicio;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -11,9 +9,7 @@ import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.jugvale.call4papers.model.enuns.Role;
 import org.jugvale.call4papers.model.impl.Autor;
-
 import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.model.impl.Paper;
 import org.jugvale.call4papers.model.impl.Usuario;
@@ -30,8 +26,6 @@ import org.jugvale.call4papers.model.impl.Usuario;
 @Startup
 public class CarregaDadosIniciais {
 	
-	//TODO: Abrir issue para carregar isso de um arquivo. Os dados deverão ser diferentes em teste.
-
 	@PersistenceContext
 	EntityManager em;
 
@@ -39,46 +33,68 @@ public class CarregaDadosIniciais {
 
 	@PostConstruct
 	public void carregaDadosIniciais() {
-		log.fine("Salvando dados iniciais.");
+		log.fine("#### Salvando dados iniciais. #####");
 		
-		// adiciona um usuário administrador
-		Usuario adm = new Usuario("adm", "adm123", Role.ADMINISTRADOR);
-		em.persist(adm);
-		System.out.println(adm.getSenha());
+		Usuario administrador = Usuario.newUsuario()
+								 		   .admministrador()
+								 		   .comLogin("adm")
+								 		   .comSenha("adm123").build();
+				
+		em.persist(administrador);
 		
-		// Um usuário para a Maria
-		Usuario mariaUsr = new Usuario("maria", "maria123", Role.AUTOR);
+		Usuario mariaUsr = Usuario.newUsuario()
+									  .autor()
+									  .comLogin("Maria")
+									  .comSenha("mariah").build();
+		
+		Usuario joseUsr = Usuario.newUsuario()
+									 .autor()
+									 .comLogin("Maria")
+									 .comSenha("mariah").build();
+		em.persist(joseUsr);	
 		em.persist(mariaUsr);
 		
-		Evento grandeEvento =  new Evento.Builder()
-							   .comNome("O Grande Evento")
-							   .comDescricao("Esse é o melhor evento do mundo, o grande evento...")
-							   .comDataInicio(new Date())
-							   .comDataFim(new Date())
-							   .noLocal("Rua dos grandes eventos")
-							   .comSite("http://www.ograndeevento.com")
-							   .aceitandoTrabalhos()
-							   .build();
+		Evento grandeEvento =  Evento.newEvento()
+									   .comNome("O Grande Evento")
+									   .comDescricao("Esse é o melhor evento do mundo, o grande evento...")
+									   .comDataInicio(new Date())
+									   .comDataFim(new Date())
+									   .noLocal("Rua dos grandes eventos")
+									   .comSite("http://www.ograndeevento.com")
+									   .aceitandoTrabalhos().build();
 						
 		em.persist(grandeEvento);
 		
-		Autor maria = new Autor();
-		maria.setEmail("meuemail@gmail.com");
-		maria.setMiniCurriculo("Grande conhecida no mundo Java...");
-		maria.setNome("Maria");
-		maria.setTelefone("123456789");
-		maria.setSite("www.mariajava.com");
+		Autor maria = Autor.newAutor()
+							.comNome("Maria")
+							.comEmail("meuemail@gmail.com")
+							.comSite("www.mariajava.com")
+							.comTelefone("(99) 9 9999-9999")
+							.comMiniCV("Grande conhecida no mundo Java...")
+							.comUsuario(mariaUsr).build();
+		
+		Autor jose = Autor.newAutor()
+				   			.comNome("Josevaldo")
+				   			.comEmail("josevaldoJava@gmail.com")
+				   			.comSite("www.josevaldojava.com")
+				   			.comTelefone("(99) 9 9999-9999")
+				   			.comMiniCV("Mestre no mundo Java...")
+				   			.comUsuario(joseUsr).build();
+		
+		em.persist(jose);
 		em.persist(maria);
 		
-		Paper javaParaFodoes = new Paper();
-		javaParaFodoes.setDataSubmissao(new Date());
-		javaParaFodoes.setDescricao("Java para quem ama Java. Java para fodões");
-		javaParaFodoes.setTitulo("Java para Fodões");
-		javaParaFodoes.setEvento(grandeEvento);
-		Set<Autor> autores = new HashSet<Autor>();
-		autores.add(maria);
-		javaParaFodoes.setAutores(autores);
+		Paper javaParaFodoes = Paper.newPapper()
+									.submetidoEm(new Date())
+									.comDescricao("ava para quem ama Java. Java para fodões")
+									.comTitulo("Java para Fodões")
+									.noEvento(grandeEvento)
+									.comAutor(maria)
+									.comAutor(jose)
+									.build();
+		
 		em.persist(javaParaFodoes);
-		log.fine("Dados iniciais salvos.");
+		
+		log.fine("#### Dados iniciais salvos. ####");
 	}
 }

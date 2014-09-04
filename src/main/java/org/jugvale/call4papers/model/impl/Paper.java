@@ -11,7 +11,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import org.jugvale.call4papers.model.DefaultModel;
+import org.jugvale.call4papers.model.builder.PaperBuilder;
 
 /**
  * 
@@ -23,8 +29,11 @@ import org.jugvale.call4papers.model.DefaultModel;
  */
 @Entity
 @XmlRootElement
-@SuppressWarnings("serial")
+@EqualsAndHashCode(callSuper = true) @ToString(callSuper=true)
+@Getter @Setter
 public class Paper extends DefaultModel {
+
+	private static final long serialVersionUID = 1L;
 
 	@Column
 	private String titulo;
@@ -47,59 +56,8 @@ public class Paper extends DefaultModel {
 	@ManyToOne
 	private Evento evento;
 
-	public String getTitulo() {
-		return this.titulo;
+	public static PaperBuilder newPapper() {
+		return new PaperBuilder();
 	}
-
-	public void setTitulo(final String titulo) {
-		this.titulo = titulo;
-	}
-
-	public String getDescricao() {
-		return this.descricao;
-	}
-
-	public void setDescricao(final String descricao) {
-		this.descricao = descricao;
-	}
-
-	public Date getDataSubmissao() {
-		return dataSubmissao;
-	}
-
-	public void setDataSubmissao(Date dataSubmissao) {
-		this.dataSubmissao = dataSubmissao;
-	}
-
-	public long getNota() {
-		return this.nota;
-	}
-
-	public void setNota(final long nota) {
-		this.nota = nota;
-	}
-
-	public boolean getAceito() {
-		return this.aceito;
-	}
-
-	public void setAceito(final boolean aceito) {
-		this.aceito = aceito;
-	}
-
-	public Set<Autor> getAutores() {
-		return this.autores;
-	}
-
-	public void setAutores(final Set<Autor> autores) {
-		this.autores = autores;
-	}
-
-	public Evento getEvento() {
-		return this.evento;
-	}
-
-	public void setEvento(final Evento evento) {
-		this.evento = evento;
-	}
+	
 }
