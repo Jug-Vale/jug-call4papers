@@ -13,7 +13,11 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class EventoResourceImplIT {
+/**
+ * @author Pedro Hos
+ *
+ */
+public class EventoResourceImplITest {
 
 
 	public static final String SERVICES_CONTEXT = "http://localhost:8080/jug-call4papers/rest/v1";
