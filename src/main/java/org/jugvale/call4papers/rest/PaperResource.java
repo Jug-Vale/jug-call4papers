@@ -1,7 +1,5 @@
 package org.jugvale.call4papers.rest;
 
-import java.util.List;
-
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
@@ -28,21 +26,21 @@ public interface PaperResource {
 
 	@GET
 	@PermitAll
-	public List<Paper> listarTodos();
+	public Response listarTodos();
 
 	@DELETE
 	@Path("/{id}")
 	@RolesAllowed({"ADMINISTRADOR", "AUTOR"})
-	public void apagaPorId(@PathParam("id") Long id);
+	public Response apagaPorId(@PathParam("id") Long id);
 
 	@GET
 	@Path("/{id}")
 	@PermitAll
-	public Paper buscaPorId(@PathParam("id") Long id);
+	public Response buscaPorId(@PathParam("id") Long id);
 
 	@PUT
 	@Path("/{id}")
 	@RolesAllowed({"ADMINISTRADOR", "AUTOR"})
-	public void atualizar(@PathParam("id") long id, Paper paper);
+	public Response atualizar(@PathParam("id") long id, Paper paper);
 
 }

@@ -2,14 +2,19 @@ package org.jugvale.call4papers.rest.impl;
 
 import java.util.Date;
 
-import javax.ws.rs.core.MediaType;
+import static javax.ws.rs.core.MediaType.*;
+
 import static javax.ws.rs.core.Response.Status.*;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
+import org.jboss.resteasy.client.ProxyFactory;
 import org.jugvale.call4papers.model.impl.Evento;
+import org.jugvale.call4papers.rest.EventoResource;
+
 import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -45,6 +50,27 @@ public class EventoResourceImplITest {
 		assertTrue(OK.equals(fromStatusCode(response.getStatus())));
 	}
 	
+	@Test
+	@SuppressWarnings("unchecked")
+	public void deveRetornarEventoPorID() {
+		
+		//TODO: Muda aqui para pegar o id do cadastrado quando tiver seguranca
+		EventoResource eventoResource = ProxyFactory.create(EventoResource.class, SERVICES_CONTEXT);
+		ClientResponse<Evento> response = (ClientResponse<Evento>) eventoResource.buscaPorId(new Long("4"));
+		
+		assertTrue(OK.equals(fromStatusCode(response.getStatus())));
+	}
+	
+	@Test
+	@SuppressWarnings("unchecked")
+	public void deveRetornarNotFoundParaEventoPorID() {
+		
+		EventoResource eventoResource = ProxyFactory.create(EventoResource.class, SERVICES_CONTEXT);
+		ClientResponse<Evento> response = (ClientResponse<Evento>) eventoResource.buscaPorId(Long.MAX_VALUE);
+		
+		assertTrue(NOT_FOUND.equals(fromStatusCode(response.getStatus())));
+	}
+	
 
 	@Test
 	public void deveRetornarStatusNaoAutorizado() throws Exception {
@@ -53,7 +79,7 @@ public class EventoResourceImplITest {
 		String json = mapper.writeValueAsString(evento);
 		
 		ClientResponse<?> response = new ClientRequest(EVENTO_CONTEXT)
-											.body(MediaType.APPLICATION_JSON, json)
+											.body(APPLICATION_JSON, json)
 											.post();
 		
 		assertTrue(UNAUTHORIZED.equals(fromStatusCode(response.getStatus())));

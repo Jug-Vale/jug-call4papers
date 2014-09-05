@@ -3,8 +3,6 @@ package org.jugvale.call4papers.rest.impl;
 import static org.jugvale.call4papers.rest.utils.RESTUtils.lanca404SeNulo;
 import static org.jugvale.call4papers.rest.utils.RESTUtils.recursoCriado;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
@@ -24,27 +22,28 @@ public class PaperResourceImpl implements PaperResource {
 	}
 
 	@Override
-	public List<Paper> listarTodos() {
-		return service.buscaTodos();
+	public Response listarTodos() {
+		return Response.ok(service.buscaTodos()).build();
 	}
 
 	@Override
-	public void apagaPorId(Long id) {
+	public Response apagaPorId(Long id) {
 		Paper paper = service.buscarPorId(id);
 		service.remover(lanca404SeNulo(paper, id));
-
+		return Response.ok().build();
 	}
 
 	@Override
-	public Paper buscaPorId(Long id) {
-		return service.buscarPorId(id);
+	public Response buscaPorId(Long id) {
+		return Response.ok(service.buscarPorId(id)).build();
 	}
 
 	@Override
-	public void atualizar(long id, Paper novoPaper) {
+	public Response atualizar(long id, Paper novoPaper) {
 		lanca404SeNulo(buscaPorId(id), id);
 		novoPaper.setId(id);
 		service.atualizar(novoPaper);
+		return Response.ok().build();
 	}
 
 }
