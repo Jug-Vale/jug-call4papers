@@ -1,6 +1,8 @@
 jug-call4papers
 ===============
 
+![Build status](https://travis-ci.org/CodeVale/jug-call4papers.png)
+
 Uma aplicação de Call4Paper com JEE 6 para uso nos eventos do JUG Vale
 
 ### O que é isso?
