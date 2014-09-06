@@ -3,17 +3,9 @@ package org.jugvale.call4papers.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-/**
- * 
- * Classe utilitária para gerar o hash das senhas
- * 
- * @author william
- * 
- */
 public class SenhaUtil {
 
-	private SenhaUtil() {
-	}
+	private SenhaUtil() { }
 
 	/**
 	 * 

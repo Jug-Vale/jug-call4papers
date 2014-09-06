@@ -10,6 +10,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -31,21 +32,21 @@ public interface EventoResource {
 	@DELETE
 	@Path("/{id}")
 	@RolesAllowed({ "ADMINISTRADOR" })
-	public Response apagaPorId(@PathParam("id") Long id);
+	public Response apagaPorId(@PathParam("id") Long id) throws WebApplicationException;
 
 	@GET
 	@Path("/{id}")
 	@PermitAll
-	public Response buscaPorId(@PathParam("id") Long id);
+	public Response buscaPorId(@PathParam("id") Long id) throws WebApplicationException;
 
 	@PUT
 	@Path("/{id}")
 	@RolesAllowed({"ADMINISTRADOR"})
-	public Response atualizar(@PathParam("id") long id, Evento evento);
+	public Response atualizar(@PathParam("id") long id, Evento evento) throws WebApplicationException;
 
 	@GET
 	@Path("/{eventoId}/papers")
 	@PermitAll
-	public Response listaPapersPorEvento(@PathParam("eventoId") Long eventoId);
+	public Response listaPapersPorEvento(@PathParam("eventoId") Long eventoId) throws WebApplicationException;
 
 }

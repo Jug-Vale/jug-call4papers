@@ -1,8 +1,14 @@
 package org.jugvale.call4papers.rest.impl;
 
-import static com.jayway.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.*;
+import static com.jayway.restassured.RestAssured.get;
+import static com.jayway.restassured.RestAssured.given;
+import static com.jayway.restassured.http.ContentType.JSON;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.jugvale.call4papers.rest.util.Constantes.ID_MAX;
 import static org.jugvale.call4papers.rest.util.Constantes.SERVICES_CONTEXT;
+import static org.jugvale.call4papers.rest.utils.RESTUtils.getMessage404;
 
 import java.util.Date;
 
@@ -10,20 +16,18 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.jugvale.call4papers.model.impl.Autor;
 import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.model.impl.Paper;
-import org.junit.Before;
+import org.jugvale.call4papers.rest.TestResourceDefault;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static com.jayway.restassured.http.ContentType.*;
+public class PaperResourceImplITest implements TestResourceDefault {
 
-public class PaperResourceImplITest {
-
-	private static final String PAPER_CONTEXT = SERVICES_CONTEXT
-			.concat("/paper");
+	private static final String PAPER_CONTEXT = SERVICES_CONTEXT + "/paper";
 
 	private Paper paper;
 	private String jsonPaper;
 
-	@Before
+	@BeforeClass
 	public void setUp() throws Exception {
 		paper = Paper.newPapper().aceito().comAutor(Autor.newAutor().build())
 				.comDescricao("DESCRICAO").comTitulo("").miniCurso()
@@ -32,9 +36,10 @@ public class PaperResourceImplITest {
 
 		jsonPaper = new ObjectMapper().writeValueAsString(paper);
 	}
-
+	
 	@Test
-	public void deveRetornarPaperEmBuscaPorId() throws Exception {
+	@Override
+	public void deveRetornarOkAoBuscarPorId() {
 
 		get(PAPER_CONTEXT + "/7").
 			then().assertThat().
@@ -45,23 +50,77 @@ public class PaperResourceImplITest {
 	}
 
 	@Test
-	public void deveListarTodosPapersERetornarStatusOK() throws Exception {
-		get(PAPER_CONTEXT).then().body(notNullValue()).statusCode(equalTo(200));
+	@Override
+	public void deveRetornarOkAoBuscarLista() {
+		get(PAPER_CONTEXT).
+			then().assertThat().
+				body(notNullValue()).
+				statusCode(equalTo(200));
+	}
+	
+	@Test
+	@Override
+	public void deveRetornar201AoCadastrar() { /* TODO: IMPLEMENTAR */ }
+
+	@Test
+	@Override
+	public void deveRetornarOkAoApagar() { /* TODO: IMPLEMENTAR */ }
+
+	@Test
+	@Override
+	public void deveRetornarOkAoAtualizar() { /* TODO: IMPLEMENTAR */ }
+	
+	@Test
+	@Override
+	public void deveRetornarNotFoundAoBuscarPorId() {
+		get(PAPER_CONTEXT + "/" + ID_MAX).
+			then().assertThat().
+				body( equalTo( getMessage404(ID_MAX) ) ).
+				statusCode( equalTo( 404 ) );
+	}
+	
+	@Test
+	@Override
+	public void deveRetornarNotFoundAoApagar() { /* TODO: IMPLEMENTAR */ }
+
+	@Test
+	@Override
+	public void deveRetornarNotFoundAoAtualizar() { /* TODO IMPLEMENTAR */ }
+	
+	@Test
+	@Override
+	public void deveRetornarUnauthorizedAoCadastrar() {
+		given().
+			contentType(JSON).
+			body(jsonPaper).
+		when().
+			post(PAPER_CONTEXT).
+		then().
+			statusCode(equalTo(401));
 	}
 
 	@Test
-	public void deveRetornarUnauthorizedParaCriarNovoPaper() {
-		given().contentType(JSON).body(jsonPaper).when().post(PAPER_CONTEXT).then().statusCode(equalTo(401));
+	@Override
+	public void deveRetornarStatusUnauthorizedAoApagar() {
+		given().
+			contentType(JSON).
+			body(jsonPaper).
+		when().
+			delete(PAPER_CONTEXT + "/7").
+		then().
+			statusCode(equalTo(401));
 	}
 
 	@Test
-	public void deveRetornarUnauthorizedParaApagarPorId() {
-		given().contentType(JSON).body(jsonPaper).when().delete(PAPER_CONTEXT + "/7").then().statusCode(equalTo(401));
-	}
-
-	@Test
-	public void deveRetornarUnauthorizedParaAtualizar() {
-		given().contentType(JSON).body(jsonPaper).when().put(PAPER_CONTEXT + "/7").then().statusCode(equalTo(401));
+	@Override
+	public void deveRetornarStatusUnauthorizedAoAtualizar() {
+		given().
+			contentType(JSON).
+			body(jsonPaper).
+		when().
+			put(PAPER_CONTEXT + "/7").
+		then().assertThat().
+			statusCode(equalTo(401));
 	}
 
 }

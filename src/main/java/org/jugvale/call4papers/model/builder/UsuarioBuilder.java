@@ -30,7 +30,7 @@ public class UsuarioBuilder {
 		return this;
 	}
 	
-	public UsuarioBuilder admministrador() {
+	public UsuarioBuilder administrador() {
 		usuario.setRole(Role.ADMINISTRADOR);
 		return this;
 	}

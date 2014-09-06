@@ -36,7 +36,7 @@ public class CarregaDadosIniciais {
 		log.fine("#### Salvando dados iniciais. #####");
 		
 		Usuario administrador = Usuario.newUsuario()
-								 		   .admministrador()
+								 		   .administrador()
 								 		   .comLogin("adm")
 								 		   .comSenha("adm123").build();
 				
@@ -49,8 +49,8 @@ public class CarregaDadosIniciais {
 		
 		Usuario joseUsr = Usuario.newUsuario()
 									 .autor()
-									 .comLogin("Maria")
-									 .comSenha("mariah").build();
+									 .comLogin("Josevaldo")
+									 .comSenha("jose123valdo").build();
 		em.persist(joseUsr);	
 		em.persist(mariaUsr);
 		
