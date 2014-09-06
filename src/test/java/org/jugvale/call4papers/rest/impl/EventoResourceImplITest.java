@@ -3,8 +3,8 @@ package org.jugvale.call4papers.rest.impl;
 import java.util.Date;
 
 import static javax.ws.rs.core.MediaType.*;
-
 import static javax.ws.rs.core.Response.Status.*;
+import static org.jugvale.call4papers.rest.util.Constantes.*;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.jboss.resteasy.client.ClientRequest;
@@ -24,8 +24,6 @@ import org.junit.Test;
  */
 public class EventoResourceImplITest {
 
-
-	public static final String SERVICES_CONTEXT = "http://localhost:8080/jug-call4papers/rest/v1";
 	private static final String EVENTO_CONTEXT = SERVICES_CONTEXT.concat("/evento");
 	
 	private Evento evento;

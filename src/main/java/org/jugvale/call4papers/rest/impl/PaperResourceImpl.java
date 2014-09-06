@@ -23,19 +23,19 @@ public class PaperResourceImpl implements PaperResource {
 
 	@Override
 	public Response listarTodos() {
-		return Response.ok(service.buscaTodos()).build();
+		return Response.ok( service.buscaTodos() ).build();
 	}
 
 	@Override
 	public Response apagaPorId(Long id) {
 		Paper paper = service.buscarPorId(id);
-		service.remover(lanca404SeNulo(paper, id));
+		service.remover( lanca404SeNulo(paper, id) );
 		return Response.ok().build();
 	}
 
 	@Override
 	public Response buscaPorId(Long id) {
-		return Response.ok(service.buscarPorId(id)).build();
+		return Response.ok( service.buscarPorId(id) ).build();
 	}
 
 	@Override
