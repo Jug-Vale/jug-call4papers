@@ -84,7 +84,7 @@ Aí teremos um projeto construido e pronto para se realizar o deploy. Recomendam
 
 Se você já [baixou](http://www.jboss.org/jbossas/downloads/) e descompactou o `JBoss AS7`, suba ele usando `{JBOSS_HOME}/bin/standalone.sh`. Aí, você pode fazer deploy do WAR. 
 
-** Ativando a Segurança **
+**Ativando a Segurança**
 
 Você então deve adicionar a configuração de segurança como descrito em [`configuracao-jboss-login.md`](https://github.com/CodeVale/jug-call4papers/blob/master/configuracao-jboss-login.md). Ela irá buscar dados nas tabelas que serão criadas após o deploy da aplicação, então faça o deploy antes!
 
