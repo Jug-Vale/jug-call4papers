@@ -17,7 +17,7 @@ import org.jugvale.call4papers.rest.TestResourceDefault;
 import org.junit.Before;
 import org.junit.Test;
 
-public class EventoResourceImplITest implements TestResourceDefault {
+public class EventoResourceIT implements TestResourceDefault {
 
 	private static final String EVENTO_CONTEXT = SERVICES_CONTEXT.concat("/evento");
 	

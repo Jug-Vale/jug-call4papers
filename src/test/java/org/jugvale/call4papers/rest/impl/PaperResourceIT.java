@@ -20,7 +20,7 @@ import org.jugvale.call4papers.rest.TestResourceDefault;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PaperResourceImplITest implements TestResourceDefault {
+public class PaperResourceIT implements TestResourceDefault {
 
 	private static final String PAPER_CONTEXT = SERVICES_CONTEXT + "/paper";
 

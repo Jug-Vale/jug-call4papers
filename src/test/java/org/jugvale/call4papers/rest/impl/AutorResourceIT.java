@@ -17,7 +17,7 @@ import org.jugvale.call4papers.rest.TestResourceDefault;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AutorResourceImplITest implements TestResourceDefault{
+public class AutorResourceIT implements TestResourceDefault{
 
 	private static final String AUTOR_CONTEXT = SERVICES_CONTEXT.concat("/autor");
 	
