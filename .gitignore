@@ -14,8 +14,10 @@ bin/
 .classpath
 .project
 
-#forge file
+# Forge file
 .forge_settings
 
+# Mac File
+*.DS_Store
 
 *~
