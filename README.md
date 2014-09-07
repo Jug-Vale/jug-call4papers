@@ -46,7 +46,7 @@ Este métdo POST permite um usuário anônimo criar um novo autor (usuário com 
 
 Método 	                | URI											              | Retorno           
 :----------------------:| :-------------------------------------| :------------------
-POST e PUT		  | /rest/v1/paper                                | Status 201 (Created) em caso de sucesso.
+POST		  | /rest/v1/paper                                | Status 201 (Created) em caso de sucesso.
 DELETE                  | /rest/v1/paper/{id}                   | Status 200 (Ok) caso tenha removido corretamente.
 PUT                     | /rest/v1/paper/{id}                   | Status 200 (Ok) caso tenha atualizado o paper corretamente.
 PUT		                  | /rest/v1/autor/{id}                   | Status 200 (Ok) caso tenha atualizado o autor com sucesso.
