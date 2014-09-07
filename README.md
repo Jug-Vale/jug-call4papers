@@ -66,9 +66,7 @@ Temos uma aplicação Maven aqui com JEE 6 e Java 7
 
 Para subir a aplicação no `WildFly 8` basta fazer o [download](http://wildfly.org/downloads/) da versão **8.1.0.Final** e subir o servidor executando o comando `{WILDFLY_HOME}/bin/standalone.sh`.
 
-Com o Servidor rodando, execute o segunte comando, na raiz do nosso projeto clonado:
-
-`mvn package wildfly:deploy`
+Com o Servidor rodando, execute o segunte comando, na raiz do nosso projeto clonado: `mvn package wildfly:deploy` e para fazer o undeploy, execute: `mvn wildfly:undeploy`
 
 Feito isto siga as isntruções contidas na seção ** Ativando a Segurança **.
 
