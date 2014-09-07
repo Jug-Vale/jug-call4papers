@@ -88,9 +88,7 @@ Se você já [baixou](http://www.jboss.org/jbossas/downloads/) e descompactou o 
 
 Você então deve adicionar a configuração de segurança como descrito em [`configuracao-jboss-login.md`](https://github.com/CodeVale/jug-call4papers/blob/master/configuracao-jboss-login.md). Ela irá buscar dados nas tabelas que serão criadas após o deploy da aplicação, então faça o deploy antes!
 
-Fazendo o deploy, uns dados inicíais você já terá para ver a aplicação rodando. Você pode ver o evento de teste em:
-
-`http://localhost:8080/jugvale-call4papers/rest/v1/evento/`.
+Fazendo o deploy, uns dados inicíais você já terá para ver a aplicação rodando. Você pode ver o evento de teste em: `http://localhost:8080/jugvale-call4papers/rest/v1/evento/`.
 
 
 
