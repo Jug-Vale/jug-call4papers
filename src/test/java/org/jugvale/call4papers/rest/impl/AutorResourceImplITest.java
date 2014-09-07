@@ -36,8 +36,6 @@ public class AutorResourceImplITest implements TestResourceDefault{
 		
 		 ObjectMapper mapper = new ObjectMapper();
 		 jsonAutor = mapper.writeValueAsString(autor);
-		 
-		 System.out.println(jsonAutor);
 	}
 
 	@Test
@@ -83,7 +81,7 @@ public class AutorResourceImplITest implements TestResourceDefault{
 	public void deveRetornarNotFoundAoBuscarPorId() {
 		get(AUTOR_CONTEXT + "/" + ID_MAX).
 			then().assertThat().
-				body( equalTo(getMessage404(ID_MAX)) ).
+				body( equalTo( getMessage404(ID_MAX) ) ).
 				statusCode(404);
 	}
 

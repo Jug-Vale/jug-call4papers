@@ -17,7 +17,7 @@ import org.jugvale.call4papers.model.impl.Autor;
 import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.model.impl.Paper;
 import org.jugvale.call4papers.rest.TestResourceDefault;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 public class PaperResourceImplITest implements TestResourceDefault {
@@ -27,7 +27,7 @@ public class PaperResourceImplITest implements TestResourceDefault {
 	private Paper paper;
 	private String jsonPaper;
 
-	@BeforeClass
+	@Before
 	public void setUp() throws Exception {
 		paper = Paper.newPapper().aceito().comAutor(Autor.newAutor().build())
 				.comDescricao("DESCRICAO").comTitulo("").miniCurso()

@@ -14,5 +14,4 @@ public class MessageUtil {
 	public static String getMessage(String key, long id) {
 		return MessageFormat.format(getMessage(key), id);
 	}
-	
 }

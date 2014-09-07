@@ -14,7 +14,7 @@ import java.util.Date;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.rest.TestResourceDefault;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 public class EventoResourceImplITest implements TestResourceDefault {
@@ -24,7 +24,7 @@ public class EventoResourceImplITest implements TestResourceDefault {
 	private Evento evento;
 	private String jsonEvento;
 	
-	@BeforeClass
+	@Before
 	public void setUp() throws Exception {
 		
 		evento =  Evento.newEvento()

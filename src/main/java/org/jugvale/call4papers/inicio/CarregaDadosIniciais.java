@@ -47,12 +47,13 @@ public class CarregaDadosIniciais {
 									  .comLogin("Maria")
 									  .comSenha("mariah").build();
 		
+		em.persist(mariaUsr);
+		
 		Usuario joseUsr = Usuario.newUsuario()
 									 .autor()
 									 .comLogin("Josevaldo")
 									 .comSenha("jose123valdo").build();
 		em.persist(joseUsr);	
-		em.persist(mariaUsr);
 		
 		Evento grandeEvento =  Evento.newEvento()
 									   .comNome("O Grande Evento")
@@ -73,6 +74,8 @@ public class CarregaDadosIniciais {
 							.comMiniCV("Grande conhecida no mundo Java...")
 							.comUsuario(mariaUsr).build();
 		
+		em.persist(maria);
+		
 		Autor jose = Autor.newAutor()
 				   			.comNome("Josevaldo")
 				   			.comEmail("josevaldoJava@gmail.com")
@@ -82,7 +85,6 @@ public class CarregaDadosIniciais {
 				   			.comUsuario(joseUsr).build();
 		
 		em.persist(jose);
-		em.persist(maria);
 		
 		Paper javaParaFodoes = Paper.newPapper()
 									.palestra()
