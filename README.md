@@ -19,10 +19,9 @@ A aplicação WEB para autores permitirá:
 
 A aplicação ainda contará com uma interface que permite modificar, criar e apagar Papers, Autores e Eventos. 
 
-
 ### Como funciona?
 
-Temos JPA para acesso ao banco. Temos também uma interface REST usando JAX-RS. Nada demais...
+Temos o JPA para acesso ao banco. Temos também uma interface REST usando JAX-RS. Nada demais...
 
 A aplicação também tem segurança usando JAAS. A interface REST tem os métodos GET em modo público, ou seja, com acesso por qualquer um, mas métodos de modificação deverão exigir autenticação. 
 
@@ -31,24 +30,26 @@ Para entender a aplicação, olhe o resumo dos métodos REST abaixo:
 
 Método 	  | URI											              | Retorno 
 :-----:	  | :-------------------------------------| :------------------
-GET		    | `/rest/v1/paper`                      |  
-GET		    | `/rest/v1/autor`                      |  
-GET		    | `/rest/v1/evento`                     |  
-GET		    | `/rest/v1/evento/{id}/papers`         |  
-GET		    | `/rest/v1/autor/{id}/papers`          |  
+GET		    | /rest/v1/paper                        |  Status 200 (Ok) e um JSON com uma lista Papers.
+GET		    | /rest/v1/autor                        |  Status 200 (Ok) e um JSON com uma lista Autores.
+GET		    | /rest/v1/evento                       |  Status 200 (Ok) e um JSON com uma lista Eventos.
+GET		    | /rest/v1/evento/{id}/papers           |  Status 200 (Ok) e um JSON com uma lista Papers para um Evento. Ou retorna 404 (Not Found), caso não encontre o Evento.
+GET		    | /rest/v1/autor/{id}/papers            |  Status 200 (Ok) e um JSON com uma lista Papers para um Determinado Autor. Ou retorna 404 (Not Found), caso não encontre o Autor.
 
 Observe que os métodos acima retornam o que está na `URI` e são desprotegidos. Também é possível acessar recursos paper, autor e evento individualmente usando o id dos mesmos;
 
 Método 	  | URI											              | Retorno           
 :-----:	  | :-------------------------------------| :------------------
-POST		  | `/rest/v1/autor`                      | 
+POST		  | /rest/v1/autor                        | Status 201 (Created) em caso de sucesso e o Location do novo Autor criado presente no HEADER.
 
-Este métdo POST permite um usuário anônimo criar um novo autor(usuário com role AUTOR) através do site.
+Este métdo POST permite um usuário anônimo criar um novo autor (usuário com role AUTOR) através do site.
 
-Método 	  | URI											              | Retorno           
-:-----:	  | :-------------------------------------| :------------------
-POST, DELETE e PUT		  | `/rest/v1/paper`                      | 
-PUT		  | `/rest/v1/autor`                     | 
+Método 	                | URI											              | Retorno           
+:----------------------:| :-------------------------------------| :------------------
+POST e PUT		  | /rest/v1/paper                                | Status 201 (Created) em caso de sucesso.
+DELETE                  | /rest/v1/paper/{id}                   | Status 200 (Ok) caso tenha removido corretamente.
+PUT                     | /rest/v1/paper/{id}                   | Status 200 (Ok) caso tenha atualizado o paper corretamente.
+PUT		                  | /rest/v1/autor/{id}                   | Status 200 (Ok) caso tenha atualizado o autor com sucesso.
 
 
 Estes são permitidos **SE E SOMENTE SE** o autor **LOGADO** for dono desses itens (se ele criou).
