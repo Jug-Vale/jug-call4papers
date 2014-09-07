@@ -25,7 +25,7 @@ Temos o JPA para acesso ao banco. Temos também uma interface REST usando JAX-RS
 
 A aplicação também tem segurança usando JAAS. A interface REST tem os métodos GET em modo público, ou seja, com acesso por qualquer um, mas métodos de modificação deverão exigir autenticação. 
 
-Para entender a aplicação, olhe o resumo dos métodos REST abaixo:
+Para entender a aplicação, olhe o resumo dos métodos REST abaixo, com os devidos [Status HTTP](http://www.restapitutorial.com/httpstatuscodes.html):
 
 
 Método 	  | URI											              | Retorno 
@@ -56,18 +56,41 @@ Estes são permitidos **SE E SOMENTE SE** o autor **LOGADO** for dono desses ite
 
 * _Usuários com role de **ADMINISTRADOR** podem acessar todos os métodos do sistema._
 
-### Empacotando e rodando a aplicação
 
-Temos uma aplicação Maven aqui com JEE 6 e Java 7, usando o JBoss AS7. Para realizar o build (construir um WAR) você pode rodar:
+Empacotando e rodando a aplicação
+--------
+
+Temos uma aplicação Maven aqui com JEE 6 e Java 7
+
+###### WILDFLY 8
+
+Para subir a aplicação no `WildFly 8` basta fazer o [download](http://wildfly.org/downloads/) da versão **8.1.0.Final** e subir o servidor executando o comando `{WILDFLY_HOME}/bin/standalone.sh`.
+
+Com o Servidor rodando, execute o segunte comando, na raiz do nosso projeto clonado:
+
+`mvn package wildfly:deploy`
+
+Feito isto siga as isntruções contidas na seção ** Ativando a Segurança **.
+
+Para executar os Testes de Integração para testar todos os serviços, execute o comando: `mvn integration-test`, este comando irá fazer o _deploy_ do `WAR`, realizar os testes, e em seguinda fazer o _undeploy_ do mesmo.
+
+###### JBOSS AS7
+
+Para realizar o build (construir um WAR) no JBoss AS7 você pode rodar o seguinte comando `maven` na raiz do diretorio onde clonou o projeto:
 
 `mvn clean package -DskipTests`
 
-Aí teremos um projeto construido e pronto para se realizar o deploy. Recomendamos o JBoss AS 7, pois assim você não precisará configurar o banco de dados.
-Se você já baixou e descompactou o JBoss AS 7, suba ele usando `bin/standalone.sh`. Aí, você pode fazer deploy do WAR nosso. 
+Aí teremos um projeto construido e pronto para se realizar o deploy. Recomendamos o `JBoss AS7`, pois assim você não precisará configurar o banco de dados.
+
+Se você já [baixou](http://www.jboss.org/jbossas/downloads/) e descompactou o `JBoss AS7`, suba ele usando `{JBOSS_HOME}/bin/standalone.sh`. Aí, você pode fazer deploy do WAR. 
+
+** Ativando a Segurança **
 
 Você então deve adicionar a configuração de segurança como descrito em [`configuracao-jboss-login.md`](https://github.com/CodeVale/jug-call4papers/blob/master/configuracao-jboss-login.md). Ela irá buscar dados nas tabelas que serão criadas após o deploy da aplicação, então faça o deploy antes!
 
-Fazendo o deploy, uns dados inicíais você já terá para ver a aplicação rodando. Você pode ver o evento de teste em: `http://localhost:8080/jugvale-call4papers/rest/v1/evento/`.
+Fazendo o deploy, uns dados inicíais você já terá para ver a aplicação rodando. Você pode ver o evento de teste em:
+
+`http://localhost:8080/jugvale-call4papers/rest/v1/evento/`.
 
 
 
