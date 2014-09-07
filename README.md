@@ -62,7 +62,7 @@ Empacotando e rodando a aplicação
 
 Temos uma aplicação Maven aqui com JEE 6 e Java 7
 
-###### WILDFLY 8
+## WILDFLY 8 ##
 
 Para subir a aplicação no `WildFly 8` basta fazer o [download](http://wildfly.org/downloads/) da versão **8.1.0.Final** e subir o servidor executando o comando `{WILDFLY_HOME}/bin/standalone.sh`.
 
@@ -74,7 +74,7 @@ Feito isto siga as isntruções contidas na seção ** Ativando a Segurança **.
 
 Para executar os Testes de Integração para testar todos os serviços, execute o comando: `mvn integration-test`, este comando irá fazer o _deploy_ do `WAR`, realizar os testes, e em seguinda fazer o _undeploy_ do mesmo.
 
-###### JBOSS AS7
+## JBOSS AS7 ##
 
 Para realizar o build (construir um WAR) no JBoss AS7 você pode rodar o seguinte comando `maven` na raiz do diretorio onde clonou o projeto:
 
