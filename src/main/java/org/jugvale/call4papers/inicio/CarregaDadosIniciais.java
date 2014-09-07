@@ -1,5 +1,6 @@
 package org.jugvale.call4papers.inicio;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -9,6 +10,8 @@ import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.jugvale.call4papers.model.impl.Autor;
 import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.model.impl.Paper;
@@ -32,14 +35,13 @@ public class CarregaDadosIniciais {
 	Logger log = Logger.getLogger(CarregaDadosIniciais.class.getCanonicalName());
 
 	@PostConstruct
-	public void carregaDadosIniciais() {
+	public void carregaDadosIniciais() throws JsonGenerationException, JsonMappingException, IOException {
 		log.fine("#### Salvando dados iniciais. #####");
 		
 		Usuario administrador = Usuario.newUsuario()
 								 		   .administrador()
 								 		   .comLogin("adm")
 								 		   .comSenha("adm123").build();
-				
 		em.persist(administrador);
 		
 		Usuario mariaUsr = Usuario.newUsuario()
@@ -53,6 +55,8 @@ public class CarregaDadosIniciais {
 									 .autor()
 									 .comLogin("Josevaldo")
 									 .comSenha("jose123valdo").build();
+		
+		
 		em.persist(joseUsr);	
 		
 		Evento grandeEvento =  Evento.newEvento()
@@ -86,17 +90,17 @@ public class CarregaDadosIniciais {
 		
 		em.persist(jose);
 		
-		Paper javaParaFodoes = Paper.newPapper()
+		Paper javaParaJaveiros = Paper.newPapper()
 									.palestra()
 									.submetidoEm(new Date())
-									.comDescricao("ava para quem ama Java. Java para fodões")
-									.comTitulo("Java para Fodões")
+									.comDescricao("Java para quem ama Java. Java para javeiros")
+									.comTitulo("Java para javeiros")
 									.noEvento(grandeEvento)
 									.comAutor(maria)
 									.comAutor(jose)
 									.build();
 		
-		em.persist(javaParaFodoes);
+		em.persist(javaParaJaveiros);
 		
 		log.fine("#### Dados iniciais salvos. ####");
 	}
