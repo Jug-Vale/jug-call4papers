@@ -42,6 +42,18 @@ public class Usuario extends DefaultModel {
 	public static UsuarioBuilder newUsuario() {
 		return new UsuarioBuilder();
 	}
+	
+	public static UsuarioBuilder administrador() {
+		return new UsuarioBuilder(Role.ADMINISTRADOR);
+	}
+	
+	public static UsuarioBuilder autor() {
+		return new UsuarioBuilder(Role.AUTOR);
+	}
+	
+	public static UsuarioBuilder anonimo() {
+		return new UsuarioBuilder(Role.ANONIMO);
+	}
 
 	public Usuario() { }
 

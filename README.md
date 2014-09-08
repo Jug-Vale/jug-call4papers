@@ -72,17 +72,7 @@ Com o Servidor rodando, execute o segunte comando, na raiz do nosso projeto clon
 
 Feito isto siga as isntruções contidas na seção **Ativando a Segurança**.
 
-Para executar os Testes de Integração para testar todos os serviços, execute o comando: `mvn integration-test`, este comando irá fazer o _deploy_ do `WAR`, realizar os testes, e em seguinda fazer o _undeploy_ do mesmo.
-
-**JBOSS AS7**
-
-Para realizar o build (construir um WAR) no JBoss AS7 você pode rodar o seguinte comando `maven` na raiz do diretorio onde clonou o projeto:
-
-`mvn clean package -DskipTests`
-
-Aí teremos um projeto construido e pronto para se realizar o deploy. Recomendamos o `JBoss AS7`, pois assim você não precisará configurar o banco de dados.
-
-Se você já [baixou](http://www.jboss.org/jbossas/downloads/) e descompactou o `JBoss AS7`, suba ele usando `{JBOSS_HOME}/bin/standalone.sh`. Aí, você pode fazer deploy do WAR. 
+Para executar os Testes de Integração para testar todos os serviços, execute o comando: `mvn integration-test`, este comando irá fazer o _deploy_ do `WAR`, e logo em seguida realizará os testes de integração finalizando com o _undeploy_ do mesmo.
 
 **Ativando a Segurança**
 

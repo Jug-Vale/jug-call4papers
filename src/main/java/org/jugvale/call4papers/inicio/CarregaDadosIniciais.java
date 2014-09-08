@@ -38,23 +38,20 @@ public class CarregaDadosIniciais {
 	public void carregaDadosIniciais() throws JsonGenerationException, JsonMappingException, IOException {
 		log.fine("#### Salvando dados iniciais. #####");
 		
-		Usuario administrador = Usuario.newUsuario()
-								 		   .administrador()
-								 		   .comLogin("adm")
-								 		   .comSenha("adm123").build();
+		Usuario administrador = Usuario.administrador()
+								 	   .comLogin("adm")
+								 	   .comSenha("adm123").build();
 		em.persist(administrador);
 		
-		Usuario mariaUsr = Usuario.newUsuario()
-									  .autor()
-									  .comLogin("Maria")
-									  .comSenha("mariah").build();
+		Usuario mariaUsr = Usuario.autor()
+								  .comLogin("Maria")
+								  .comSenha("mariah").build();
 		
 		em.persist(mariaUsr);
 		
-		Usuario joseUsr = Usuario.newUsuario()
-									 .autor()
-									 .comLogin("Josevaldo")
-									 .comSenha("jose123valdo").build();
+		Usuario joseUsr = Usuario.autor()
+								 .comLogin("Josevaldo")
+								 .comSenha("jose123valdo").build();
 		
 		
 		em.persist(joseUsr);	
@@ -90,15 +87,13 @@ public class CarregaDadosIniciais {
 		
 		em.persist(jose);
 		
-		Paper javaParaJaveiros = Paper.newPapper()
-									.palestra()
-									.submetidoEm(new Date())
-									.comDescricao("Java para quem ama Java. Java para javeiros")
-									.comTitulo("Java para javeiros")
-									.noEvento(grandeEvento)
-									.comAutor(maria)
-									.comAutor(jose)
-									.build();
+		Paper javaParaJaveiros = Paper.palestra()
+									  .submetidoNaData(new Date())
+									  .comDescricao("Java para quem ama Java. Java para javeiros")
+									  .comTitulo("Java para javeiros")
+									  .noEvento(grandeEvento)
+									  .comAutor(maria)
+									  .comAutor(jose).build();
 		
 		em.persist(javaParaJaveiros);
 		

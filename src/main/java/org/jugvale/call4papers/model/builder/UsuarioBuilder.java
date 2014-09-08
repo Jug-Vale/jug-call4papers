@@ -16,6 +16,11 @@ public class UsuarioBuilder {
 		this.usuario = new Usuario();
 	}
 	
+	public UsuarioBuilder(Role role) {
+		this.usuario = new Usuario();
+		this.usuario.setRole(role);
+	}
+	
 	public Usuario build() {
 		return usuario;
 	}

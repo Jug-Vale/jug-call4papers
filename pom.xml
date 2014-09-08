@@ -163,29 +163,6 @@
 				</executions>
 			</plugin>
 
-<!-- 			Não Testado Ainda -->
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.jboss.as.plugins</groupId> -->
-<!-- 				<artifactId>jboss-as-maven-plugin</artifactId> -->
-<!-- 				<version>7.2.Final</version> -->
-<!-- 				<executions> -->
-<!-- 					<execution> -->
-<!-- 						<id>pre-integration-test-jboss-as</id> -->
-<!-- 						<phase>pre-integration-test</phase> -->
-<!-- 						<goals> -->
-<!-- 							<goal>deploy</goal> -->
-<!-- 						</goals> -->
-<!-- 					</execution> -->
-<!-- 					<execution> -->
-<!-- 						<id>post-integration-test-jboss-as</id> -->
-<!-- 						<phase>post-integration-test</phase> -->
-<!-- 						<goals> -->
-<!-- 							<goal>undeploy</goal> -->
-<!-- 						</goals> -->
-<!-- 					</execution> -->
-<!-- 				</executions> -->
-<!-- 			</plugin> -->
-
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>

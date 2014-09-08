@@ -23,6 +23,11 @@ public class PaperBuilder {
 		this.paper = new Paper();
 	}
 
+	public PaperBuilder(Tipo tipo) {
+		this.paper = new Paper();
+		paper.setTipo(tipo);
+	}
+
 	public Paper build() {
 		return paper;
 	}
@@ -52,7 +57,7 @@ public class PaperBuilder {
 		return this;
 	}
 
-	public PaperBuilder submetidoEm(Date dataSubmissao) {
+	public PaperBuilder submetidoNaData(Date dataSubmissao) {
 		paper.setDataSubmissao(dataSubmissao);
 		return this;
 	}

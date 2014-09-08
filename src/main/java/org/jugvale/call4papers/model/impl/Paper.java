@@ -1,5 +1,10 @@
 package org.jugvale.call4papers.model.impl;
 
+import static javax.persistence.FetchType.EAGER;
+import static org.jugvale.call4papers.model.enuns.Tipo.HANDS_ON;
+import static org.jugvale.call4papers.model.enuns.Tipo.MINI_CURSO;
+import static org.jugvale.call4papers.model.enuns.Tipo.PALESTRA;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,7 +13,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -21,7 +25,6 @@ import lombok.ToString;
 import org.jugvale.call4papers.model.DefaultModel;
 import org.jugvale.call4papers.model.builder.PaperBuilder;
 import org.jugvale.call4papers.model.enuns.Tipo;
-
 /**
  * 
  * A classe de modelo para o Paper <br>
@@ -53,7 +56,7 @@ public class Paper extends DefaultModel {
 	@Column
 	private boolean aceito;
 
-	@ManyToMany(fetch=FetchType.EAGER)
+	@ManyToMany(fetch = EAGER)
 	private Set<Autor> autores = new HashSet<Autor>();
 
 	@ManyToOne
@@ -65,6 +68,18 @@ public class Paper extends DefaultModel {
 	
 	public static PaperBuilder newPapper() {
 		return new PaperBuilder();
+	}
+	
+	public static PaperBuilder palestra() {
+		return new PaperBuilder(PALESTRA);
+	}
+	
+	public static PaperBuilder miniCurso() {
+		return new PaperBuilder(MINI_CURSO);
+	}
+	
+	public static PaperBuilder handsOn() {
+		return new PaperBuilder(HANDS_ON);
 	}
 	
 }

@@ -31,7 +31,7 @@ public class PaperResourceIT implements TestResourceDefault {
 	public void setUp() throws Exception {
 		paper = Paper.newPapper().aceito().comAutor(Autor.newAutor().build())
 				.comDescricao("DESCRICAO").comTitulo("").miniCurso()
-				.noEvento(Evento.newEvento().build()).submetidoEm(new Date())
+				.noEvento(Evento.newEvento().build()).submetidoNaData(new Date())
 				.build();
 
 		jsonPaper = new ObjectMapper().writeValueAsString(paper);
