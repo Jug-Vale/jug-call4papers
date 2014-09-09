@@ -32,21 +32,25 @@ public interface EventoResource {
 	@DELETE
 	@Path("/{id}")
 	@RolesAllowed({ "ADMINISTRADOR" })
-	public Response apagaPorId(@PathParam("id") Long id) throws WebApplicationException;
+	public Response apagaPorId(@PathParam("id") Long id)
+			throws WebApplicationException;
 
 	@GET
 	@Path("/{id}")
 	@PermitAll
-	public Response buscaPorId(@PathParam("id") Long id) throws WebApplicationException;
+	public Response buscaPorId(@PathParam("id") Long id)
+			throws WebApplicationException;
 
 	@PUT
 	@Path("/{id}")
-	@RolesAllowed({"ADMINISTRADOR"})
-	public Response atualizar(@PathParam("id") long id, Evento evento) throws WebApplicationException;
+	@RolesAllowed({ "ADMINISTRADOR" })
+	public Response atualizar(@PathParam("id") long id, Evento evento)
+			throws WebApplicationException;
 
 	@GET
 	@Path("/{eventoId}/papers")
 	@PermitAll
-	public Response listaPapersPorEvento(@PathParam("eventoId") Long eventoId) throws WebApplicationException;
+	public Response listaPapersPorEvento(@PathParam("eventoId") Long eventoId)
+			throws WebApplicationException;
 
 }

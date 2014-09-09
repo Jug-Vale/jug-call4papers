@@ -5,7 +5,7 @@ package org.jugvale.call4papers.model.builder;
 
 import java.util.Date;
 
-import org.jugvale.call4papers.model.enuns.Tipo;
+import org.jugvale.call4papers.model.enums.Tipo;
 import org.jugvale.call4papers.model.impl.Autor;
 import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.model.impl.Paper;

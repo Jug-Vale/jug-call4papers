@@ -1,9 +1,9 @@
 package org.jugvale.call4papers.model.impl;
 
 import static javax.persistence.FetchType.EAGER;
-import static org.jugvale.call4papers.model.enuns.Tipo.HANDS_ON;
-import static org.jugvale.call4papers.model.enuns.Tipo.MINI_CURSO;
-import static org.jugvale.call4papers.model.enuns.Tipo.PALESTRA;
+import static org.jugvale.call4papers.model.enums.Tipo.HANDS_ON;
+import static org.jugvale.call4papers.model.enums.Tipo.MINI_CURSO;
+import static org.jugvale.call4papers.model.enums.Tipo.PALESTRA;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -17,14 +17,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 import org.jugvale.call4papers.model.DefaultModel;
 import org.jugvale.call4papers.model.builder.PaperBuilder;
-import org.jugvale.call4papers.model.enuns.Tipo;
+import org.jugvale.call4papers.model.enums.Tipo;
 /**
  * 
  * A classe de modelo para o Paper <br>
@@ -35,8 +30,6 @@ import org.jugvale.call4papers.model.enuns.Tipo;
  */
 @Entity
 @XmlRootElement
-@EqualsAndHashCode(callSuper = true) @ToString(callSuper=true)
-@Getter @Setter
 public class Paper extends DefaultModel {
 
 	private static final long serialVersionUID = 1L;
@@ -80,6 +73,70 @@ public class Paper extends DefaultModel {
 	
 	public static PaperBuilder handsOn() {
 		return new PaperBuilder(HANDS_ON);
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Date getDataSubmissao() {
+		return dataSubmissao;
+	}
+
+	public void setDataSubmissao(Date dataSubmissao) {
+		this.dataSubmissao = dataSubmissao;
+	}
+
+	public long getNota() {
+		return nota;
+	}
+
+	public void setNota(long nota) {
+		this.nota = nota;
+	}
+
+	public boolean isAceito() {
+		return aceito;
+	}
+
+	public void setAceito(boolean aceito) {
+		this.aceito = aceito;
+	}
+
+	public Set<Autor> getAutores() {
+		return autores;
+	}
+
+	public void setAutores(Set<Autor> autores) {
+		this.autores = autores;
+	}
+
+	public Evento getEvento() {
+		return evento;
+	}
+
+	public void setEvento(Evento evento) {
+		this.evento = evento;
+	}
+
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
 	}
 	
 }

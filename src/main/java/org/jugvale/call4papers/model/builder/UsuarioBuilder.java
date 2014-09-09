@@ -1,6 +1,6 @@
 package org.jugvale.call4papers.model.builder;
 
-import org.jugvale.call4papers.model.enuns.Role;
+import org.jugvale.call4papers.model.enums.Role;
 import org.jugvale.call4papers.model.impl.Usuario;
 
 /**

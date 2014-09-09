@@ -8,19 +8,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 import org.jugvale.call4papers.model.DefaultModel;
 import org.jugvale.call4papers.model.builder.EventoBuilder;
 
 @Entity
 @XmlRootElement
-@Getter @Setter 
-@ToString(callSuper=true) 
-@EqualsAndHashCode(callSuper=true)
 public class Evento extends DefaultModel {
 
 	private static final long serialVersionUID = 1L;
@@ -61,4 +53,61 @@ public class Evento extends DefaultModel {
 		this.url = url;
 		this.aceitandoTrabalhos = aceitandoTrabalhos;
 	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Date getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public Date getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
+	}
+
+	public String getLocal() {
+		return local;
+	}
+
+	public void setLocal(String local) {
+		this.local = local;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public boolean isAceitandoTrabalhos() {
+		return aceitandoTrabalhos;
+	}
+
+	public void setAceitandoTrabalhos(boolean aceitandoTrabalhos) {
+		this.aceitandoTrabalhos = aceitandoTrabalhos;
+	}
+	
 }

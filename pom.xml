@@ -31,14 +31,6 @@
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
-
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.14.6</version>
-			<scope>provided</scope>
-		</dependency>
-
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.0-api</artifactId>

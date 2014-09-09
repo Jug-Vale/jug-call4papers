@@ -22,7 +22,7 @@ public class JacksonConfig implements ContextResolver<ObjectMapper> {
 
     private final ObjectMapper objectMapper;
 
-    public JacksonConfig() {        
+    public JacksonConfig() {  
         objectMapper = new ObjectMapper();
         objectMapper.setDateFormat(new SimpleDateFormat(FORMATO_DATA));
         objectMapper.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS, false);
