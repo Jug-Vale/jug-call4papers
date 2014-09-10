@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import org.jugvale.call4papers.model.DefaultModel;
 import org.jugvale.call4papers.model.builder.UsuarioBuilder;
 import org.jugvale.call4papers.model.enums.Role;
+import org.jugvale.call4papers.util.SenhaUtil;
 
 /**
  * 
@@ -68,7 +69,7 @@ public class Usuario extends DefaultModel {
 	}
 
 	public void setSenha(String senha) {
-		this.senha = senha;
+		this.senha = SenhaUtil.gerarHash(senha);
 	}
 
 	public Role getRole() {
