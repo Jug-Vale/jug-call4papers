@@ -4,7 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.xml.bind.annotation.XmlTransient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.jugvale.call4papers.model.DefaultModel;
 import org.jugvale.call4papers.model.builder.UsuarioBuilder;
 import org.jugvale.call4papers.model.enums.Role;
@@ -26,6 +28,8 @@ public class Usuario extends DefaultModel {
 	private String login;
 
 	@Column
+	@XmlTransient
+	@JsonIgnore
 	private String senha;
 
 	@Column
