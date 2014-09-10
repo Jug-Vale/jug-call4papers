@@ -14,8 +14,6 @@ import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.jugvale.call4papers.model.impl.Autor;
 import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.model.impl.Paper;
@@ -43,8 +41,7 @@ public class CarregaDadosIniciais {
 			.getLogger(CarregaDadosIniciais.class.getCanonicalName());
 
 	@PostConstruct
-	public void carregaDadosIniciais() throws JsonGenerationException,
-			JsonMappingException, IOException {
+	public void carregaDadosIniciais() throws IOException {
 		log.info("#### Salvando dados iniciais. #####");
 
 		log.info("#### Carregando dados do usuário administrador. #####");

@@ -6,11 +6,12 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.jugvale.call4papers.model.DefaultModel;
 import org.jugvale.call4papers.model.builder.UsuarioBuilder;
 import org.jugvale.call4papers.model.enums.Role;
 import org.jugvale.call4papers.util.SenhaUtil;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 
@@ -34,25 +35,28 @@ public class Usuario extends DefaultModel {
 
 	@Column
 	@Enumerated(EnumType.STRING)
+	@JsonIgnore
+	@XmlTransient
 	private Role role;
-	
+
 	public static UsuarioBuilder newUsuario() {
 		return new UsuarioBuilder();
 	}
-	
+
 	public static UsuarioBuilder administrador() {
 		return new UsuarioBuilder(Role.ADMINISTRADOR);
 	}
-	
+
 	public static UsuarioBuilder autor() {
 		return new UsuarioBuilder(Role.AUTOR);
 	}
-	
+
 	public static UsuarioBuilder anonimo() {
 		return new UsuarioBuilder(Role.ANONIMO);
 	}
 
-	public Usuario() { }
+	public Usuario() {
+	}
 
 	public Usuario(String login, String senha, Role role) {
 		setLogin(login);

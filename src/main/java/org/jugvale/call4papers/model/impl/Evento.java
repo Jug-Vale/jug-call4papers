@@ -11,6 +11,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.jugvale.call4papers.model.DefaultModel;
 import org.jugvale.call4papers.model.builder.EventoBuilder;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @XmlRootElement
 public class Evento extends DefaultModel {
@@ -24,9 +26,11 @@ public class Evento extends DefaultModel {
 	private String descricao;
 
 	@Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd,HH:00", timezone="GMT-3")
 	private Date dataInicio;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd,HH:00", timezone="GMT-3")
 	private Date dataFim;
 
 	@Column

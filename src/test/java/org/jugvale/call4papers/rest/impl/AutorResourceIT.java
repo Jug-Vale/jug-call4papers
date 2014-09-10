@@ -10,12 +10,13 @@ import static org.jugvale.call4papers.rest.util.Constantes.ID_MAX;
 import static org.jugvale.call4papers.rest.util.Constantes.SERVICES_CONTEXT;
 import static org.jugvale.call4papers.rest.utils.RESTUtils.getMessage404;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.jugvale.call4papers.model.impl.Autor;
 import org.jugvale.call4papers.model.impl.Usuario;
 import org.jugvale.call4papers.rest.TestResourceDefault;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class AutorResourceIT implements TestResourceDefault{
 

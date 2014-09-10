@@ -79,13 +79,22 @@
 			<version>2.4</version>
 		</dependency>
 
-
 		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.12</version>
-			<scope>provided</scope>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.2.3</version>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.2.3</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>com.jayway.restassured</groupId>
@@ -172,8 +181,7 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<archive>
 						<manifestEntries>
-							<Dependencies>org.codehaus.jackson.jackson-core-asl</Dependencies>
-							<Dependencies>org.codehaus.jackson.jackson-mapper-asl</Dependencies>
+	<Dependencies>com.fasterxml.jackson.core.jackson-annotations,com.fasterxml.jackson.core.jackson-databind</Dependencies>
 						</manifestEntries>
 					</archive>
 				</configuration>

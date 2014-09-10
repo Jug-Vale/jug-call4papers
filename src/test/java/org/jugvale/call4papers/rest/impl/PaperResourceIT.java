@@ -12,13 +12,14 @@ import static org.jugvale.call4papers.rest.utils.RESTUtils.getMessage404;
 
 import java.util.Date;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.jugvale.call4papers.model.impl.Autor;
 import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.model.impl.Paper;
 import org.jugvale.call4papers.rest.TestResourceDefault;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class PaperResourceIT implements TestResourceDefault {
 
