@@ -1,7 +1,7 @@
 jug-call4papers
 ===============
 
-[![Build status](https://travis-ci.org/CodeVale/jug-call4papers.png)](https://travis-ci.org/dropwizard/dropwizard.png?branch=master)
+[![Build status](https://travis-ci.org/CodeVale/jug-call4papers.png)](https://travis-ci.org/CodeVale/jug-call4papers.png?branch=master)
 
 Uma aplicação de Call4Paper com JEE 6 para uso nos eventos do JUG Vale
 
