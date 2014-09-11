@@ -55,8 +55,7 @@ public class CarregaDadosIniciais {
 						Usuario administrador = Usuario.administrador()
 								.comLogin(login).comSenha(senha).build();
 						em.persist(administrador);
-						log.info("#### Usuário " + login
-								+ " persistido com sucesso. #####");
+						log.info("#### Usuário " + login + " persistido com sucesso. #####");
 					});
 
 		} else {
