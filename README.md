@@ -62,7 +62,12 @@ Estes são permitidos **SE E SOMENTE SE** o autor **LOGADO** for dono desses ite
 Empacotando e rodando a aplicação
 --------
 
-Temos uma aplicação Maven aqui com JEE 6 e Java 7
+Temos uma aplicação Maven aqui com JEE 6 e Java 7.
+Antes de qualquer coisa, crie um arquivo em `src/main/resources` chamado `admin.properties`. Ele deverá conter o login e a senha do usuário administrador master do projeto, o conteúdo pode ser como segue:
+~~~
+admin=admin123
+~~~
+
 
 **WILDFLY 8**
 
@@ -70,7 +75,7 @@ Para subir a aplicação no `WildFly 8` basta fazer o [download](http://wildfly.
 
 Com o Servidor rodando, execute o segunte comando, na raiz do nosso projeto clonado: `mvn package wildfly:deploy` e para fazer o undeploy, execute: `mvn wildfly:undeploy`
 
-Feito isto siga as isntruções contidas na seção **Ativando a Segurança**.
+Feito isto, siga as instruções contidas na seção **Ativando a Segurança**.
 
 Para executar os Testes de Integração para testar todos os serviços, execute o comando: `mvn integration-test`, este comando irá fazer o _deploy_ do `WAR`, e logo em seguida realizará os testes de integração finalizando com o _undeploy_ do mesmo.
 
