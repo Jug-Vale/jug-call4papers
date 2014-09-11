@@ -1,7 +1,7 @@
 jug-call4papers
 ===============
 
-![Build status](https://travis-ci.org/CodeVale/jug-call4papers.png)
+[![Build status](https://travis-ci.org/CodeVale/jug-call4papers.png)](https://travis-ci.org/CodeVale/jug-call4papers.png?branch=master)
 
 Uma aplicação de Call4Paper com JEE 6 para uso nos eventos do JUG Vale
 
@@ -59,10 +59,17 @@ Estes são permitidos **SE E SOMENTE SE** o autor **LOGADO** for dono desses ite
 * _Usuários com role de **ADMINISTRADOR** podem acessar todos os métodos do sistema._
 
 
+Para os desenvolvedores das páginas WEB, não é necessário codificar Javascript para as requisições. Uma API está disponível na URL `http://localhost:8080/jug-call4papers/rest-js`. Para mais informações sobre essa API, veja a [documentação do RESTEasy](http://docs.jboss.org/resteasy/docs/2.3.7.Final/userguide/html/AJAX_Client.html#d4e1923).
+
 Empacotando e rodando a aplicação
 --------
 
-Temos uma aplicação Maven aqui com JEE 6 e Java 7
+Temos uma aplicação Maven aqui com JEE 6 e Java 7.
+Antes de qualquer coisa, crie um arquivo em `src/main/resources` chamado `admin.properties`. Ele deverá conter o login e a senha do usuário administrador master do projeto, o conteúdo pode ser como segue:
+~~~
+admin=admin123
+~~~
+
 
 **WILDFLY 8**
 
@@ -70,7 +77,7 @@ Para subir a aplicação no `WildFly 8` basta fazer o [download](http://wildfly.
 
 Com o Servidor rodando, execute o segunte comando, na raiz do nosso projeto clonado: `mvn package wildfly:deploy` e para fazer o undeploy, execute: `mvn wildfly:undeploy`
 
-Feito isto siga as isntruções contidas na seção **Ativando a Segurança**.
+Feito isto, siga as instruções contidas na seção **Ativando a Segurança**.
 
 Para executar os Testes de Integração para testar todos os serviços, execute o comando: `mvn integration-test`, este comando irá fazer o _deploy_ do `WAR`, e logo em seguida realizará os testes de integração finalizando com o _undeploy_ do mesmo.
 

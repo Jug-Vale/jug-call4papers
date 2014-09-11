@@ -1,4 +1,5 @@
 package org.jugvale.call4papers.rest.config;
+
 import java.text.SimpleDateFormat;
 
 import javax.ws.rs.Consumes;
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 /**
  * Irá configurar o formato de data em campos JSON.
+ * 
  * @author william
  *
  */
@@ -19,18 +21,19 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class JacksonConfig implements ContextResolver<ObjectMapper> {
-	
+
 	final String FORMATO_DATA = "dd.MM.yyyy";
 
-    private final ObjectMapper  objectMapper;
+	private final ObjectMapper objectMapper;
 
-    public JacksonConfig() {  
-        objectMapper = new ObjectMapper();
-        objectMapper.setDateFormat(new SimpleDateFormat(FORMATO_DATA));
-        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-    }
+	public JacksonConfig() {
+		objectMapper = new ObjectMapper();
+		objectMapper.setDateFormat(new SimpleDateFormat(FORMATO_DATA));
+		objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,
+				false);
+	}
 
-    public ObjectMapper getContext(Class<?> type) {
-        return objectMapper;
-    }
+	public ObjectMapper getContext(Class<?> type) {
+		return objectMapper;
+	}
 }

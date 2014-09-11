@@ -2,8 +2,8 @@ package org.jugvale.call4papers.inicio;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -34,20 +34,20 @@ public class CarregaDadosIniciais {
 	@PersistenceContext
 	EntityManager em;
 
-	final String CAMINHO_PROPERTIES_ADM = "/dados/admin.properties";
-	final String CAMINHO_REAL = getClass().getResource(CAMINHO_PROPERTIES_ADM).getFile();
+	final String CAMINHO_PROPERTIES_ADM = "/admin.properties";
 
 	Logger log = Logger
 			.getLogger(CarregaDadosIniciais.class.getCanonicalName());
 
 	@PostConstruct
-	public void carregaDadosIniciais() throws IOException {
+	public void carregaDadosIniciais() throws IOException, URISyntaxException {
 		log.info("#### Salvando dados iniciais. #####");
 
 		log.info("#### Carregando dados do usuário administrador. #####");
-		if (Files.exists(Paths.get(CAMINHO_REAL))) {
+		URL propResource = getClass().getResource(CAMINHO_PROPERTIES_ADM);
+		if (propResource != null) {
 			Properties dadosAdmin = new Properties();
-			dadosAdmin.load(new FileInputStream(CAMINHO_REAL));
+			dadosAdmin.load(new FileInputStream(propResource.getFile()));
 			dadosAdmin.keySet().forEach(
 					u -> {
 						String login = String.valueOf(u);
@@ -59,7 +59,7 @@ public class CarregaDadosIniciais {
 					});
 
 		} else {
-			log.info("#### Arquivo de propriedades não encontrado, não será carregado o administrador inicial. Faça o redeploy criando um properties com login=senha em \""
+			log.info("#### Arquivo de propriedades não encontrado, não será carregado o administrador inicial. Faça o redeploy criando um properties com login=senha em \"src/main/resources/"
 					+ CAMINHO_PROPERTIES_ADM + "\". #### ");
 		}
 		log.info("#### Carregando dados de demonstração #####");

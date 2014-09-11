@@ -181,7 +181,7 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<archive>
 						<manifestEntries>
-	<Dependencies>com.fasterxml.jackson.core.jackson-annotations,com.fasterxml.jackson.core.jackson-databind</Dependencies>
+							<Dependencies>com.fasterxml.jackson.core.jackson-annotations,com.fasterxml.jackson.core.jackson-databind,org.jboss.resteasy.resteasy-jsapi</Dependencies>
 						</manifestEntries>
 					</archive>
 				</configuration>
