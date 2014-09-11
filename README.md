@@ -59,6 +59,8 @@ Estes são permitidos **SE E SOMENTE SE** o autor **LOGADO** for dono desses ite
 * _Usuários com role de **ADMINISTRADOR** podem acessar todos os métodos do sistema._
 
 
+Para os desenvolvedores das páginas WEB, não é necessário codificar Javascript para as requisições. Uma API está disponível na URL `http://localhost:8080/jug-call4papers/rest-js`. Para mais informações sobre essa API, veja a [documentação do RESTEasy](http://docs.jboss.org/resteasy/docs/2.3.7.Final/userguide/html/AJAX_Client.html#d4e1923).
+
 Empacotando e rodando a aplicação
 --------
 
