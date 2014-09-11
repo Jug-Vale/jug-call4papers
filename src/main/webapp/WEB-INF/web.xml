@@ -38,4 +38,17 @@
 	<security-role>
 		<role-name>ANONIMO</role-name>
 	</security-role>
+
+	<!-- Javascript gerado para invocar os métodos JAX-RS -->
+	<servlet>
+		<servlet-name>RESTEasy JSAPI</servlet-name>
+		<servlet-class>org.jboss.resteasy.jsapi.JSAPIServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>RESTEasy JSAPI</servlet-name>
+		<url-pattern>/rest-js</url-pattern>
+	</servlet-mapping>
+
 </web-app>
