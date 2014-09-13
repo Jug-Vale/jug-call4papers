@@ -4,38 +4,93 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="./img/java.ico">
+ 
 <title>Chamada de Trabalhos (Call 4 Papers)</title>
 
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/jumbotron.css" rel="stylesheet">
 
-<!--  Script do RESTEasy -->
-<script type="text/javascript" src="./rest-js"></script>
-
-<script type="text/javascript">
-function carregaDadosIniciais() {
-	var eventos = EventoResource.listarTodos();
-	var htmlEventos = "";
-	for (var i = 0; i < eventos.length; i++) {
-		htmlEventos +="<li>" + eventos[i].nome + "</li>";
-	}
-	document.getElementById("eventos").innerHTML = htmlEventos;
-}
-</script>
 </head>
-<body onload="carregaDadosIniciais()">
-	<h1>JUG Vale Call 4 Papers</h1>
+	<body onload="carregaDadosIniciais()">
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			 <div class="container">
+				<div class="navbar-header">
+					 <a href="https://github.com/CodeVale/jug-call4papers" target="_blank">
+					 	<img style="position: absolute; top: 0; left: 0; border: 0;" 
+					 		 src="https://camo.githubusercontent.com/121cd7cbdc3e4855075ea8b558508b91ac463ac2/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677265656e5f3030373230302e706e67" 
+					 		 alt="Fork me on GitHub" 
+					 		 data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_green_007200.png">
+					 </a>
+			 	</div>
+			 	<div class="navbar-collapse collapse">
+				 	<form class="navbar-form navbar-right" role="form">
+			            <div class="form-group">
+			              <input type="text" placeholder="Email" class="form-control">
+			            </div>
+			            <div class="form-group">
+			              <input type="password" placeholder="Password" class="form-control">
+			            </div>
+			            <button type="submit" class="btn btn-success">Sign in</button>
+		            </form>
+			 	</div><!--/.navbar-collapse -->
+			 </div>
+		</div>
+		
+		<div class="jumbotron">
+	    	<div class="container">
+	        	<h1>JUGVale Call4Papers</h1>
+	        	<p> Uma aplicação de Call4Paper com JEE 6 para uso nos eventos do JUG Vale </p>
+	      	</div>
+	   </div>
+	   
+	   <div class="container">
+	   
+	   		<div id="eventos_box">
+	   			
+	   		</div>
+	   		
+	     	<footer>
+	        	<p>
+	        		<a href="http://jugvale.com" target="_blank">JUG Vale - Grupo de Usuários Java do Vale do Paraíba</a>
+	        	</p>
+	      	</footer>
+	      
+	   </div><!-- /container -->
+	
+		<!--  Script do RESTEasy -->
+		<script type="text/javascript" src="./rest-js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+		 
+		<script type="text/javascript">
+		function carregaDadosIniciais() {
+			var eventos = EventoResource.listarTodos();
+			var size = "<div class='evento_box' id='evento_box'>" +
+		    				"<div class='row'>" +
+		      					"<div class='col-xs-6 col-md-3'>" +
+		        					"<div class='panel panel-default'>";
+			
+			$.each(eventos, function(key, value) {
 
+				size += "<div class='panel-heading'>" + value.nome + "</div>";
+				size += "<div class='panel-body'>";
+				size += value.dataInicio;
+				size += " à ";
+				size += value.dataFim;
+				size += "<br> Local: " + value.local;
+				size += "</div>";
+				size += "</div></div></div></div>";
+	
+			});
 
-	<ul id="eventos">
+			$('#eventos_box').append(size);
+			
+		}
+		</script>
 
-	</ul>
-
-
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="js/bootstrap.min.js"></script>
-</body>
+		
+	</body>
 </html>

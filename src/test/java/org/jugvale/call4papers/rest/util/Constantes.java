@@ -6,7 +6,7 @@ package org.jugvale.call4papers.rest.util;
  */
 public class Constantes {
 	
-	public static final String SERVICES_CONTEXT = "http://localhost:8080/jugvale-call4papers/rest/v1";
+	public static final String SERVICES_CONTEXT = "http://localhost:8080/jugvale-call4papers/rest";
 	public static final Long ID_MAX = Long.MAX_VALUE;
 
 }

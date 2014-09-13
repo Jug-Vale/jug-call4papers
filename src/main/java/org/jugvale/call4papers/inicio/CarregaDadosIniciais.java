@@ -1,9 +1,9 @@
 package org.jugvale.call4papers.inicio;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -14,6 +14,7 @@ import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.commons.io.FileUtils;
 import org.jugvale.call4papers.model.impl.Autor;
 import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.model.impl.Paper;
@@ -35,19 +36,21 @@ public class CarregaDadosIniciais {
 	EntityManager em;
 
 	final String CAMINHO_PROPERTIES_ADM = "/admin.properties";
-
+		
 	Logger log = Logger
 			.getLogger(CarregaDadosIniciais.class.getCanonicalName());
 
 	@PostConstruct
-	public void carregaDadosIniciais() throws IOException, URISyntaxException {
+	public void carregaDadosIniciais() throws FileNotFoundException, IOException {
 		log.info("#### Salvando dados iniciais. #####");
 
 		log.info("#### Carregando dados do usuário administrador. #####");
-		URL propResource = getClass().getResource(CAMINHO_PROPERTIES_ADM);
-		if (propResource != null) {
+		
+		File file = FileUtils.getFile(CarregaDadosIniciais.class.getResource(CAMINHO_PROPERTIES_ADM).getPath());
+		
+		if (file != null) {
 			Properties dadosAdmin = new Properties();
-			dadosAdmin.load(new FileInputStream(propResource.getFile()));
+			dadosAdmin.load(new FileInputStream(file));
 			dadosAdmin.keySet().forEach(
 					u -> {
 						String login = String.valueOf(u);
