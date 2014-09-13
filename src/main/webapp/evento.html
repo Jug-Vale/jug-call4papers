@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="./img/java.ico">
+
+<title>Chamada de Trabalhos (Call 4 Papers)</title>
+
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/jumbotron.css" rel="stylesheet">
+
+</head>
+<body>
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a class= "navbar-brand" href="./">JUGVale Call4Papers</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<form class="navbar-form navbar-right" role="form">
+					<div class="form-group">
+						<input type="text" placeholder="Email" class="form-control">
+					</div>
+					<div class="form-group">
+						<input type="password" placeholder="Password" class="form-control">
+					</div>
+					<button type="submit" class="btn btn-success">Sign in</button>
+				</form>
+			</div>
+			<!--/.navbar-collapse -->
+		</div>
+	</div>
+
+	<div class="container">
+		
+		<div class="row">
+  			<div class="col-md-8">
+  				<br>
+				<div id="aceitando_paper" role="alert">
+					<button type="button" id="btn_close" class="close hide" data-dismiss="alert">
+						<span aria-hidden="true">&times;</span>
+						<span class="sr-only">Fechar</span>
+					</button>
+				</div>
+		
+				<div id="evento_box">
+					<!-- EVENTO VEM DO JS -->
+					
+					<div id="nome_evento_id" class="page-header"></div>
+
+					<div id="papers_id">
+						<h4>Papers</h4>
+						<div class="panel-group hide" id="accordion_hide">
+							<div class="panel panel-default" id="panel_default_id">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										
+										<span id="aceito_id" class=""></span>
+										
+										<a id="titulo_id" data-toggle="collapse" data-parent="#accordion" href="">
+										</a>
+									</h4>
+								</div>
+								<div id="" class="panel-collapse collapse">
+      								<div class="panel-body">
+      									<p id="descricao_paper_id" class="text-justify"><b>Título: </b></p>
+      									<p id="tipo_paper_id" class="text-justify"><b>Tipo: </b></p>
+											
+										<hr>
+											      									
+      									<div id="autores_id">
+      									</div>
+      								</div>
+   			 					</div>
+							</div>
+						</div>
+					</div>
+					
+					<br>
+					
+					<div id="infos_id">
+						<h4>Descrição</h4>
+						<p id="descricao_id" class="text-justify"></p>
+						
+						<br>
+						<h4>Data</h4>
+						<p id="data_inicio_id" class="text-justify">
+							<b>Inicio: </b> 
+						</p>
+						<p id="data_fim_id" class="text-justify">
+							<b>Fim:</b> 
+						</p>
+						
+						<br>
+						<h4>Local</h4>
+						<p id="local_id" class="text-justify"> </p>
+						
+						<br>
+						<h4>Contato</h4>
+						<p id="contato_id" class="text-justify">
+							<a id="site" target="_blank"></a>
+						</p>
+						
+					</div>
+				</div>
+  			
+  			</div>
+  			<div class="col-md-4"> <!-- VAZIO --> </div>
+		</div>
+
+		
+		<hr>
+		<footer>
+			<p>
+				<a href="http://jugvale.com" target="_blank">JUG Vale - Grupo de
+					Usuários Java do Vale do Paraíba</a>
+			</p>
+		</footer>
+
+	</div>
+	<!-- /container -->
+
+	<!--  Script do RESTEasy -->
+	<script type="text/javascript" src="./rest-js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+
+	<script type="text/javascript" src="./js/call4papers.js"></script>
+
+</body>
+</html>

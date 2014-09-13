@@ -29,8 +29,7 @@ public class JacksonConfig implements ContextResolver<ObjectMapper> {
 	public JacksonConfig() {
 		objectMapper = new ObjectMapper();
 		objectMapper.setDateFormat(new SimpleDateFormat(FORMATO_DATA));
-		objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,
-				false);
+		objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 	}
 
 	public ObjectMapper getContext(Class<?> type) {

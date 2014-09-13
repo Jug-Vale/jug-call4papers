@@ -13,7 +13,7 @@
 <link href="./css/jumbotron.css" rel="stylesheet">
 
 </head>
-	<body onload="carregaDadosIniciais()">
+	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			 <div class="container">
 				<div class="navbar-header">
@@ -47,10 +47,9 @@
 	   
 	   <div class="container">
 	   
-	   		<div id="eventos_box">
-	   			
-	   		</div>
+	   		<div id="eventos_box"> <!-- EVENTOS VEM DO JS --> </div>
 	   		
+	   		<hr>
 	     	<footer>
 	        	<p>
 	        		<a href="http://jugvale.com" target="_blank">JUG Vale - Grupo de Usuários Java do Vale do Paraíba</a>
@@ -61,35 +60,12 @@
 	
 		<!--  Script do RESTEasy -->
 		<script type="text/javascript" src="./rest-js"></script>
+		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-		 
-		<script type="text/javascript">
-		function carregaDadosIniciais() {
-			var eventos = EventoResource.listarTodos();
-			var size = "<div class='evento_box' id='evento_box'>" +
-		    				"<div class='row'>" +
-		      					"<div class='col-xs-6 col-md-3'>" +
-		        					"<div class='panel panel-default'>";
-			
-			$.each(eventos, function(key, value) {
-
-				size += "<div class='panel-heading'>" + value.nome + "</div>";
-				size += "<div class='panel-body'>";
-				size += value.dataInicio;
-				size += " à ";
-				size += value.dataFim;
-				size += "<br> Local: " + value.local;
-				size += "</div>";
-				size += "</div></div></div></div>";
-	
-			});
-
-			$('#eventos_box').append(size);
-			
-		}
-		</script>
+		
+		<script type="text/javascript" src="./js/call4papers.js"></script>
 
 		
 	</body>
