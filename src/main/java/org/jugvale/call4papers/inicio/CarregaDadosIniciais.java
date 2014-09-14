@@ -65,6 +65,7 @@ public class CarregaDadosIniciais {
 			log.info("#### Arquivo de propriedades não encontrado, não será carregado o administrador inicial. Faça o redeploy criando um properties com login=senha em \"src/main/resources/"
 					+ CAMINHO_PROPERTIES_ADM + "\". #### ");
 		}
+		
 		log.info("#### Carregando dados de demonstração #####");
 		Usuario mariaUsr = Usuario.autor().comLogin("Maria").comSenha("mariah")
 				.build();
@@ -82,7 +83,7 @@ public class CarregaDadosIniciais {
 				.comDescricao(
 						"Esse é o melhor evento do mundo, o grande evento...")
 				.comDataInicio(new Date()).comDataFim(new Date())
-				.noLocal("Rua dos grandes eventos")
+				.noLocal("Rua Tsunessaburo Makiguti,157, São José dos Campos, SP, Brasil")
 				.comSite("http://www.ograndeevento.com").aceitandoTrabalhos()
 				.build();
 
@@ -111,6 +112,15 @@ public class CarregaDadosIniciais {
 				.comAutor(maria).comAutor(jose).build();
 
 		em.persist(javaParaJaveiros);
+		
+		Paper paper = Paper.handsOn().submetidoNaData(new Date())
+				.comDescricao(" ac dolor labore sapien varius ac maecenas ligula feugiat sollicitudin risus donec "
+								+ "natoque etiam laborum ullamcorper eu montes libero neque ac ac ante integer proin at non dolor "
+								+ "vestibulum voluptatum ")
+				.comTitulo("Rest Na Pratica").noEvento(grandeEvento)
+				.comAutor(jose).aceito().build();
+
+		em.persist(paper);
 
 		log.info("#### Dados iniciais salvos. ####");
 	}

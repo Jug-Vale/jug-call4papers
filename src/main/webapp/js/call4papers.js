@@ -18,10 +18,9 @@ $(function() {
 			size += "<div class='panel-heading'>";
 			size += "<a href='./evento.html?id=" + value.id + "'>" + value.nome + "</a></div>";
 			size += "<div class='panel-body'>";
-			size += value.dataInicio;
-			size += " à ";
-			size += value.dataFim;
-			size += "<br> Local: " + value.local;
+			size += "<p><small> <b>Inicio: </b>" + value.dataInicio + "</small></p>";
+			size += "<p><small> <b>Fim: </b>" + value.dataFim + "</small></p>";
+			size += "<p><small> <b>Local:</b> " + value.local + "</small></p>";
 			size += "</div>";
 			size += "</div></div></div></div>";
 
@@ -35,13 +34,17 @@ $(function() {
 		$.id = readyURL('id');
 		var evento = EventoResource.buscaPorId( {id:$.id} );
 		
+		var maps = "http://maps.googleapis.com/maps/api/staticmap?center=" + evento.local + "&zoom=15&size=580x300&sensor=false";
+		
+		$("#mapa_id").attr("src", maps);
+		
 		$("#btn_close").removeClass("hide");
 		
 		if(evento.aceitandoTrabalhos === true) {
 			$("#aceitando_paper").addClass( "alert alert-success alert-dismissible" )
 								 .append("Uhul !!!!! Este evento está aceitando Papers. <a href='#' class='alert-link'>Faça o seu</a>");
 		} else {
-			$("#aceitando_paper").addClass( "alert alert-danger" ).append("Ops !!! Já encerramos os papers :(");
+			$("#aceitando_paper").addClass( "alert alert-danger alert-dismissible" ).append("Ops !!! Já encerramos os papers :(");
 		}
 		
 		$("#nome_evento_id").append( "<h1>" + evento.nome + "</h1>" );
@@ -75,9 +78,8 @@ $(function() {
 						.attr('id','id_' + id_paper)
 						.append( value.titulo );
 			
-			if(papers.aceito === true) {
+			if(value.aceito === true) {
 				accordion.find("#aceito_id").addClass("label label-success").append("ACEITO");
-				
 			} else {
 				accordion.find("#aceito_id").addClass("label label-danger").append("NÃO ACEITO");
 			}
@@ -94,7 +96,7 @@ $(function() {
 			
 			accordion.find("#tipo_paper_id")
 						.attr('id', 'tipo_paper_id_' + id_paper )
-						.append(value.tipo.toLowerCase());
+						.append(value.tipo);
 			
 			accordion.find("#autores_id").append(montaTextoAccordion(value.autores));
 			
