@@ -1,34 +1,8 @@
 $(function() {
 	
 	$( document ).ready(function() {
-		carregaDadosIniciais();
 		eventoEspecifico();
 	});
-	
-	function carregaDadosIniciais() {
-		var eventos = EventoResource.listarTodos();
-		var size = "";
-		
-		$.each(eventos, function(key, value) {
-
-			size += "<div class='evento_box' id='evento_box'>" +
-			"<div class='row'>" +
-					"<div class='col-xs-6 col-md-3'>" +
-					"<div class='panel panel-default'>";
-			size += "<div class='panel-heading'>";
-			size += "<a href='./evento.html?id=" + value.id + "'>" + value.nome + "</a></div>";
-			size += "<div class='panel-body'>";
-			size += "<p><small> <b>Inicio: </b>" + value.dataInicio + "</small></p>";
-			size += "<p><small> <b>Fim: </b>" + value.dataFim + "</small></p>";
-			size += "<p><small> <b>Local:</b> " + value.local + "</small></p>";
-			size += "</div>";
-			size += "</div></div></div></div>";
-
-		});
-
-		$('#eventos_box').append(size);
-		
-	}
 	
 	function eventoEspecifico() {
 		$.id = readyURL('id');
@@ -42,7 +16,7 @@ $(function() {
 		
 		if(evento.aceitandoTrabalhos === true) {
 			$("#aceitando_paper").addClass( "alert alert-success alert-dismissible" )
-								 .append("Uhul !!!!! Este evento está aceitando Papers. <a href='#' class='alert-link'>Faça o seu</a>");
+								 .append("Uhul !!!!! Este evento está aceitando Papers. <a href='paper.html' class='alert-link'>Faça o seu</a>");
 		} else {
 			$("#aceitando_paper").addClass( "alert alert-danger alert-dismissible" ).append("Ops !!! Já encerramos os papers :(");
 		}
@@ -124,7 +98,8 @@ $(function() {
 	
 	function readyURL(param) {
 		var results = new RegExp('[\?&amp;]' + param + '=([^&amp;#]*)').exec(window.location.href);
-	    return results[1] || 0;
+		if(results !== null)
+			return results[1] || 0;
 	}
 	
 });

@@ -11,7 +11,6 @@
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="./css/jumbotron.css" rel="stylesheet">
-<link href="css/jugstyle.css" rel="stylesheet">
 
 
 </head>
@@ -26,21 +25,21 @@
 	            </div>
 	            <!-- User Menu-->
 	            <ul class="nav navbar-right top-nav">
-	                 <li class="dropdown">
-	                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Usuario logado <b class="caret"></b></a>
-	                    <ul class="dropdown-menu">
-	                        <li>
-	                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-	                        </li>
-	                        <li>
-	                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Papers</a>
-	                        </li>
-	                        <li class="divider"></li>
-	                        <li>
-	                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Sair</a>
-	                        </li>
-	                    </ul>
-	                </li>
+<!-- 	                 <li class="dropdown"> -->
+<!-- 	                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Usuario logado <b class="caret"></b></a> -->
+<!-- 	                    <ul class="dropdown-menu"> -->
+<!-- 	                        <li> -->
+<!-- 	                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a> -->
+<!-- 	                        </li> -->
+<!-- 	                        <li> -->
+<!-- 	                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Papers</a> -->
+<!-- 	                        </li> -->
+<!-- 	                        <li class="divider"></li> -->
+<!-- 	                        <li> -->
+<!-- 	                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Sair</a> -->
+<!-- 	                        </li> -->
+<!-- 	                    </ul> -->
+<!-- 	                </li> -->
 	            </ul>
 	            <!-- Fim User -->
             </div>
@@ -51,6 +50,7 @@
 		
 		<div class="row">
   			
+  			<br><br>
   			<!-- Form Cadastro paper -->
 			<div class="container-fluid">
 
@@ -58,12 +58,12 @@
                 <div class="row">
                     <div class="col-md-12">
                         
-                        <ol class="breadcrumb">
+<!--                         <ol class="breadcrumb"> -->
                            
-                            <li class="active">
-                                <i class="glyphicon glyphicon-list-alt"></i> "Nome Autor" - ex. Hugo Bregagnoli
-                            </li>
-                        </ol>
+<!--                             <li class="active"> -->
+<!--                                 <i class="glyphicon glyphicon-list-alt"></i> "Nome Autor" - ex. Hugo Bregagnoli -->
+<!--                             </li> -->
+<!--                         </ol> -->
                     </div>
                 </div>
                 <!-- Fim Informações -->
@@ -75,21 +75,15 @@
 
                         <form role="form">
                         	<!-- Split button -->
-							<div class="form-group col-md-3">
-								<label>Evento</label>
-								<select class="combobox input-large form-control" name="normal">
-					               	<option value="" selected="selected">Selecione o evento</option>
-					              	<option value="evt1">JugVale 6</option>
-					              	<option value="evt2">JugVale 7</option>
-					              	<option value="evt3">JugVale - Hangout 1</option>
-					            </select>
+							<div id="paper_id" class="form-group col-md-3">
+								
 					        </div>
 
                             <div class="form-group">
 			                    <label for="InputPalestra">Titulo da palestra</label>
 			                    <div class="input-group">
 			                        <input type="text" class="form-control" name="InputPalestra" id="InputPalestra" placeholder="Informe o título da palestra." required>
-			                        <span class="input-group-addon"><span class="glyphicon glyphicon-tags"></span><</span>
+			                        <span class="input-group-addon"><span class="glyphicon glyphicon-tags"></span></span>
 			                    </div>
 			                </div>
 						</form>
@@ -114,38 +108,39 @@
 					            </select>
 					        </div>
 							
-							<div style="margin-top: 30px;"></div>
-							<button type="submit" class="btn btn-default">Adicionar</button>
-							<button type="reset" class="btn btn-default">Limpar Dados</button>
-							<div style="margin-top: 30px;"></div>
+<!-- 							<div style="margin-top: 30px;"></div> -->
+<!-- 							<button type="submit" class="btn btn-default">Adicionar</button> -->
+<!-- 							<button type="reset" class="btn btn-default">Limpar Dados</button> -->
+<!-- 							<div style="margin-top: 30px;"></div> -->
 
 
 						</form>
 						<!-- Grid -->
 						<div class="container-fluid">
-						<div class="row">
-							<div class="col-md-13">
-								<table id="grid" class="table table-condensed table-hover table-striped">
-									<thead>
-										<tr>
-											<th data-column-id="id">Evento</th>
-											<th data-column-id="id">Palestra</th>
-											<th data-column-id="id">Descrição</th>
-											<th data-column-id="id">Data</th>
-											<th data-column-id="id">Autor</th>
-											<th data-column-id="id">Tipo</th>
-											<th data-column-id="id">Nota</th>
-											<th data-column-id="id">Status</th>
+<!-- 						<div class="row"> -->
+<!-- 							<div class="col-md-13"> -->
+<!-- 								<table id="grid" class="table table-condensed table-hover table-striped"> -->
+<!-- 									<thead> -->
+<!-- 										<tr> -->
+<!-- 											<th data-column-id="id">Evento</th> -->
+<!-- 											<th data-column-id="id">Palestra</th> -->
+<!-- 											<th data-column-id="id">Descrição</th> -->
+<!-- 											<th data-column-id="id">Data</th> -->
+<!-- 											<th data-column-id="id">Autor</th> -->
+<!-- 											<th data-column-id="id">Tipo</th> -->
+<!-- 											<th data-column-id="id">Nota</th> -->
+<!-- 											<th data-column-id="id">Status</th> -->
 										
-										</tr>
-									</thead>
-								</table>
-							</div>
-						</div>
+<!-- 										</tr> -->
+<!-- 									</thead> -->
+<!-- 								</table> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 						<!-- Fim Grid-->
 						<div style="margin-top: 30px;"></div>
-							<button type="submit" class="btn btn-default">Editar</button>
-							<button type="submit" class="btn btn-default">Apagar</button>
+<!-- 							<button type="submit" class="btn btn-default">Editar</button> -->
+<!-- 							<button type="submit" class="btn btn-default">Apagar</button> -->
+							<br></br>
 							<button type="submit" class="btn btn-default">salvar</button>
 							<div style="margin-top: 15px;"></div>
 						</div>
@@ -179,7 +174,7 @@
 	<script type="text/javascript" src="js/bootstrap-combobox.js" ></script>
 
 	<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-	<script type="text/javascript" src="./js/call4papers.js"></script>
+	<script type="text/javascript" src="./js/paper.js"></script>
 
 	<script type="text/javascript">
       

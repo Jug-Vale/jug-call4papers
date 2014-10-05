@@ -32,26 +32,26 @@ Para entender a aplicação, olhe o resumo dos métodos REST abaixo, com os devi
 
 Método 	  | URI											              | Retorno 
 :-----:	  | :-------------------------------------| :------------------
-GET		    | /rest/v1/paper                        |  Status 200 e um JSON com uma lista Papers.
-GET		    | /rest/v1/autor                        |  Status 200 e um JSON com uma lista Autores.
-GET		    | /rest/v1/evento                       |  Status 200 e um JSON com uma lista Eventos.
-GET		    | /rest/v1/evento/{id}/papers           |  Status 200 e um JSON com uma lista Papers para um Evento. Ou retorna 404, caso não encontre o Evento.
-GET		    | /rest/v1/autor/{id}/papers            |  Status 200 e um JSON com uma lista Papers para um Determinado Autor. Ou retorna 404, caso não encontre o Autor.
+GET		    | /rest/paper                        |  Status 200 e um JSON com uma lista Papers.
+GET		    | /rest/autor                        |  Status 200 e um JSON com uma lista Autores.
+GET		    | /rest/evento                       |  Status 200 e um JSON com uma lista Eventos.
+GET		    | /rest/evento/{id}/papers           |  Status 200 e um JSON com uma lista Papers para um Evento. Ou retorna 404, caso não encontre o Evento.
+GET		    | /rest/autor/{id}/papers            |  Status 200 e um JSON com uma lista Papers para um Determinado Autor. Ou retorna 404, caso não encontre o Autor.
 
 Observe que os métodos acima retornam o que está na `URI` e são desprotegidos. Também é possível acessar recursos paper, autor e evento individualmente usando o id dos mesmos;
 
 Método 	  | URI											              | Retorno           
 :-----:	  | :-------------------------------------| :------------------
-POST		  | /rest/v1/autor                        | Status 201, em caso de sucesso e o Location do novo Autor criado presente no HEADER.
+POST		  | /rest/autor                        | Status 201, em caso de sucesso e o Location do novo Autor criado presente no HEADER.
 
 Este métdo POST permite um usuário anônimo criar um novo autor (usuário com role AUTOR) através do site.
 
 Método 	                | URI											              | Retorno           
 :----------------------:| :-------------------------------------| :------------------
-POST		  | /rest/v1/paper                                      | Status 201 em caso de sucesso.
-DELETE                  | /rest/v1/paper/{id}                   | Status 200 caso tenha removido corretamente.
-PUT                     | /rest/v1/paper/{id}                   | Status 200 caso tenha atualizado o paper corretamente.
-PUT		                  | /rest/v1/autor/{id}                   | Status 200 caso tenha atualizado o autor com sucesso.
+POST		  | /rest/paper                                      | Status 201 em caso de sucesso.
+DELETE                  | /rest/paper/{id}                   | Status 200 caso tenha removido corretamente.
+PUT                     | /rest/paper/{id}                   | Status 200 caso tenha atualizado o paper corretamente.
+PUT		                  | /rest/autor/{id}                   | Status 200 caso tenha atualizado o autor com sucesso.
 
 
 Estes são permitidos **SE E SOMENTE SE** o autor **LOGADO** for dono desses itens (se ele criou).
@@ -85,4 +85,4 @@ Para executar os Testes de Integração para testar todos os serviços, execute 
 
 Você então deve adicionar a configuração de segurança como descrito em [`configuracao-jboss-login.md`](https://github.com/CodeVale/jug-call4papers/blob/master/configuracao-jboss-login.md). Ela irá buscar dados nas tabelas que serão criadas após o deploy da aplicação, então faça o deploy antes!
 
-Fazendo o deploy, uns dados inicíais você já terá para ver a aplicação rodando. Você pode ver o evento de teste em: `http://localhost:8080/jugvale-call4papers/rest/v1/evento/`.
+Fazendo o deploy, uns dados inicíais você já terá para ver a aplicação rodando. Você pode ver o evento de teste em: `http://localhost:8080/jugvale-call4papers/rest/evento/`.
