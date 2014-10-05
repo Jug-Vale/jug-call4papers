@@ -3,6 +3,7 @@ package org.jugvale.call4papers.rest.impl;
 import static org.jugvale.call4papers.rest.utils.RESTUtils.lanca404SeNulo;
 import static org.jugvale.call4papers.rest.utils.RESTUtils.recursoCriado;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
@@ -11,6 +12,7 @@ import org.jugvale.call4papers.model.impl.Paper;
 import org.jugvale.call4papers.rest.PaperResource;
 import org.jugvale.call4papers.service.impl.PaperService;
 
+@Stateless
 public class PaperResourceImpl implements PaperResource {
 
 	@Inject

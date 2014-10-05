@@ -16,7 +16,8 @@ $(function() {
 		
 		if(evento.aceitandoTrabalhos === true) {
 			$("#aceitando_paper").addClass( "alert alert-success alert-dismissible" )
-								 .append("Uhul !!!!! Este evento está aceitando Papers. <a href='paper.html' class='alert-link'>Faça o seu</a>");
+								 .append("Uhul !!!!! Este evento está aceitando Papers. " +
+								 		 	"<a href='paper.html' class='alert-link'>Faça o seu</a>");
 		} else {
 			$("#aceitando_paper").addClass( "alert alert-danger alert-dismissible" ).append("Ops !!! Já encerramos os papers :(");
 		}

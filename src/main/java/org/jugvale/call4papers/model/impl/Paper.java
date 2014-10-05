@@ -5,6 +5,7 @@ import static org.jugvale.call4papers.model.enums.Tipo.HANDS_ON;
 import static org.jugvale.call4papers.model.enums.Tipo.MINI_CURSO;
 import static org.jugvale.call4papers.model.enums.Tipo.PALESTRA;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class Paper extends DefaultModel {
 	private String descricao;
 
 	@Column
-	private Date dataSubmissao;
+	private Date dataSubmissao = Calendar.getInstance().getTime();
 
 	@Column
 	private long nota;

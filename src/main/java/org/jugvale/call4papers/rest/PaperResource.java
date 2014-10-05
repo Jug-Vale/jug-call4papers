@@ -21,7 +21,8 @@ import org.jugvale.call4papers.model.impl.Paper;
 public interface PaperResource {
 
 	@POST
-	@RolesAllowed({"ADMINISTRADOR", "AUTOR"})
+	@PermitAll
+	//@RolesAllowed({"ADMINISTRADOR", "AUTOR"})
 	public Response criar(Paper paper);
 
 	@GET
