@@ -5,7 +5,7 @@ $(function() {
 	});
 	
 	function eventoEspecifico() {
-		$.id = readyURL('id');
+		$.id = readURLParam('id');
 		var evento = EventoResource.buscaPorId( {id:$.id} );
 		
 		var maps = "http://maps.googleapis.com/maps/api/staticmap?center=" + evento.local + "&zoom=15&size=580x300&sensor=false";
@@ -17,7 +17,7 @@ $(function() {
 		if(evento.aceitandoTrabalhos === true) {
 			$("#aceitando_paper").addClass( "alert alert-success alert-dismissible" )
 								 .append("Uhul !!!!! Este evento está aceitando Papers. " +
-								 		 	"<a href='paper.html' class='alert-link'>Faça o seu</a>");
+								 		 	"<a href='paper.html?evento=" + evento.id+ "' class='alert-link'>Submeta o seu</a>");
 		} else {
 			$("#aceitando_paper").addClass( "alert alert-danger alert-dismissible" ).append("Ops !!! Já encerramos os papers :(");
 		}
@@ -97,10 +97,6 @@ $(function() {
 		return desc;
 	}
 	
-	function readyURL(param) {
-		var results = new RegExp('[\?&amp;]' + param + '=([^&amp;#]*)').exec(window.location.href);
-		if(results !== null)
-			return results[1] || 0;
-	}
+
 	
 });

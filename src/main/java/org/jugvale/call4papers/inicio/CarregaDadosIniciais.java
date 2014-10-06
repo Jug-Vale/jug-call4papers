@@ -1,9 +1,9 @@
 package org.jugvale.call4papers.inicio;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -14,7 +14,6 @@ import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.apache.commons.io.FileUtils;
 import org.jugvale.call4papers.model.impl.Autor;
 import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.model.impl.Paper;
@@ -46,11 +45,11 @@ public class CarregaDadosIniciais {
 
 		log.info("#### Carregando dados do usuário administrador. #####");
 		
-		File file = FileUtils.getFile(CarregaDadosIniciais.class.getResource(CAMINHO_PROPERTIES_ADM).getPath());
+		URL file = CarregaDadosIniciais.class.getResource(CAMINHO_PROPERTIES_ADM);
 		
 		if (file != null) {
 			Properties dadosAdmin = new Properties();
-			dadosAdmin.load(new FileInputStream(file));
+			dadosAdmin.load(new FileInputStream(file.getPath()));
 			dadosAdmin.keySet().forEach(
 					u -> {
 						String login = String.valueOf(u);
@@ -67,15 +66,6 @@ public class CarregaDadosIniciais {
 		}
 		
 		log.info("#### Carregando dados de demonstração #####");
-		Usuario mariaUsr = Usuario.autor().comLogin("Maria").comSenha("mariah")
-				.build();
-
-		//em.persist(mariaUsr);
-
-		Usuario joseUsr = Usuario.autor().comLogin("Josevaldo")
-				.comSenha("jose123valdo").build();
-
-		//em.persist(joseUsr);
 
 		Evento grandeEvento = Evento
 				.newEvento()
@@ -93,7 +83,7 @@ public class CarregaDadosIniciais {
 				.comEmail("meuemail@gmail.com").comSite("www.mariajava.com")
 				.comTelefone("(99) 9 9999-9999")
 				.comMiniCV("Grande conhecida no mundo Java...")
-				.comUsuario(mariaUsr).build();
+				.build();
 
 		em.persist(maria);
 
@@ -101,7 +91,7 @@ public class CarregaDadosIniciais {
 				.comEmail("josevaldoJava@gmail.com")
 				.comSite("www.josevaldojava.com")
 				.comTelefone("(99) 9 9999-9999")
-				.comMiniCV("Mestre no mundo Java...").comUsuario(joseUsr)
+				.comMiniCV("Mestre no mundo Java...")
 				.build();
 
 		em.persist(jose);

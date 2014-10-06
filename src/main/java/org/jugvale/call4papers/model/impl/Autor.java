@@ -1,9 +1,7 @@
 package org.jugvale.call4papers.model.impl;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jugvale.call4papers.model.DefaultModel;
@@ -18,7 +16,6 @@ public class Autor extends DefaultModel {
 	@Column(nullable = false)
 	private String nome;
 
-	@Column(unique = true)
 	private String email;
 
 	@Column
@@ -29,9 +26,6 @@ public class Autor extends DefaultModel {
 
 	@Column
 	private String miniCurriculo;
-
-	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE } )
-	private Usuario usuario;
 
 	public static AutorBuilder newAutor() {
 		return new AutorBuilder();
@@ -75,14 +69,6 @@ public class Autor extends DefaultModel {
 
 	public void setMiniCurriculo(String miniCurriculo) {
 		this.miniCurriculo = miniCurriculo;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 }

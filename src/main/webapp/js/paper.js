@@ -1,9 +1,11 @@
 $(function() {
 	
 	$( document ).ready(function() {
-		
+		var eventoId = readURLParam('evento');
+		carregaComboEvento(eventoId);
+		novoEvento();
 		//Inicio Mascara Telefone
-		    jQuery('input[type=tel]').mask("(99) 9999-9999?9").ready(function(event) {
+		    $('input[type=tel]').mask("(99) 9999-9999?9").ready(function(event) {
 		        var target, phone, element;
 		        target = (event.currentTarget) ? event.currentTarget : event.srcElement;
 		        phone = target.value.replace(/\D/g, '');
@@ -17,25 +19,16 @@ $(function() {
 		    });
 	    //Fim Mascara Telefone
 	    
-		carregaComboEvento();
-		novoEvento()
 	});
 	
-	function carregaComboEvento() {
-		var eventos = EventoResource.listarTodos();
+	function carregaComboEvento(eventoId) {
+		var evento =  EventoResource.buscaPorId({id:eventoId} );
+		// Se não tiver o ID do evento passado deve direcionar para a página de 404
 		var select = $("#id_select_evento");
-		
-		if(eventos.length === 1) {
-			select.append(new Option("Selecione um Evento", ""));
-		} 
-			
-		$.each(eventos, function(key, value) {
-			select.append(new Option(value.nome, value.id));
-		});
-		
+		select.append(new Option(evento.nome, evento.id));
 	}
 	
-	function varificaCamposPaper( eventoSelect, tituloPalestra, descricao, tipoPalestra ) {
+	function verificaCamposPaper( eventoSelect, tituloPalestra, descricao, tipoPalestra ) {
 		if (eventoSelect === "") {
 			$('#evento_form').addClass("has-error");
 		} else {
@@ -63,19 +56,7 @@ $(function() {
 		return ( (eventoSelect !== "") && (tituloPalestra !== "") && (descricao !== "") && (tipoPalestra !== "") )
 	}
 	
-	function verificaCamposAutor(login, senha, nome, email, miniCv) {
-		
-		if (login === "") {
-			$('#login_form').addClass("has-error");
-		} else {
-			$('#login_form').removeClass("has-error").addClass("has-success");
-		}
-		
-		if (senha === "") {
-			$('#senha_form').addClass("has-error");
-		} else {
-			$('#senha_form').removeClass("has-error").addClass("has-success");
-		}
+	function verificaCamposAutor(nome, email, miniCv) {
 		
 		if (nome === "") {
 			$('#nome_form').addClass("has-error");
@@ -95,7 +76,7 @@ $(function() {
 			$('#mini_cv_form').removeClass("has-error").addClass("has-success");
 		}
 		
-		return ( (login !== "") && (senha !== "") && (nome !== "") && (email !== "") && (miniCv !== "") )
+		return ( (nome !== "") && (email !== "") && (miniCv !== "") )
 		
 	}
 	
@@ -106,24 +87,18 @@ $(function() {
 		$("#btn_salvar").click( function() {
 			
 			//Autor
-			var login = $('#input_login').val();
-			var senha = $('#input_senha').val();
+
 			var nome = $('#input_nome').val();
 			var email = $('#input_email').val();
 			var telefone = $('#input_telefone').val();
 			var site = $('#input_site').val();
 			var miniCv = $('#mini_cv_area').val();
 			
-			var podeProsseguir = verificaCamposAutor(login, senha, nome, email, miniCv);
+			var podeProsseguir = verificaCamposAutor( nome, email, miniCv);
 			
 			if (podeProsseguir) {
 				
 				$.autor = {
-						usuario:{
-							login:login,
-							senha:senha,
-							role:"AUTOR"
-						},
 						nome:nome,
 						email:email,
 						telefone:telefone,
@@ -139,7 +114,7 @@ $(function() {
 			var descricao = $('#input_descricao').val();
 			var tipoPalestra = $('#id_tipo_palestra').val();
 			
-			if ( varificaCamposPaper(eventoSelect, tituloPalestra, descricao, tipoPalestra) ) {
+			if ( verificaCamposPaper(eventoSelect, tituloPalestra, descricao, tipoPalestra) ) {
 				
 				var evento = EventoResource.buscaPorId( {id:eventoSelect} );
 				var autores = AutorResource.listarTodos();
@@ -155,7 +130,7 @@ $(function() {
 				console.log($.paper);
 				
 				var r = new REST.Request();
-				r.setURI(url + "rest/paper");
+				r.setURI("./rest/paper");
 				r.setMethod("POST");
 				r.setContentType("application/json");
 				r.setEntity($.paper);
@@ -163,9 +138,10 @@ $(function() {
 				r.execute(function(status, request, response, entity) {
 					
 					if(status == 201) {
+						// Mandando para uma página de sucesso, assim ele limpa os campos.
 						$("#status_inscricao")
 							.addClass( "alert alert-success alert-dismissible" )
-							.append("Parabéns, seu papaer foi salvo. Entraremos em contato para maiore informações =D");
+							.append("Parabéns, seu paper foi salvo. Entraremos em contato para maiore informações =D");
 					} else {
 						console.log(status);
 						$("#status_inscricao")

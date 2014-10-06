@@ -11,7 +11,6 @@ import static org.jugvale.call4papers.rest.util.Constantes.SERVICES_CONTEXT;
 import static org.jugvale.call4papers.rest.utils.RESTUtils.getMessage404;
 
 import org.jugvale.call4papers.model.impl.Autor;
-import org.jugvale.call4papers.model.impl.Usuario;
 import org.jugvale.call4papers.rest.TestResourceDefault;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +32,7 @@ public class AutorResourceIT implements TestResourceDefault{
 				.comSite("www.mariajava.com")
 				.comTelefone("(99) 9 9999-9999")
 				.comMiniCV("Grande conhecida no mundo Java...")
-				.comUsuario(Usuario.newUsuario().administrador().build()).build();
+				.build();
 		
 		 ObjectMapper mapper = new ObjectMapper();
 		 jsonAutor = mapper.writeValueAsString(autor);

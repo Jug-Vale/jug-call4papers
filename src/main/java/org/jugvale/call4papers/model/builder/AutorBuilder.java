@@ -1,7 +1,6 @@
 package org.jugvale.call4papers.model.builder;
 
 import org.jugvale.call4papers.model.impl.Autor;
-import org.jugvale.call4papers.model.impl.Usuario;
 
 /**
  * @author Pedro Hos
@@ -41,11 +40,6 @@ public class AutorBuilder {
 	
 	public AutorBuilder comMiniCV(String miniCurriculo) {
 		autor.setMiniCurriculo(miniCurriculo);
-		return this;
-	}
-	
-	public AutorBuilder comUsuario(Usuario usuario) {
-		autor.setUsuario(usuario);
 		return this;
 	}
 	
