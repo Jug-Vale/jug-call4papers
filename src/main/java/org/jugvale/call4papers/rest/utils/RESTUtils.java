@@ -6,6 +6,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
+import org.jugvale.call4papers.model.DefaultModel;
 import org.jugvale.call4papers.util.MessageUtil;
 
 public class RESTUtils {
@@ -21,10 +22,17 @@ public class RESTUtils {
 		return lanca404SeNulo(object, getMessage404(id));
 	}
 
-	public static Response recursoCriado(Class<?> resource, long id) {
+	public static <T extends DefaultModel> Response recursoCriado(Class<?> resource, T entity) {
 		return Response.created( UriBuilder.fromResource(resource)
-								.path(String.valueOf(id)).build())
+								.path(String.valueOf(entity.getId())).build())
+								.entity(entity)
 								.build();
+	}
+	
+	public static Response recursoCriado(Class<?> resource, Long id) {
+		return Response.created( UriBuilder.fromResource(resource)
+				.path(String.valueOf(id)).build())
+				.build();
 	}
 	
 	public static String getMessage404(long id) {

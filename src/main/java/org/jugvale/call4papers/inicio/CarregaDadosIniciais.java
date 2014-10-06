@@ -70,12 +70,12 @@ public class CarregaDadosIniciais {
 		Usuario mariaUsr = Usuario.autor().comLogin("Maria").comSenha("mariah")
 				.build();
 
-		em.persist(mariaUsr);
+		//em.persist(mariaUsr);
 
 		Usuario joseUsr = Usuario.autor().comLogin("Josevaldo")
 				.comSenha("jose123valdo").build();
 
-		em.persist(joseUsr);
+		//em.persist(joseUsr);
 
 		Evento grandeEvento = Evento
 				.newEvento()

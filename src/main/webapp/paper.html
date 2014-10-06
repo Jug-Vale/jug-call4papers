@@ -28,17 +28,75 @@
 	<div class="container">
 		
 		<div class="row">
-			<h3>Cadastro de Papers</h3>
-			<hr>
+			<br>
+			<div id="status_inscricao" role="alert">
+				<button type="button" id="btn_close" class="close hide" data-dismiss="alert">
+					<span aria-hidden="true">&times;</span>
+					<span class="sr-only">Fechar</span>
+				</button>
+			</div>
 			
   			<div class="col-md-8">
   				<br>
-  				 <div id="status_inscricao" role="alert">
-					<button type="button" id="btn_close" class="close hide" data-dismiss="alert">
-						<span aria-hidden="true">&times;</span>
-						<span class="sr-only">Fechar</span>
-					</button>
-				</div>
+				<h3>Cadastro de Autores</h3>
+				<hr>
+				
+				<form class="form-horizontal" role="form">
+					<div class="form-group" id="login_form">
+                   		<label class="col-sm-3 control-label" for="input_login">Login</label>
+                   		<div class="input-group">
+                       		<input type="text" class="form-control" name="input_login" id="input_login" placeholder="Informe um login" required>
+                    	</div>
+	                </div>
+	                
+	                <div class="form-group" id="senha_form">
+                   		<label class="col-sm-3 control-label" for="input_senha">Senha</label>
+                   		<div class="input-group">
+                       		<input type="password" class="form-control" name="input_senha" id="input_senha" placeholder="Password" required>
+                    	</div>
+	                </div>
+	                
+	                <hr>
+	                
+	                <div class="form-group" id="nome_form">
+                   		<label class="col-sm-3 control-label" for="input_nome">Nome</label>
+                   		<div class="input-group col-sm-8">
+                       		<input type="text" class="form-control" name="input_nome" id="input_nome" placeholder="Nome" required>
+                    	</div>
+	                </div>
+	                
+	                 <div class="form-group" id="email_form">
+                   		<label class="col-sm-3 control-label" for="input_email">E-Mail</label>
+                   		<div class="input-group col-sm-8">
+                       		<input type="text" class="form-control" name="input_email" id="input_email" placeholder="E-Mail" required>
+                    	</div>
+	                </div>
+	                
+	                 <div class="form-group" id="telefone_form">
+                   		<label class="col-sm-3 control-label" for="input_telefone">Telefone</label>
+                   		<div class="input-group col-sm-8">
+                       		<input type="tel" class="form-control" name="input_telefone" id="input_telefone" placeholder="Telefone para Contato">
+                    	</div>
+	                </div>
+	                
+	                <div class="form-group" id="site_form">
+                   		<label class="col-sm-3 control-label" for="input_site">Site</label>
+                   		<div class="input-group col-sm-8">
+                       		<input type="text" class="form-control" name="input_site" id="input_site" placeholder="Site">
+                    	</div>
+	                </div>
+	                
+	                <div class="form-group" id="mini_cv_form">
+	                    <label class="col-sm-3 control-label" for="mini_cv_area">Mini Currículo</label>
+	                    <div class="input-group col-sm-8">
+	                        <textarea name="inputDescricao" id="mini_cv_area" class="form-control" placeholder="Informe suas experiências." rows="4" required></textarea>
+	                    </div>
+	                </div>
+	                
+				</form>
+				
+				<h3>Cadastro de Papers</h3>
+				<hr>
 				
 				<!-- FORM Inicio -->
 				
@@ -55,7 +113,6 @@
 						<label class="col-sm-3 control-label">Evento</label>
 						<div class="input-group">
 							<select id="id_select_evento" class="form-control">
-								<option value="" selected="selected">Selecione o tipo</option>
 			           	 	</select>
 			           	 </div>
 					</div>
@@ -109,7 +166,8 @@
 
 	<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 	<script type="text/javascript" src="./js/paper.js"></script>
-
+	
+	<script type="text/javascript" src="https://raw.github.com/digitalBush/jquery.maskedinput/1.3.1/dist/jquery.maskedinput.min.js"></script>
 	<script type="text/javascript">
       
         $(document).ready(function(){

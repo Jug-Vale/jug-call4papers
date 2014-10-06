@@ -1,5 +1,6 @@
 package org.jugvale.call4papers.model.impl;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -29,7 +30,7 @@ public class Autor extends DefaultModel {
 	@Column
 	private String miniCurriculo;
 
-	@OneToOne
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE } )
 	private Usuario usuario;
 
 	public static AutorBuilder newAutor() {
