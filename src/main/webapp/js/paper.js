@@ -1,4 +1,6 @@
 $(function() {
+	var CLASSE_CSS_ERRO = "has-error";
+	var CLASSE_CSS_SUCESSO = "has-success";
 	
 	$( document ).ready(function() {
 		carregaEvento(readURLParam('evento'));
@@ -11,14 +13,12 @@ $(function() {
 		var temErro = false;
 		var funcaoVerificaCampos = function () {
 			var el = $(this);
-			console.log(el);
 			el.find("input[type=text], textarea, input[type=tel]").each(function () {
-				console.log(this.value)
 				if(this.value == "") {
-					el.addClass("has-error");
+					el.addClass(CLASSE_CSS_ERRO);
 					temErro = true;
 				} else {
-					el.removeClass("has-error").addClass("has-success");
+					el.removeClass(CLASSE_CSS_ERRO).addClass(CLASSE_CSS_SUCESSO);
 				}
 			});
 		};
@@ -47,12 +47,17 @@ $(function() {
 	}
 	
 	function limpaCamposForm() {
-		$(".form-group").find("input[type=text], textarea, input[type=tel]").each(function () {
-			this.value = "";
+		$(".form-group").each(function (){
+			$(this).removeClass(CLASSE_CSS_SUCESSO)
+				.removeClass(CLASSE_CSS_ERRO)
+		    	.find("input[type=text], textarea, input[type=tel]").each(function () {
+		    	this.value = "";
+		    })
 		});
 	}
 	
 	function salvaEvento() {
+		// Angular ia bem aqui viu
 		//Autor
 		var nome = $('#input_nome').val();
 		var email = $('#input_email').val();
@@ -65,7 +70,6 @@ $(function() {
 		var descricao = $('#input_descricao').val();
 		var tipoPalestra = $('#id_tipo_palestra').val();
 		
-		// verificar todos campos aqui iterando sob o form
 		if(haErrosNosForms()) {
 			vaiParaOTopo();
 			$("#status_inscricao")
@@ -73,6 +77,7 @@ $(function() {
 				.html("Há problemas no formulário. Por favor, verifique os campos com erro.");
 			return false;
 		}
+		
 		$.autor = {
 				nome:nome,
 				email:email,
