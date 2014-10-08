@@ -26,7 +26,9 @@
 	<div class="container">
 		
 		<div class="row">
+		
   			<div class="col-md-8">
+
   				<br>
 				<div id="aceitando_paper" role="alert">
 					<button type="button" id="btn_close" class="close hide" data-dismiss="alert">
@@ -34,6 +36,13 @@
 						<span class="sr-only">Fechar</span>
 					</button>
 				</div>
+				
+				<div id="status_voto" role="alert_voto">
+					<button type="button" id="btn_close_alerta_voto" class="close hide" data-dismiss="alert_voto">
+						<span aria-hidden="true">&times;</span>
+						<span class="sr-only">Fechar</span>
+					</button>
+				</div>				
 		
 				<div id="evento_box">
 					<!-- EVENTO VEM DO JS -->
@@ -46,9 +55,8 @@
 							<div class="panel panel-default" id="panel_default_id">
 								<div class="panel-heading">
 									<h4 class="panel-title">
-										
-										<span id="aceito_id" class=""></span>
-										
+										<a id="votar_evento"  class="pull-right glyphicon glyphicon-thumbs-up" href="#" style="margin-left: 10px;" ></a>
+										<span class="pull-right badge badge-info" id="paper_total_votos"></span>
 										<a id="titulo_id" data-toggle="collapse" data-parent="#accordion" href="">
 										</a>
 									</h4>
@@ -57,9 +65,7 @@
       								<div class="panel-body">
       									<p id="descricao_paper_id" class="text-justify"><b>Descrição: </b></p>
       									<p id="tipo_paper_id" class="text-capitalize"><b>Tipo: </b></p>
-											
-										<hr>
-											      									
+										<hr />     									
       									<div id="autores_id">
       									</div>
       								</div>
@@ -67,9 +73,7 @@
 							</div>
 						</div>
 					</div>
-					
-					<br>
-					
+					<br />
 					<div id="infos_id">
 						<h4>Descrição</h4>
 						<p id="descricao_id" class="text-justify"></p>
@@ -99,10 +103,8 @@
 						<p id="contato_id" class="text-justify">
 							<a id="site" target="_blank"></a>
 						</p>
-						
 					</div>
 				</div>
-  			
   			</div>
   			<div class="col-md-4"> <!-- VAZIO --> </div>
 		</div>
@@ -119,6 +121,33 @@
 	</div>
 	<!-- /container -->
 
+<div id="voto_paper_confirmacao" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Confirmação voto</h4>
+            </div>
+            <div class="modal-body">
+                <p>Confirmar voto para "<em><span id="paper_voto_titulo"></span></em>"</p>
+	 				<script type="text/javascript"
+					   src="https://www.google.com/recaptcha/api/challenge?k=6LfRmPsSAAAAAGtZnKd-xdAxyV0aKbKVBH303-KN">
+					 </script>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btn_confirmar_voto">Confirmar voto</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+	<!--  dialogs -->
+	<div id="dialog-form" title="Confirmar Voto">
+		<script type="text/javascript"
+		   src="https://www.google.com/recaptcha/api/challenge?k=6LfRmPsSAAAAAGtZnKd-xdAxyV0aKbKVBH303-KN">
+		 </script>
+	</div>
 	<!--  Javascript comum -->
 	<script type="text/javascript" src="./js/comum.js"></script>
 

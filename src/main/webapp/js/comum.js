@@ -1,4 +1,15 @@
 /**
+ * Variáveis Globais
+ * 
+*/
+
+var CLASSE_CSS_ERRO_FORM = "has-error";
+var CLASSE_CSS_SUCESSO_FORM = "has-success";
+
+var CLASSE_CSS_SUBMISSAO_PROBLEMA = "alert alert-danger alert-dismissible";
+var CLASSE_CSS_SUBMISSAO_SUCESSO = "alert alert-success alert-dismissible";
+
+/**
  * Funções comuns
  * 
  */

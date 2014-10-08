@@ -10,7 +10,6 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Context;
 
 import net.tanesha.recaptcha.ReCaptchaImpl;
-import net.tanesha.recaptcha.ReCaptchaResponse;
 
 /**
  * 
@@ -30,11 +29,10 @@ public class CaptchaInterceptor implements ContainerRequestFilter {
 	Logger log = Logger.getLogger(CaptchaInterceptor.class.getCanonicalName());
 
 	private String chavePrivadaCaptcha;
-	
+
 	public CaptchaInterceptor() {
 		super();
 	}
-
 
 	public CaptchaInterceptor(String chavePrivadaCaptcha) {
 		super();
@@ -42,8 +40,9 @@ public class CaptchaInterceptor implements ContainerRequestFilter {
 	}
 
 	@Override
-	public void filter(ContainerRequestContext ctx) throws IOException {	
+	public void filter(ContainerRequestContext ctx) throws IOException {
 		boolean ehAdm = ctx.getSecurityContext().isUserInRole("ADMINISTRADOR");
+		boolean passouCaptcha = false;
 		log.info("## Criando novo Paper ##");
 		if (!ehAdm) {
 			String remoteAddr = request.getRemoteAddr();
@@ -52,12 +51,15 @@ public class CaptchaInterceptor implements ContainerRequestFilter {
 			String challenge = request
 					.getParameter("recaptcha_challenge_field");
 			String uresponse = request.getParameter("recaptcha_response_field");
-			ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(
-					remoteAddr, challenge, uresponse);
-			if (!reCaptchaResponse.isValid()) {
-				throw new NotAuthorizedException("Captcha errado...");
+			if (challenge != null && uresponse != null) {
+				passouCaptcha = reCaptcha.checkAnswer(remoteAddr, challenge,
+						uresponse).isValid();
 			}
 		}
+		if (!passouCaptcha) {
+			throw new NotAuthorizedException("Captcha errado ou parâmetros não informados...");
+		}
+
 	}
 
 }

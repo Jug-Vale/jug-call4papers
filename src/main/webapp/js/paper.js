@@ -1,16 +1,10 @@
 $(function() {
-	var CLASSE_CSS_ERRO_FORM = "has-error";
-	var CLASSE_CSS_SUCESSO_FORM = "has-success";
-	
-	var CLASSE_CSS_SUBMISSAO_PROBLEMA = "alert alert-danger alert-dismissible"
-	var CLASSE_CSS_SUBMISSAO_SUCESSO = "alert alert-success alert-dismissible"
 	
 	$( document ).ready(function() {
 		carregaEvento();
 		registraListeners();
 		criaMascaras();
 	});
-	
 	
 	function registraListeners() {
 		$("#btn_salvar").click(salvaEvento);	
@@ -25,16 +19,27 @@ $(function() {
 		var funcaoVerificaCampos = function () {
 			var el = $(this);
 			el.find("input[type=text], textarea, input[type=tel]").each(function () {
-				if(this.value == "") {
+				if(validar(this)) {
+					el.removeClass(CLASSE_CSS_ERRO_FORM).addClass(CLASSE_CSS_SUCESSO_FORM);
+				} else {
 					el.addClass(CLASSE_CSS_ERRO_FORM);
 					temErro = true;
-				} else {
-					el.removeClass(CLASSE_CSS_ERRO_FORM).addClass(CLASSE_CSS_SUCESSO_FORM);
 				}
 			});
 		};
 		$(".form-group").each(funcaoVerificaCampos);
 		return temErro;
+	}
+	
+	function validar (el) {
+		var validador = /.+/;
+		if(el.id == 'input_email') {
+			validador = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		}
+		if (el.id == 'input_site') {
+			validador = /^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/;
+		}
+		return validador.test(el.value);
 	}
 	
 	function carregaEvento() {
@@ -51,7 +56,6 @@ $(function() {
 				}
 			}
 		});
-		
 	}
 	
 	function vaiParaOTopo() {
@@ -134,6 +138,7 @@ $(function() {
 					.html("Outch =/ Aconteceu algum erro. Tente novamente mais tarde e/ou envie um e-mail para jugvale@gmail.com");
 			}
 			vaiParaOTopo();
+			Recaptcha.reload();
 		});
 	}
 });

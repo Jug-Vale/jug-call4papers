@@ -44,5 +44,10 @@ public interface PaperResource {
 	@Path("/{id}")
 	@RolesAllowed({"ADMINISTRADOR"})
 	public Response atualizar(@PathParam("id") long id, Paper paper);
+	
+	@POST
+	@Path("/{id}/votar")
+	@VerificaCaptcha
+	public Response votarNoPaper(@PathParam("id") long id);
 
 }

@@ -3,10 +3,13 @@ package org.jugvale.call4papers.rest.impl;
 import static org.jugvale.call4papers.rest.utils.RESTUtils.lanca404SeNulo;
 import static org.jugvale.call4papers.rest.utils.RESTUtils.recursoCriado;
 
+import java.util.Date;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.jugvale.call4papers.model.impl.Paper;
 import org.jugvale.call4papers.rest.PaperResource;
@@ -48,6 +51,21 @@ public class PaperResourceImpl implements PaperResource {
 		lanca404SeNulo(paperService.buscarPorId(id), id);
 		paper.setId(id);
 		return Response.ok(paperService.atualizar(paper)).build();
+	}
+
+	@Override
+	public Response votarNoPaper(long id) {
+		Paper paper = paperService.buscarPorId(id);
+		lanca404SeNulo(paper, id);
+		if(paper.getEvento().getDataFim().before(new Date())) {
+			long nota = paper.getNota();
+			paper.setNota(nota + 1);
+			paperService.atualizar(paper);
+			return Response.ok().build();
+		} else {
+			return Response.status(Status.FORBIDDEN).entity("Evento já passou!").build();
+		}
+		
 	}
 
 }
