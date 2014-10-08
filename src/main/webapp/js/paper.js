@@ -6,7 +6,11 @@ $(function() {
 		carregaComboEvento(eventoId);
 		novoEvento();
 		//Inicio Mascara Telefone
-	    $("input[type=tel]").mask("(99) 9999-9999?9").ready(function(event) {
+	    $(".form-group input[type=tel]")
+	    .mask("(00) 00000-0000");
+	    /*
+	    .mask("(99) 9999-9999?9")
+	    .ready(function(event) {
 	        var target, phone, element;
 	        target = (event.currentTarget) ? event.currentTarget : event.srcElement;
 	        phone = target.value.replace(/\D/g, '');
@@ -17,7 +21,7 @@ $(function() {
 	        } else {
 	            element.mask("(99) 9999-9999?9");
 	        }
-	    });
+	    });*/
 	    //Fim Mascara Telefone
 	    
 	});
