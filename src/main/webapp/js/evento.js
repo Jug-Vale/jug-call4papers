@@ -53,12 +53,14 @@ $(function() {
 						.attr('id','id_' + id_paper)
 						.append( value.titulo );
 			
+			/*
+			 REMOVENDO POR ENQUANTO! 
 			if(value.aceito === true) {
 				accordion.find("#aceito_id").addClass("label label-success").append("ACEITO");
 			} else {
 				accordion.find("#aceito_id").addClass("label label-danger").append("NÃO ACEITO");
 			}
-			
+			*/
 			accordion.find(".panel-collapse")
 						.attr('id', id_paper );
 			
