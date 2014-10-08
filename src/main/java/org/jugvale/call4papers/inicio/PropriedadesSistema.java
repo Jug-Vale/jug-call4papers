@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -27,6 +26,9 @@ public class PropriedadesSistema {
 
 	Logger log = Logger.getLogger(PropriedadesSistema.class.getCanonicalName());
 
+	private final String CAPTCHA_CHAVE_PUBLICA = "CAPTCHA_CHAVE_PUBLICA";
+	private final String CAPTCHA_CHAVE_PRIVADA = "CAPTCHA_CHAVE_PRIVADA";
+
 	private Properties propriedades;
 
 	@PostConstruct
@@ -35,17 +37,21 @@ public class PropriedadesSistema {
 		propriedades = new Properties();
 		URL file = PropriedadesSistema.class
 				.getResource(CAMINHO_PROPERTIES_ADM);
+		log.info("## Configurações carregadas com sucesso! ##");
 		if (file != null) {
 			propriedades.load(new FileInputStream(file.getPath()));
 		} else {
-			log.info("Não foi possível carregar as propriedades do sistema! Crie um arquivo chamado "
-					+ CAMINHO_PROPERTIES_ADM + " e faça o redeploy");
+			log.info("## Não foi possível carregar as propriedades do sistema! Crie um arquivo chamado "
+					+ CAMINHO_PROPERTIES_ADM + " e faça o redeploy ##");
 		}
-
 	}
 
-	public Optional<?> get(String nomePropriedade) {
-		return Optional.of(propriedades.get(nomePropriedade));
+	public String chavePrivadaCaptcha() {
+		return propriedades.getProperty(CAPTCHA_CHAVE_PRIVADA);
+	}
+
+	public String chavePublicaCaptcha() {
+		return propriedades.getProperty(CAPTCHA_CHAVE_PUBLICA);
 
 	}
 

@@ -122,12 +122,25 @@
 	                        <span class="input-group-addon"><span class="glyphicon glyphicon-comment"></span></span>
 	                    </div>
 	                </div>
+	                
+	                <div class="form-group">
+						<label class="col-sm-3 control-label">Verificação Anti-Robô</label>
+						<div class="input-group">
+						<div id="conteudo_captcha">
+							 <script type="text/javascript"
+							   src="https://www.google.com/recaptcha/api/challenge?k=6LfRmPsSAAAAAGtZnKd-xdAxyV0aKbKVBH303-KN">
+							 </script>
+						</div>
+						</div>
+					</div>
 				</form>
 				
+				
+				
                 <div class="form-group">
-                	<label class="col-sm-3 control-label" for="inputDescricao"></label>
+                	<label class="col-sm-3 control-label" for="btn_salvar"></label>
 	                <div class="input-group">
-	               		<button type="submit" id="btn_salvar" class="btn btn-default">Salvar</button>
+	               		<button type="submit" id="btn_salvar" name="btn_salvar" class="btn btn-default">Salvar</button>
 	               	</div>
                 </div>
 
@@ -157,10 +170,10 @@
 	<script type="text/javascript" src="./js/jquery.mask.min.js"></script>
 	
 	<script type="text/javascript">
-      
-        $(document).ready(function(){
-          $('.combobox').combobox()
-        });
+		    
+	      $(document).ready(function(){
+	        $('.combobox').combobox()
+	      });
      
     </script>
 

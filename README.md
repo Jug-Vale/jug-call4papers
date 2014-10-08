@@ -15,10 +15,6 @@ A aplicação na WEB para o usuário não logado permitirá:
 
 * Ver eventos abertos, fechados, papers e autores
 
-A aplicação WEB para autores permitirá:
-
-* Logar e submeter papers para eventos em aberto. Apagar Papers já submetidos.
-
 A aplicação ainda contará com uma interface que permite modificar, criar e apagar Papers, Autores e Eventos. 
 
 ### Como funciona?
@@ -37,24 +33,7 @@ GET		    | /rest/autor                        |  Status 200 e um JSON com uma li
 GET		    | /rest/evento                       |  Status 200 e um JSON com uma lista Eventos.
 GET		    | /rest/evento/{id}/papers           |  Status 200 e um JSON com uma lista Papers para um Evento. Ou retorna 404, caso não encontre o Evento.
 GET		    | /rest/autor/{id}/papers            |  Status 200 e um JSON com uma lista Papers para um Determinado Autor. Ou retorna 404, caso não encontre o Autor.
-
-Observe que os métodos acima retornam o que está na `URI` e são desprotegidos. Também é possível acessar recursos paper, autor e evento individualmente usando o id dos mesmos;
-
-Método 	  | URI											              | Retorno           
-:-----:	  | :-------------------------------------| :------------------
-POST		  | /rest/autor                        | Status 201, em caso de sucesso e o Location do novo Autor criado presente no HEADER.
-
-Este métdo POST permite um usuário anônimo criar um novo autor (usuário com role AUTOR) através do site.
-
-Método 	                | URI											              | Retorno           
-:----------------------:| :-------------------------------------| :------------------
 POST		  | /rest/paper                                      | Status 201 em caso de sucesso.
-DELETE                  | /rest/paper/{id}                   | Status 200 caso tenha removido corretamente.
-PUT                     | /rest/paper/{id}                   | Status 200 caso tenha atualizado o paper corretamente.
-PUT		                  | /rest/autor/{id}                   | Status 200 caso tenha atualizado o autor com sucesso.
-
-
-Estes são permitidos **SE E SOMENTE SE** o autor **LOGADO** for dono desses itens (se ele criou).
 
 * _Usuários com role de **ADMINISTRADOR** podem acessar todos os métodos do sistema._
 
@@ -65,9 +44,10 @@ Empacotando e rodando a aplicação
 --------
 
 Temos uma aplicação Maven aqui com JEE 6 e Java 7.
-Antes de qualquer coisa, crie um arquivo em `src/main/resources` chamado `admin.properties`. Ele deverá conter o login e a senha do usuário administrador master do projeto, o conteúdo pode ser como segue:
+Antes de qualquer coisa, crie um arquivo em `src/main/resources` chamado `config.properties`. Ele deverá conter a configuração para o captcha na submissão de paper e participante como segue
 ~~~
-admin=admin123
+CAPTCHA_CHAVE_PUBLICA={valor para a chave pública}
+CAPTCHA_CHAVE_PRIVADA={valor para a chave privada}
 ~~~
 
 
@@ -83,6 +63,6 @@ Para executar os Testes de Integração para testar todos os serviços, execute 
 
 **Ativando a Segurança**
 
-Você então deve adicionar a configuração de segurança como descrito em [`configuracao-jboss-login.md`](https://github.com/CodeVale/jug-call4papers/blob/master/configuracao-jboss-login.md). Ela irá buscar dados nas tabelas que serão criadas após o deploy da aplicação, então faça o deploy antes!
+A configuração de segurança foi simplicada já que não temos mais a role de autor. Para ter um usuário admnistrador simplesmente [crie um usuário do JBoss](https://docs.jboss.org/author/display/AS71/add-user+utility) no "realm"   `ApplicationRealm` e dê o role ADMINISTRADOR para ele.
 
-Fazendo o deploy, uns dados inicíais você já terá para ver a aplicação rodando. Você pode ver o evento de teste em: `http://localhost:8080/jugvale-call4papers/rest/evento/`.
+Fazendo o deploy, uns dados inicíais você já terá para ver a aplicação rodando. Você pode ver o evento de teste em: `http://localhost:8080/jugvale-call4papers/rest/evento/` ou a página inicial em `http://localhost:8080/jugvale-call4papers/`.

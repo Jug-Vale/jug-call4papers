@@ -1,13 +1,24 @@
 $(function() {
-	var CLASSE_CSS_ERRO = "has-error";
-	var CLASSE_CSS_SUCESSO = "has-success";
+	var CLASSE_CSS_ERRO_FORM = "has-error";
+	var CLASSE_CSS_SUCESSO_FORM = "has-success";
+	
+	var CLASSE_CSS_SUBMISSAO_PROBLEMA = "alert alert-danger alert-dismissible"
+	var CLASSE_CSS_SUBMISSAO_SUCESSO = "alert alert-success alert-dismissible"
 	
 	$( document ).ready(function() {
-		carregaEvento(readURLParam('evento'));
-		$("#btn_salvar").click(salvaEvento);
-	    $(".form-group input[type=tel]").mask("(00) 00000-0000");
-	    
+		carregaEvento();
+		registraListeners();
+		criaMascaras();
 	});
+	
+	
+	function registraListeners() {
+		$("#btn_salvar").click(salvaEvento);	
+	}
+	
+	function criaMascaras() {
+		$(".form-group input[type=tel]").mask("(00) 00000-0000");
+	}
 	
 	function haErrosNosForms() {
 		var temErro = false;
@@ -15,10 +26,10 @@ $(function() {
 			var el = $(this);
 			el.find("input[type=text], textarea, input[type=tel]").each(function () {
 				if(this.value == "") {
-					el.addClass(CLASSE_CSS_ERRO);
+					el.addClass(CLASSE_CSS_ERRO_FORM);
 					temErro = true;
 				} else {
-					el.removeClass(CLASSE_CSS_ERRO).addClass(CLASSE_CSS_SUCESSO);
+					el.removeClass(CLASSE_CSS_ERRO_FORM).addClass(CLASSE_CSS_SUCESSO_FORM);
 				}
 			});
 		};
@@ -26,7 +37,8 @@ $(function() {
 		return temErro;
 	}
 	
-	function carregaEvento(eventoId) {
+	function carregaEvento() {
+		var eventoId = readURLParam('evento');
 		EventoResource.buscaPorId({
 			id: eventoId, 
 			$callback: function(httpCode, xmlHttpRequest, evento) {
@@ -48,8 +60,8 @@ $(function() {
 	
 	function limpaCamposForm() {
 		$(".form-group").each(function (){
-			$(this).removeClass(CLASSE_CSS_SUCESSO)
-				.removeClass(CLASSE_CSS_ERRO)
+			$(this).removeClass(CLASSE_CSS_SUCESSO_FORM)
+				.removeClass(CLASSE_CSS_ERRO_FORM)
 		    	.find("input[type=text], textarea, input[type=tel]").each(function () {
 		    	this.value = "";
 		    })
@@ -93,23 +105,35 @@ $(function() {
 					tipo:tipoPalestra,
 					autores:[$.autor] };		
 		console.log($.paper);
-		PaperResource.criar({
-			$entity: $.paper,
-			$callback: function(status, request, response, entity) {
-				if(status == 201) {
-					$("#status_inscricao")
-						.addClass( "alert alert-success alert-dismissible" )
-						.append("Parabéns, seu paper foi salvo. Entraremos em contato para maiores informações =D");
-						limpaCamposForm();
-				} else {
-					console.log(status);
-					$("#status_inscricao")
-						.addClass( "alert alert-danger alert-dismissible" )
-						.append("Outch =/ Aconteceu algum erro. Tente novamente mais tarde e/ou envie um e-mail para jugvale@gmail.com");
-				}
-				vaiParaOTopo();
+		var r = new REST.Request();
+		r.setURI("./rest/paper");
+		r.setMethod("POST");
+		r.setContentType("application/json");
+		r.setEntity($.paper);
+		r.addQueryParameter("recaptcha_challenge_field", $("#recaptcha_challenge_field").val());
+		r.addQueryParameter("recaptcha_response_field", $("#recaptcha_response_field").val());
+		r.execute(function(status, request, response, entity) {
+			console.log("Servidor respondeu com " + status);
+			if(status == 201) {
+				$("#status_inscricao")
+					.removeClass(CLASSE_CSS_SUBMISSAO_PROBLEMA)
+					.addClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
+					.html("Parabéns, seu paper foi salvo. Entraremos em contato para maiores informações =D");
+					limpaCamposForm();
 			}
+			else if (status == 401){
+				$("#status_inscricao")
+					.removeClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
+					.addClass(CLASSE_CSS_SUBMISSAO_PROBLEMA)
+					.html("Servidor não autorizou submissão do paper. Verifique o Captcha(código anti-robô)");
+			}
+			else {
+				$("#status_inscricao")
+					.removeClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
+					.addClass( "alert alert-danger alert-dismissible" )
+					.html("Outch =/ Aconteceu algum erro. Tente novamente mais tarde e/ou envie um e-mail para jugvale@gmail.com");
+			}
+			vaiParaOTopo();
 		});
 	}
-	
 });

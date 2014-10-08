@@ -18,6 +18,7 @@ public class PaperResourceImpl implements PaperResource {
 	@Inject
 	PaperService paperService;
 
+	
 	public Response criar(Paper paper) {
 		paperService.salvar(paper);
 		return recursoCriado(PaperResource.class, paper.getId());

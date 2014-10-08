@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.jugvale.call4papers.model.impl.Paper;
+import org.jugvale.call4papers.rest.captcha.VerificaCaptcha;
 
 @Path("paper")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -22,6 +23,7 @@ public interface PaperResource {
 
 	@POST
 	@PermitAll
+	@VerificaCaptcha
 	public Response criar(Paper paper);
 
 	@GET
