@@ -1,11 +1,8 @@
 package org.jugvale.call4papers.inicio;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Date;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -17,7 +14,6 @@ import javax.persistence.PersistenceContext;
 import org.jugvale.call4papers.model.impl.Autor;
 import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.model.impl.Paper;
-import org.jugvale.call4papers.model.impl.Usuario;
 
 /**
  * 
@@ -33,37 +29,12 @@ public class CarregaDadosIniciais {
 
 	@PersistenceContext
 	EntityManager em;
-
-	final String CAMINHO_PROPERTIES_ADM = "/admin.properties";
 		
 	Logger log = Logger
 			.getLogger(CarregaDadosIniciais.class.getCanonicalName());
 
 	@PostConstruct
 	public void carregaDadosIniciais() throws FileNotFoundException, IOException {
-		log.info("#### Salvando dados iniciais. #####");
-
-		log.info("#### Carregando dados do usuário administrador. #####");
-		
-		URL file = CarregaDadosIniciais.class.getResource(CAMINHO_PROPERTIES_ADM);
-		
-		if (file != null) {
-			Properties dadosAdmin = new Properties();
-			dadosAdmin.load(new FileInputStream(file.getPath()));
-			dadosAdmin.keySet().forEach(
-					u -> {
-						String login = String.valueOf(u);
-						String senha = dadosAdmin.getProperty(login);
-						Usuario administrador = Usuario.administrador()
-								.comLogin(login).comSenha(senha).build();
-						em.persist(administrador);
-						log.info("#### Usuário " + login + " persistido com sucesso. #####");
-					});
-
-		} else {
-			log.info("#### Arquivo de propriedades não encontrado, não será carregado o administrador inicial. Faça o redeploy criando um properties com login=senha em \"src/main/resources/"
-					+ CAMINHO_PROPERTIES_ADM + "\". #### ");
-		}
 		
 		log.info("#### Carregando dados de demonstração #####");
 

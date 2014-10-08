@@ -22,7 +22,6 @@ public interface PaperResource {
 
 	@POST
 	@PermitAll
-	//@RolesAllowed({"ADMINISTRADOR", "AUTOR"})
 	public Response criar(Paper paper);
 
 	@GET
@@ -31,7 +30,7 @@ public interface PaperResource {
 
 	@DELETE
 	@Path("/{id}")
-	@RolesAllowed({"ADMINISTRADOR", "AUTOR"})
+	@RolesAllowed({"ADMINISTRADOR"})
 	public Response apagaPorId(@PathParam("id") Long id);
 
 	@GET
@@ -41,7 +40,7 @@ public interface PaperResource {
 
 	@PUT
 	@Path("/{id}")
-	@RolesAllowed({"ADMINISTRADOR", "AUTOR"})
+	@RolesAllowed({"ADMINISTRADOR"})
 	public Response atualizar(@PathParam("id") long id, Paper paper);
 
 }

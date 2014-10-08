@@ -45,7 +45,7 @@ public interface AutorResource {
 
 	@PUT
 	@Path("/{id}")
-	@RolesAllowed({ "ADMINISTRADOR", "AUTOR" })
+	@RolesAllowed({ "ADMINISTRADOR" })
 	public Response atualizar(@PathParam("id") long id, Autor entidade);
 
 }

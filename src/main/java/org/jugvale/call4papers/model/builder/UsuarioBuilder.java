@@ -40,11 +40,6 @@ public class UsuarioBuilder {
 		return this;
 	}
 	
-	public UsuarioBuilder autor() {
-		usuario.setRole(Role.AUTOR);
-		return this;
-	}
-	
 	public UsuarioBuilder anonimo() {
 		usuario.setRole(Role.ANONIMO);
 		return this;
