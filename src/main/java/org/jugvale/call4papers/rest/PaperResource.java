@@ -15,6 +15,9 @@ import javax.ws.rs.core.Response;
 
 import org.jugvale.call4papers.model.impl.Paper;
 import org.jugvale.call4papers.rest.captcha.VerificaCaptcha;
+import org.jugvale.call4papers.rest.config.Views;
+
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Path("paper")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -28,6 +31,7 @@ public interface PaperResource {
 
 	@GET
 	@PermitAll
+	@JsonView(Views.Public.class)
 	public Response listarTodos();
 
 	@DELETE
@@ -38,6 +42,7 @@ public interface PaperResource {
 	@GET
 	@Path("/{id}")
 	@PermitAll
+	@JsonView(Views.Public.class)
 	public Response buscaPorId(@PathParam("id") Long id);
 
 	@PUT
@@ -47,6 +52,7 @@ public interface PaperResource {
 	
 	@POST
 	@Path("/{id}/votar")
+	@PermitAll
 	@VerificaCaptcha
 	public Response votarNoPaper(@PathParam("id") long id);
 

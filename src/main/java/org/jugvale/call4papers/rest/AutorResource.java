@@ -14,6 +14,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.jugvale.call4papers.model.impl.Autor;
+import org.jugvale.call4papers.rest.config.Views;
+
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Path("autor")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -26,6 +29,8 @@ public interface AutorResource {
 
 	@GET
 	@PermitAll
+	@RolesAllowed({ "ADMINISTRADOR" })
+	@JsonView(Views.Internal.class)
 	public Response listarTodos();
 
 	@DELETE
@@ -35,7 +40,8 @@ public interface AutorResource {
 
 	@GET
 	@Path("/{id}")
-	@PermitAll
+	@RolesAllowed({ "ADMINISTRADOR" })
+	@JsonView(Views.Internal.class)
 	public Response buscaPorId(@PathParam("id") Long id);
 
 	@GET
