@@ -22,7 +22,7 @@ public class Evento extends DefaultModel {
 	@Column
 	private String nome;
 
-	@Column
+	@Column(length=1000)
 	private String descricao;
 
 	@Temporal(TemporalType.TIMESTAMP)

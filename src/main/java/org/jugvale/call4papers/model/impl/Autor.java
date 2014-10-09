@@ -32,7 +32,7 @@ public class Autor extends DefaultModel {
 	@JsonView(Views.Public.class)
 	private String site;
 
-	@Column
+	@Column(length=1000)
 	@JsonView(Views.Public.class)
 	private String miniCurriculo;
 

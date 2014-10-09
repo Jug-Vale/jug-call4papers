@@ -66,7 +66,7 @@ Para executar os Testes de Integração para testar todos os serviços, execute 
 **OpenShift**
 
 Para fazer o deploy no Openshift, você pode copiar o projeto maven  completo para o repositório GIT do Openshift no diretório `src`, onde o arquivo `pom.xml` do nosso projeto deverá estar em `src` do repositório clonado do Openshift.
-Em seguida, você deve fazer ssh no openshift para configurar as propriedades de sistema conforme mencionado na seção **Empacotando e rodando a aplicação**.
+Em seguida, você deve modificar o arquivo `` do seu repositório do openshift para configurar as propriedades de sistema conforme mencionado na seção **Empacotando e rodando a aplicação**.
 Por fim, se estiver usando outro banco de dados, modifique o arquivo `persistence.xml`. Por exemplo, para MySql:
 ~~~
  <jta-data-source>java:jboss/datasources/MySQLDS</jta-data-source>
