@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -53,7 +54,7 @@ public class Paper extends DefaultModel {
 	@Column
 	private boolean aceito;
 
-	@ManyToMany(fetch = EAGER)
+	@ManyToMany(fetch = EAGER, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "AUTOR_PAPER", joinColumns = { @JoinColumn(name = "PAPER_ID") }, inverseJoinColumns = { @JoinColumn(name = "AUTOR_ID") })
 	private Set<Autor> autores = new HashSet<Autor>();
 
