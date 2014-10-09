@@ -4,10 +4,11 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import net.tanesha.recaptcha.ReCaptchaImpl;
 
@@ -43,7 +44,6 @@ public class CaptchaInterceptor implements ContainerRequestFilter {
 	public void filter(ContainerRequestContext ctx) throws IOException {
 		boolean ehAdm = ctx.getSecurityContext().isUserInRole("ADMINISTRADOR");
 		boolean passouCaptcha = false;
-		log.info("## Criando novo Paper ##");
 		if (!ehAdm) {
 			String remoteAddr = request.getRemoteAddr();
 			ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
@@ -57,9 +57,10 @@ public class CaptchaInterceptor implements ContainerRequestFilter {
 			}
 		}
 		if (!passouCaptcha) {
-			throw new NotAuthorizedException("Captcha errado ou parâmetros não informados...");
+			ctx.abortWith(Response.status(Status.FORBIDDEN)
+					.entity("Captcha errado ou parâmetros não informados...")
+					.build());
 		}
-
 	}
 
 }

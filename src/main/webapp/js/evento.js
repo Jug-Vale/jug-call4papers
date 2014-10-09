@@ -10,16 +10,14 @@ $(function() {
 		Recaptcha.reload();
 		$("#paper_voto_titulo").html(tituloPaper)
 		$("#voto_paper_confirmacao").modal('show');
-		$("#btn_confirmar_voto").click(function () {
+		$("#btn_confirmar_voto").unbind("click").click(function () {
 			var r = new REST.Request();
 			r.setURI("./rest/paper/" + idPaper + "/votar");
-			r.setMethod("POST");
+			r.setMethod("POST");	
 			r.addQueryParameter("recaptcha_challenge_field", $("#recaptcha_challenge_field").val());
 			r.addQueryParameter("recaptcha_response_field", $("#recaptcha_response_field").val());
 			r.execute(function(status, request, response, entity) {
-				$("#status_voto")
-					.removeClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
-					.removeClass(CLASSE_CSS_SUBMISSAO_PROBLEMA);
+				console.log(status + " - " + response)
 				if(status == 200) {
 					$("#status_voto")
 						.removeClass(CLASSE_CSS_SUBMISSAO_PROBLEMA)
@@ -27,7 +25,7 @@ $(function() {
 						.html("Voto para \"" +  tituloPaper + "\" aceito com sucesso!");
 					preenchePapers($.id)
 				}
-				else if (status == 401){
+				else if (status == 401 || status == 403){
 					$("#status_voto")
 						.removeClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
 						.addClass(CLASSE_CSS_SUBMISSAO_PROBLEMA)
@@ -46,8 +44,9 @@ $(function() {
 	}
 
 	function eventoEspecifico() {
-		var evento = EventoResource.buscaPorId( {id:$.id} );
-		
+		if(!$.id) naoEncontrado();
+		var evento = EventoResource.buscaPorId({id:$.id} );
+		if(! evento)  naoEncontrado();
 		var maps = "http://maps.googleapis.com/maps/api/staticmap?center=" + evento.local + "&zoom=15&size=580x300&sensor=false";
 		
 		$("#mapa_id").attr("src", maps);
@@ -82,14 +81,16 @@ $(function() {
 			
 			accordion.removeClass("hide");
 			accordion.addClass("paper_accordion");
-			accordion.attr('id', 'accordion');
+			accordion.attr('id', 'accordion' + id_paper);
 			
 			accordion.find("#titulo_id")
 						.attr( 'href', '#'+ id_paper )
 						.attr('id','id_' + id_paper)
 						.append( value.titulo );
 			accordion.find("#paper_total_votos").html(value.nota + " votos");
-			accordion.find("#votar_evento").click(function() {
+			accordion.find("#votar_evento")
+				.attr('id', 'votar_evento' + id_paper)
+				.click(function() {
 				criaDialogVoto(value.titulo, id_paper);
 			});
 			accordion.find(".panel-collapse")

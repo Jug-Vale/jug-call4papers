@@ -56,6 +56,7 @@ public class PaperResourceImpl implements PaperResource {
 	public Response votarNoPaper(long id) {
 		Paper paper = paperService.buscarPorId(id);
 		lanca404SeNulo(paper, id);
+		System.out.println("Votando para " + id);
 		if(paper.getEvento().getDataFim().before(new Date())) {
 			long nota = paper.getNota();
 			paper.setNota(nota + 1);

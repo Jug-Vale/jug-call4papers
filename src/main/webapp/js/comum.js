@@ -2,7 +2,7 @@
  * Variáveis Globais
  * 
 */
-
+var PAGINA_404 = "./naoEncontrado.html"
 var CLASSE_CSS_ERRO_FORM = "has-error";
 var CLASSE_CSS_SUCESSO_FORM = "has-success";
 
@@ -18,4 +18,8 @@ function readURLParam(param) {
 			.exec(window.location.href);
 	if (results !== null)
 		return results[1] || 0;
+}
+
+function naoEncontrado() {
+	window.location = PAGINA_404;
 }

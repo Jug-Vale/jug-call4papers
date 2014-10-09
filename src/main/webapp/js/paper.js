@@ -44,6 +44,7 @@ $(function() {
 	
 	function carregaEvento() {
 		var eventoId = readURLParam('evento');
+		if(!eventoId) naoEncontrado();
 		EventoResource.buscaPorId({
 			id: eventoId, 
 			$callback: function(httpCode, xmlHttpRequest, evento) {
@@ -51,8 +52,8 @@ $(function() {
 					$("#id_select_evento").append(new Option(evento.nome, evento.id));
 					$("#span_nome_evento").html(evento.nome);
 					$.evento = evento;
-				} else {
-					// Aqui: Direcionar para página de evento não encontrado...
+				} else if (httpCode == 404){
+					naoEncontrado();
 				}
 			}
 		});
