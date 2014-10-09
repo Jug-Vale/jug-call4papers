@@ -51,10 +51,10 @@ public class Paper extends DefaultModel {
 	@Column
 	private boolean aceito;
 
-	@ManyToMany(fetch = EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST})
+	@ManyToMany(fetch = EAGER, cascade = { CascadeType.REMOVE, CascadeType.PERSIST})
 	private Set<Autor> autores = new HashSet<Autor>();
 
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.REMOVE, CascadeType.PERSIST})
 	private Evento evento;
 
 	@Column
