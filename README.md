@@ -40,16 +40,18 @@ POST		  | /rest/paper                                      | Status 201 em caso 
 
 Para os desenvolvedores das páginas WEB, não é necessário codificar Javascript para as requisições. Uma API está disponível na URL `http://localhost:8080/jug-call4papers/rest-js`. Para mais informações sobre essa API, veja a [documentação do RESTEasy](http://docs.jboss.org/resteasy/docs/2.3.7.Final/userguide/html/AJAX_Client.html#d4e1923).
 
-Empacotando e rodando a aplicação
+**Empacotando e rodando a aplicação**
 --------
 
 Temos uma aplicação Maven aqui com JEE 6 e Java 7.
-Antes de qualquer coisa, crie um arquivo em `src/main/resources` chamado `config.properties`. Ele deverá conter a configuração para o captcha na submissão de paper e participante como segue
+Antes de qualquer coisa, procure como adicionar propriedades de sistema no seu servidor de aplicação. Você deverá configurar duas propriedades CAPTCHA_CHAVE_PUBLICA e CAPTCHA_CHAVE_PRIVADA. No Wildfly 8.1 isso pode ser feito adicionar a declaração seguinte usando as chaves que você configurou no recaptcha.
 ~~~
-CAPTCHA_CHAVE_PUBLICA={valor para a chave pública}
-CAPTCHA_CHAVE_PRIVADA={valor para a chave privada}
+<system-properties>
+        <property name="CAPTCHA_CHAVE_PUBLICA" value="{SUA CHAVE PUBLICA}"/>
+        <property name="CAPTCHA_CHAVE_PRIVADA" value={SUA CHAVE PRIVADA}"/>
+</system-properties>
 ~~~
-
+Essas chaves devem ser geradas para o seu usuário no [recaptcha](http://www.google.com/recaptcha/intro/index.html).
 
 **WILDFLY 8**
 
@@ -61,8 +63,18 @@ Feito isto, siga as instruções contidas na seção **Ativando a Segurança**.
 
 Para executar os Testes de Integração para testar todos os serviços, execute o comando: `mvn integration-test`, este comando irá fazer o _deploy_ do `WAR`, e logo em seguida realizará os testes de integração finalizando com o _undeploy_ do mesmo.
 
+**OpenShift**
+
+Para fazer o deploy no Openshift, você pode copiar o projeto maven  completo para o repositório GIT do Openshift no diretório `src`, onde o arquivo `pom.xml` do nosso projeto deverá estar em `src` do repositório clonado do Openshift.
+Em seguida, você deve fazer ssh no openshift para configurar as propriedades de sistema conforme mencionado na seção **Empacotando e rodando a aplicação**.
+Por fim, se estiver usando outro banco de dados, modifique o arquivo `persistence.xml`. Por exemplo, para MySql:
+~~~
+ <jta-data-source>java:jboss/datasources/MySQLDS</jta-data-source>
+~~~
+
 **Ativando a Segurança**
 
 A configuração de segurança foi simplicada já que não temos mais a role de autor. Para ter um usuário admnistrador simplesmente [crie um usuário do JBoss](https://docs.jboss.org/author/display/AS71/add-user+utility) no "realm"   `ApplicationRealm` e dê o role ADMINISTRADOR para ele.
+No Openshift você deverá fazer ssh ao servidor para adicionar esse usuário.
 
 Fazendo o deploy, uns dados inicíais você já terá para ver a aplicação rodando. Você pode ver o evento de teste em: `http://localhost:8080/jugvale-call4papers/rest/evento/` ou a página inicial em `http://localhost:8080/jugvale-call4papers/`.
