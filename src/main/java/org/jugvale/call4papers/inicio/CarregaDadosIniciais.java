@@ -1,19 +1,19 @@
 package org.jugvale.call4papers.inicio;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.jugvale.call4papers.model.impl.Autor;
 import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.model.impl.Paper;
+import org.jugvale.call4papers.service.impl.EventoService;
 
 /**
  * 
@@ -29,12 +29,20 @@ public class CarregaDadosIniciais {
 
 	@PersistenceContext
 	EntityManager em;
+	
+	@Inject
+	EventoService eventoService;
 		
 	Logger log = Logger
 			.getLogger(CarregaDadosIniciais.class.getCanonicalName());
 
 	@PostConstruct
 	public void carregaDadosIniciais() {
+		
+		if(eventoService.todos().size() > 1) {
+			log.info("#### Banco de dados não está vazio. Dados não serão carregados. #####");
+			return;
+		}
 		
 		log.info("#### Carregando dados de demonstração #####");
 
