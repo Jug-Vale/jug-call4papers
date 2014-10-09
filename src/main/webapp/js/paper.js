@@ -139,7 +139,6 @@ $(function() {
 					.html("Outch =/ Aconteceu algum erro. Tente novamente mais tarde e/ou envie um e-mail para jugvale@gmail.com");
 			}
 			vaiParaOTopo();
-			Recaptcha.reload();
 		});
 	}
 });
