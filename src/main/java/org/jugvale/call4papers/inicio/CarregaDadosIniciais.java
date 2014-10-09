@@ -34,7 +34,7 @@ public class CarregaDadosIniciais {
 			.getLogger(CarregaDadosIniciais.class.getCanonicalName());
 
 	@PostConstruct
-	public void carregaDadosIniciais() throws FileNotFoundException, IOException {
+	public void carregaDadosIniciais() {
 		
 		log.info("#### Carregando dados de demonstração #####");
 
