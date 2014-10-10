@@ -15,25 +15,29 @@ $(function() {
 			r.setMethod("POST");	
 			r.execute(function(status, request, response, entity) {
 				console.log(status + " - " + response)
+				var alertaVoto = $("#status_voto");
 				if(status == 200) {
-					$("#status_voto")
+					alertaVoto
 						.removeClass(CLASSE_CSS_SUBMISSAO_PROBLEMA)
 						.addClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
 						.html("Voto para \"" +  tituloPaper + "\" aceito com sucesso!");
 					preenchePapers($.id)
 				}
 				else if (status == 401 || status == 403){
-					$("#status_voto")
+					alertaVoto
 						.removeClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
 						.addClass(CLASSE_CSS_SUBMISSAO_PROBLEMA)
 						.html("Opa, votação não autorizada! Já votou nessa submissão?");
 				}
 				else {
-					$("#status_voto")
+					alertaVoto
 						.removeClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
 						.addClass( "alert alert-danger alert-dismissible" )
 						.html("Erro no servidor ao realizar a votação...<br /> " + response);
 				}
+				alertaVoto.fadeOut(200, function() {
+					alertaVoto.fadeIn(200);
+				});
 				$("#btn_close_alerta_voto").removeClass("hide");
 				$("#voto_paper_confirmacao").modal("hide");
 			});

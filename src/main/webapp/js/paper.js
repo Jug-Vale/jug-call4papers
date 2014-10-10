@@ -118,15 +118,16 @@ $(function() {
 		r.setEntity($.paper);
 		r.execute(function(status, request, response, entity) {
 			console.log("Servidor respondeu com " + status);
+			var alertaPaper = $("#status_inscricao");
 			if(status == 201) {
-				$("#status_inscricao")
+				alertaPaper
 					.removeClass(CLASSE_CSS_SUBMISSAO_PROBLEMA)
 					.addClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
 					.html("Parabéns, seu paper foi salvo. Entraremos em contato para maiores informações =D");
 					limpaCamposForm();
 			}
 			else {
-				$("#status_inscricao")
+				alertaPaper
 					.removeClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
 					.addClass( "alert alert-danger alert-dismissible" )
 					.html("Outch =/ Aconteceu algum erro. Tente novamente mais tarde e/ou envie um e-mail para jugvale@gmail.com");
