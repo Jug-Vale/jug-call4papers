@@ -30,7 +30,7 @@ public interface AutorResource {
 	@GET
 	@PermitAll
 	@RolesAllowed({ "ADMINISTRADOR" })
-	@JsonView(Views.Internal.class)
+	@JsonView(Views.Interno.class)
 	public Response listarTodos();
 
 	@DELETE
@@ -41,7 +41,7 @@ public interface AutorResource {
 	@GET
 	@Path("/{id}")
 	@RolesAllowed({ "ADMINISTRADOR" })
-	@JsonView(Views.Internal.class)
+	@JsonView(Views.Interno.class)
 	public Response buscaPorId(@PathParam("id") Long id);
 
 	@GET

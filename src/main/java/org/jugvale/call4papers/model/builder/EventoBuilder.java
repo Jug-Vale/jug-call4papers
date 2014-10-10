@@ -60,4 +60,15 @@ public class EventoBuilder {
 		return this;
 	}
 	
+	public EventoBuilder inscricoesAbertas() {
+		evento.setInscricoesAbertas(true);
+		return this;
+	}
+	
+	public EventoBuilder inscricoesFechadas() {
+		evento.setInscricoesAbertas(false);
+		return this;
+	}
+	
+	
 }

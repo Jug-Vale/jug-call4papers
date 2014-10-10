@@ -10,6 +10,7 @@
 	</context-param>
 	<security-constraint>
 		<display-name>Segurança do REST Padrão</display-name>
+		<!-- Toda Edição e Deleção é segura e reservada ao administrador -->
 		<web-resource-collection>
 			<web-resource-name>rest</web-resource-name>
 			<url-pattern>/rest/*</url-pattern>
@@ -18,21 +19,21 @@
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>ADMINISTRADOR</role-name>
-			<role-name>ANONIMO</role-name>
 		</auth-constraint>
 	</security-constraint>
+	<!-- Só administrador cria evento -->	
 	<security-constraint>
 		<display-name>Segurança do REST para Evento</display-name>
 		<web-resource-collection>
 			<web-resource-name>rest</web-resource-name>
-			<url-pattern> /rest/evento</url-pattern>
+			<url-pattern> /rest/evento/</url-pattern>
 			<http-method>POST</http-method>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>ADMINISTRADOR</role-name>
-			<role-name>ANONIMO</role-name>
 		</auth-constraint>
 	</security-constraint>
+	<!-- Só administrador cria acessa autor diretamente -->		
 	<security-constraint>
 		<display-name>Segurança do REST para Autor</display-name>
 		<web-resource-collection>
@@ -45,9 +46,23 @@
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>ADMINISTRADOR</role-name>
-			<role-name>ANONIMO</role-name>
 		</auth-constraint>
 	</security-constraint>
+	<!-- Só administrador acessa todos os campos dos inscritos em um evento -->		
+	<security-constraint>
+		<display-name>Segurança do REST para Inscritos no evento</display-name>
+		<web-resource-collection>
+			<web-resource-name>rest</web-resource-name>
+			<url-pattern>/rest/evento/admin/*</url-pattern>
+			<http-method>POST</http-method>
+			<http-method>PUT</http-method>
+			<http-method>DELETE</http-method>
+			<http-method>GET</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>ADMINISTRADOR</role-name>
+		</auth-constraint>
+	</security-constraint>	
 	<login-config>
 		<auth-method>BASIC</auth-method>
 		<realm-name>ApplicationRealm</realm-name>

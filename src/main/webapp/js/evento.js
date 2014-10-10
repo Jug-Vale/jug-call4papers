@@ -58,6 +58,14 @@ $(function() {
 		} else {
 			$("#aceitando_paper").addClass( "alert alert-danger alert-dismissible" ).append("Ops!!! Já encerramos os papers :(");
 		}
+		if(evento.inscricoesAbertas === true) {
+			$("#aceitando_inscricao").addClass( "alert alert-info alert-dismissible" )
+								 .append("Inscrições abertas para esse evento!! \o/ " +
+								 		 	"<a href='inscricao.html?evento=" + evento.id+ "' class='alert-link'>Inscrição.</a>");
+		} else {
+			$("#aceitando_inscricao").addClass( "alert alert-danger alert-dismissible" ).append("Inscrições estão fechadas... :(");
+		}
+		aceitando_inscricao
 		
 		$("#nome_evento_id").append( "<h1>" + evento.nome + "</h1>" );
 		preenchePapers($.id);

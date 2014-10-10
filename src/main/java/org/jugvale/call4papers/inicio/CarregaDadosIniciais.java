@@ -10,9 +10,11 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.jugvale.call4papers.model.enums.Nivel;
 import org.jugvale.call4papers.model.impl.Autor;
 import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.model.impl.Paper;
+import org.jugvale.call4papers.model.impl.Participante;
 import org.jugvale.call4papers.service.impl.EventoService;
 
 /**
@@ -32,6 +34,7 @@ public class CarregaDadosIniciais {
 	
 	@Inject
 	EventoService eventoService;
+	
 		
 	Logger log = Logger
 			.getLogger(CarregaDadosIniciais.class.getCanonicalName());
@@ -39,7 +42,7 @@ public class CarregaDadosIniciais {
 	@PostConstruct
 	public void carregaDadosIniciais() {
 		
-		if(eventoService.todos().size() > 1) {
+		if(eventoService.todos().size() >= 1) {
 			log.info("#### Banco de dados não está vazio. Dados não serão carregados. #####");
 			return;
 		}
@@ -53,7 +56,7 @@ public class CarregaDadosIniciais {
 						"Esse é o melhor evento do mundo, o grande evento...")
 				.comDataInicio(new Date()).comDataFim(new Date())
 				.noLocal("Rua Tsunessaburo Makiguti,157, São José dos Campos, SP, Brasil")
-				.comSite("http://www.ograndeevento.com").aceitandoTrabalhos()
+				.comSite("http://www.ograndeevento.com").aceitandoTrabalhos().inscricoesAbertas()
 				.build();
 
 		em.persist(grandeEvento);
@@ -90,7 +93,26 @@ public class CarregaDadosIniciais {
 				.comAutor(jose).aceito().build();
 
 		em.persist(paper);
-
+		
+		Participante p1 = Participante.newParticipante()
+				.comEmail("jesuino@inc.com")
+				.comEmpresa("Acme")
+				.comInstituicao("ATI")
+				.comNivel(Nivel.AVANCADO)
+				.comNome("Jesuino da Silva")
+				.comRg("98.098.123.9")
+				.build();
+		
+		Participante p2 = Participante.newParticipante()
+				.comEmail("jay@inc.com")
+				.comEmpresa("Jay Associates")
+				.comInstituicao("TheCollege")
+				.comNivel(Nivel.INTERMEDIARIO)
+				.comNome("Jay Homer")
+				.comRg("11.908.435.3")
+				.build();
+		eventoService.inscreverParticipante(grandeEvento, p1);
+		eventoService.inscreverParticipante(grandeEvento, p2);
 		log.info("#### Dados iniciais salvos. ####");
 	}
 }

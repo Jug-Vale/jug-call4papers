@@ -7,11 +7,15 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.jugvale.call4papers.model.impl.Evento;
+import org.jugvale.call4papers.model.impl.Inscricao;
+import org.jugvale.call4papers.model.impl.Participante;
 import org.jugvale.call4papers.rest.EventoResource;
 import org.jugvale.call4papers.service.impl.EventoService;
 import org.jugvale.call4papers.service.impl.PaperService;
+import org.jugvale.call4papers.service.impl.ParticipanteService;
 
 @Stateless
 public class EventoResourceImpl implements EventoResource {
@@ -21,6 +25,9 @@ public class EventoResourceImpl implements EventoResource {
 
 	@Inject
 	PaperService paperService;
+	
+	@Inject
+	ParticipanteService participanteService;
 
 	public Response criar(Evento evento) {
 		eventoService.salvar(evento);
@@ -59,6 +66,42 @@ public class EventoResourceImpl implements EventoResource {
 		Evento e = eventoService.buscarPorId(eventoId);
 		lanca404SeNulo(e, eventoId);
 		return Response.ok(paperService.listarPapersPorEvento(e)).build();
+	}
+
+	@Override
+	public Response inscreverParticipante(Participante participante,
+			Long eventoId) {
+		ResponseBuilder rb;
+		Evento evento = lanca404SeNulo(eventoService.buscarPorId(eventoId),
+				eventoId);
+		Participante partipanteExistente = participanteService
+				.buscaPorEmail(participante.getEmail());
+		if (partipanteExistente != null) {
+			participante.setId(partipanteExistente.getId());
+		} else {
+			participanteService.salvar(participante);
+		}
+		Inscricao inscricao = eventoService
+				.buscaInscricao(evento, participante);
+		if (inscricao != null) {
+			rb = Response.notModified();
+		} else {
+			inscricao = eventoService.inscreverParticipante(evento,
+					participante);
+			rb = Response.ok();
+		}
+		return rb.entity(inscricao).build();
+	}
+
+	@Override
+	public Response buscarInscritos(Long eventoId) {
+		Evento e = lanca404SeNulo(eventoService.buscarPorId(eventoId), eventoId);
+		return Response.ok(eventoService.inscritosNoEvento(e)).build();
+	}
+
+	@Override
+	public Response buscarInscritosTodosCampos(Long eventoId) {
+		return buscarInscritos(eventoId);
 	}
 
 }

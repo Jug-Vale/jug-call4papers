@@ -17,23 +17,23 @@ public class Autor extends DefaultModel {
 	private static final long serialVersionUID = 2467078273125922962L;
 
 	@Column(nullable = false)
-	@JsonView(Views.Public.class)
+	@JsonView(Views.Publico.class)
 	private String nome;
 
 	@Column
-	@JsonView(Views.Internal.class)	
+	@JsonView(Views.Interno.class)	
 	private String email;
 
 	@Column
-	@JsonView(Views.Internal.class)		
+	@JsonView(Views.Interno.class)		
 	private String telefone;
 
 	@Column
-	@JsonView(Views.Public.class)
+	@JsonView(Views.Publico.class)
 	private String site;
 
 	@Column(length=1000)
-	@JsonView(Views.Public.class)
+	@JsonView(Views.Publico.class)
 	private String miniCurriculo;
 
 	public static AutorBuilder newAutor() {

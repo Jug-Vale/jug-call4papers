@@ -31,7 +31,7 @@ public interface PaperResource {
 
 	@GET
 	@PermitAll
-	@JsonView(Views.Public.class)
+	@JsonView({Views.Publico.class})
 	public Response listarTodos();
 
 	@DELETE
@@ -42,7 +42,7 @@ public interface PaperResource {
 	@GET
 	@Path("/{id}")
 	@PermitAll
-	@JsonView(Views.Public.class)
+	@JsonView(Views.Publico.class)
 	public Response buscaPorId(@PathParam("id") Long id);
 
 	@PUT

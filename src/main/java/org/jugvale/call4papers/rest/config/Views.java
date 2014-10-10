@@ -1,6 +1,34 @@
 package org.jugvale.call4papers.rest.config;
 
+/**
+ * Aqui temos as views para JSON. <br />
+ * Com anotações podemos controlar os campos que estarão na resposta de uma request HTTP. 
+ * @author william
+ *
+ */
+/**
+ * @author william
+ *
+ */
 public class Views {
-    public static class Public { }
-    public static class Internal extends Public { }
+	/**
+	 * Esconde campos privados como e-mail, telefone, rg, etc
+	 * 
+	 * 
+	 * @author william
+	 *
+	 */
+	public static class Publico {
+	}
+
+	/**
+	 * 
+	 * Inclui campos visíveis para todos.
+	 * 
+	 * @author william
+	 *
+	 */
+	public static class Interno extends Publico {
+	}
+
 }

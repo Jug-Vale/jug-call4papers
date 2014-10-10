@@ -41,14 +41,20 @@ public class Evento extends DefaultModel {
 
 	@Column
 	private boolean aceitandoTrabalhos;
+	
+	@Column
+	private boolean inscricoesAbertas;	
 
 	public static EventoBuilder newEvento() {
 		return new EventoBuilder();
 	}
 	
 	public Evento() { }
-	
-	public Evento(String nome, String descricao, Date dataInicio, Date dataFim, String local, String url, boolean aceitandoTrabalhos) {
+
+	public Evento(String nome, String descricao, Date dataInicio, Date dataFim,
+			String local, String url, boolean aceitandoTrabalhos,
+			boolean inscricoesAbertas) {
+		super();
 		this.nome = nome;
 		this.descricao = descricao;
 		this.dataInicio = dataInicio;
@@ -56,6 +62,7 @@ public class Evento extends DefaultModel {
 		this.local = local;
 		this.url = url;
 		this.aceitandoTrabalhos = aceitandoTrabalhos;
+		this.inscricoesAbertas = inscricoesAbertas;
 	}
 
 	public String getNome() {
@@ -112,6 +119,14 @@ public class Evento extends DefaultModel {
 
 	public void setAceitandoTrabalhos(boolean aceitandoTrabalhos) {
 		this.aceitandoTrabalhos = aceitandoTrabalhos;
+	}
+
+	public boolean isInscricoesAbertas() {
+		return inscricoesAbertas;
+	}
+
+	public void setInscricoesAbertas(boolean inscricoesAbertas) {
+		this.inscricoesAbertas = inscricoesAbertas;
 	}
 	
 }

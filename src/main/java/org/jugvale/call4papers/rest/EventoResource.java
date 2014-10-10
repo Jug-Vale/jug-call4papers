@@ -14,6 +14,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.jugvale.call4papers.model.impl.Evento;
+import org.jugvale.call4papers.model.impl.Participante;
+import org.jugvale.call4papers.rest.config.Views;
+
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Path("evento")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -46,5 +50,44 @@ public interface EventoResource {
 	@GET
 	@Path("/{eventoId}/papers")
 	@PermitAll
+	@JsonView({ Views.Publico.class })
 	public Response listaPapersPorEvento(@PathParam("eventoId") Long eventoId);
+
+	/**
+	 * Inscreve um participante no evento passado. No futuro deveremos pedir um
+	 * token para inscrição e verificação do e-mail.
+	 * 
+	 * @param participante
+	 *            O participante a ser inscrito. Se o mesmo nunca foi em nenhum
+	 *            evento, será criado.
+	 * @param eventoId
+	 *            O ID do evento para o qual ele deseja se inscrever.
+	 * @return
+	 */
+	@POST
+	@Path("/{eventoId}/inscrever")
+	@PermitAll
+	@JsonView({ Views.Publico.class })
+	public Response inscreverParticipante(Participante participante,
+			@PathParam("eventoId") Long eventoId);
+
+	@GET
+	@Path("/{eventoId}/inscritos")
+	@PermitAll
+	@JsonView({ Views.Publico.class })
+	public Response buscarInscritos(@PathParam("eventoId") Long eventoId);
+
+	/**
+	 * Retorna os inscritos para esse evento com todos os campos do participante <br />
+	 * Acessível somente para usuários administradores do sistema!
+	 * 
+	 * @param eventoId
+	 * @return
+	 */
+	@GET
+	@Path("/admin/{eventoId}/inscritos")
+	@RolesAllowed({ "ADMINISTRADOR" })
+	@JsonView({ Views.Interno.class })
+	public Response buscarInscritosTodosCampos(
+			@PathParam("eventoId") Long eventoId);
 }
