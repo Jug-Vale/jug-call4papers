@@ -42,7 +42,7 @@ public class Paper extends DefaultModel {
 	@Column
 	private String titulo;
 
-	@Column
+	@Column(length=1000)
 	private String descricao;
 
 	@Column
