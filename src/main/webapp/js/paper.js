@@ -110,13 +110,12 @@ $(function() {
 					tipo:tipoPalestra,
 					autores:[$.autor] };		
 		console.log($.paper);
+		// TODO: Mudar request para usar API do RESTEasy. Assim não temos hardcode de URL.
 		var r = new REST.Request();
 		r.setURI("./rest/paper");
 		r.setMethod("POST");
 		r.setContentType("application/json");
 		r.setEntity($.paper);
-		r.addQueryParameter("recaptcha_challenge_field", $("#recaptcha_challenge_field").val());
-		r.addQueryParameter("recaptcha_response_field", $("#recaptcha_response_field").val());
 		r.execute(function(status, request, response, entity) {
 			console.log("Servidor respondeu com " + status);
 			if(status == 201) {
@@ -125,12 +124,6 @@ $(function() {
 					.addClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
 					.html("Parabéns, seu paper foi salvo. Entraremos em contato para maiores informações =D");
 					limpaCamposForm();
-			}
-			else if (status == 401){
-				$("#status_inscricao")
-					.removeClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
-					.addClass(CLASSE_CSS_SUBMISSAO_PROBLEMA)
-					.html("Servidor não autorizou submissão do paper. Verifique o Captcha(código anti-robô)");
 			}
 			else {
 				$("#status_inscricao")

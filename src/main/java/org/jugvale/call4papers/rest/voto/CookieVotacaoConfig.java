@@ -1,4 +1,4 @@
-package org.jugvale.call4papers.rest.captcha;
+package org.jugvale.call4papers.rest.voto;
 
 import java.util.logging.Logger;
 
@@ -18,7 +18,7 @@ import org.jugvale.call4papers.inicio.PropriedadesSistema;
  *
  */
 @Provider
-public class CaptchaConfig implements DynamicFeature {
+public class CookieVotacaoConfig implements DynamicFeature {
 
 	@Context
 	ResourceInfo info;
@@ -26,19 +26,19 @@ public class CaptchaConfig implements DynamicFeature {
 	@Inject
 	PropriedadesSistema prop;
 
-	Logger log = Logger.getLogger(CaptchaInterceptor.class.getCanonicalName());
+	Logger log = Logger.getLogger(CookieVotacaoInterceptor.class.getCanonicalName());
 
 	@Override
 	public void configure(ResourceInfo info, FeatureContext ctx) {
-		// Se não tiver a anotação pedindo a verificação de captcha, sai fora
+		// Se não tiver a anotação pedindo a verificação de cookie, sai fora
 		// que é rolê perdido
 		boolean invocar = info.getResourceMethod().isAnnotationPresent(
-				VerificaCaptcha.class);
+				VerificaCookieVotacao.class);
 		if (invocar) {
-			log.info("## Captcha será verificado para recurso "
+			log.info("## Cookie de votação será verificado para recurso "
 					+ info.getResourceClass().getSimpleName() + " e método "
 					+ info.getResourceMethod().getName() + " ##");
-			ctx.register(new CaptchaInterceptor(prop.chavePrivadaCaptcha()));
+			ctx.register(new CookieVotacaoInterceptor());
 		}
 	}
 }

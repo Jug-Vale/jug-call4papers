@@ -123,11 +123,6 @@
 			<version>2.3.2.Final</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>net.tanesha.recaptcha4j</groupId>
-			<artifactId>recaptcha4j</artifactId>
-			<version>0.0.7</version>
-		</dependency>
 	</dependencies>
 
 	<build>

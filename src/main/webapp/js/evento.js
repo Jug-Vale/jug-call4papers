@@ -7,15 +7,12 @@ $(function() {
 	
 	function criaDialogVoto(tituloPaper, idPaper) {
 		if(!idPaper) return;
-		Recaptcha.reload();
 		$("#paper_voto_titulo").html(tituloPaper)
 		$("#voto_paper_confirmacao").modal('show');
 		$("#btn_confirmar_voto").unbind("click").click(function () {
 			var r = new REST.Request();
 			r.setURI("./rest/paper/" + idPaper + "/votar");
 			r.setMethod("POST");	
-			r.addQueryParameter("recaptcha_challenge_field", $("#recaptcha_challenge_field").val());
-			r.addQueryParameter("recaptcha_response_field", $("#recaptcha_response_field").val());
 			r.execute(function(status, request, response, entity) {
 				console.log(status + " - " + response)
 				if(status == 200) {
@@ -29,7 +26,7 @@ $(function() {
 					$("#status_voto")
 						.removeClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
 						.addClass(CLASSE_CSS_SUBMISSAO_PROBLEMA)
-						.html("Servidor não autorizou votação... Verifique o Captcha(código anti-robô).");
+						.html("Opa, votação não autorizada! Já votou nessa submissão?");
 				}
 				else {
 					$("#status_voto")

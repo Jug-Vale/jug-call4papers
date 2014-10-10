@@ -14,8 +14,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.jugvale.call4papers.model.impl.Paper;
-import org.jugvale.call4papers.rest.captcha.VerificaCaptcha;
 import org.jugvale.call4papers.rest.config.Views;
+import org.jugvale.call4papers.rest.voto.VerificaCookieVotacao;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -26,7 +26,6 @@ public interface PaperResource {
 
 	@POST
 	@PermitAll
-	@VerificaCaptcha
 	public Response criar(Paper paper);
 
 	@GET
@@ -53,7 +52,7 @@ public interface PaperResource {
 	@POST
 	@Path("/{id}/votar")
 	@PermitAll
-	@VerificaCaptcha
+	@VerificaCookieVotacao
 	public Response votarNoPaper(@PathParam("id") long id);
 
 }
