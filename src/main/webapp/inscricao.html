@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="./img/java.ico">
+
+<title>JUG-VALE Inscrição</title>
+
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/jumbotron.css" rel="stylesheet">
+<link href="./css/jugstyle.css" rel="stylesheet">
+
+
+</head>
+<body>
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a class= "navbar-brand" href="./">JUGVale Call4Papers</a>
+			</div>
+			<!--/.navbar-collapse -->
+		</div>
+	</div>
+<!-- ----------------------------------- INICIO CONTAINER -------------------------------------------------- -->
+
+<div class="container">
+<div class="col-sm-3"> <!-- VAZIO --> </div>
+    <div class="row">
+        <form role="form">
+            <div class="col-sm-6">
+                <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Campo Obrigatório</strong></div>
+                <div class="form-group">
+                    <label for="InputName">Nome Completo</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="InputName" id="InputName" placeholder="Nome Completo" required>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputEmail">E-Mail</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="InputEmail" name="InputEmail" placeholder="E-Mail" required>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputEmail">RG</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="InputRG" name="InputRG" placeholder="Informe o RG" required>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputEmail">Empresa</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="InputWork" name="InputWork" placeholder="Empresa" required>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputEmail">Instituição de ensino</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="InputSchool" name="InputSchool" placeholder="Instituição de ensino" required>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+					<label>Nível Java</label>
+					<select class="combobox input-large form-control" name="large">
+		               	<option value="" selected="selected">Selecione o nível</option>
+		              	<option value="evt1">Iniciante</option>
+		              	<option value="evt2">Intermediario</option>
+		              	<option value="evt3">Avançado</option>
+		            </select>
+		        </div>
+
+                <input type="submit" name="submit" id="submit" value="Fazer inscrição" class="btn btn-info">
+            </div>
+        </form>
+
+    </div>
+    <div class="col-sm-2"> <!-- VAZIO --> </div>
+</div>
+
+<!-- ----------------------------------  FINAL CONTAINER  -------------------------------------------------- -->	
+
+</div>	
+<div class="col-sm-4"> <!-- VAZIO --> </div>
+  	<hr></hr>
+	<footer>
+		<div class="col-sm-4"> <!-- VAZIO --> </div>
+		<div class="col-sm-4"> 
+			<p><a href="http://jugvale.com" target="_blank">JUG Vale - Grupo de Usuários Java do Vale do Paraíba</a></p>
+		 </div>
+		<div class="col-sm-4"> <!-- VAZIO --> </div>
+			
+	</footer>
+
+
+<!-- Sessão Java script --------------------------------------------------------------------------------- -->		
+	<!--  Javascript comum -->
+	<script type="text/javascript" src="./js/scomum.js"></script>
+	<!--  Script do RESTEasy-->
+	<script type="text/javascript" src="./srest-js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+	<script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-combobox.js" ></script>
+
+	<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+	<script type="text/javascript" src="./js/.js"></script>
+	<script type="text/javascript" src="./js/jquery.mask.min.js"></script>
+	
+	<script type="text/javascript">
+		    
+	      $(document).ready(function(){
+	        $('.combobox').combobox()
+	      });
+     
+    </script>
+
+</body>
+</html>
