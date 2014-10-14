@@ -18,7 +18,7 @@
    <!-- The datasource is bound into JNDI at this location. We reference 
       this in META-INF/persistence.xml -->
    <datasource jndi-name="java:jboss/datasources/JUGCall4PapersDS"
-      pool-name="kitchensink-quickstart" enabled="true"
+      pool-name="jugcall4papers" enabled="true"
       use-java-context="true">
       <connection-url>jdbc:h2:mem:jug-call4papers;DB_CLOSE_ON_EXIT=FALSE</connection-url>
       <driver>h2</driver>

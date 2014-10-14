@@ -26,7 +26,7 @@
 		<display-name>Segurança do REST para Evento</display-name>
 		<web-resource-collection>
 			<web-resource-name>rest</web-resource-name>
-			<url-pattern> /rest/evento/</url-pattern>
+			<url-pattern> /rest/evento</url-pattern>
 			<http-method>POST</http-method>
 		</web-resource-collection>
 		<auth-constraint>

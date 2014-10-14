@@ -9,7 +9,7 @@ $(function() {
 		if(haErrosNosForms()) {
 			$("#status_inscricao")
 				.addClass( "alert alert-danger alert-dismissible" )
-				.html("E-mail inválido");
+				.html("Problema nos campos do form, por gentileza, verifique.");
 			return false;
 		}
 	
@@ -21,7 +21,7 @@ $(function() {
 		         empresa: $("#empresa").val(),
 		         instituicao: $("#instituicao").val()
 		};
-		EventoResource.inscreverParticipante({
+		InscricaoResource.inscrever({
 			eventoId: readURLParam("evento"), 
 			$entity: $.participante,
 			$callback: function(httpCode, xmlHttpRequest, evento) {
@@ -31,14 +31,20 @@ $(function() {
 					.addClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
 					.html("Parabéns, inscrição realizada com sucesso!");
 				} 
-				else if (httpCode == 304){
+				else if (httpCode == 409){
 					$("#status_inscricao")
-						.removeClass(CLASSE_CSS_SUBMISSAO_PROBLEMA)
-						.addClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
-						.html("Parece que você já se inscreveu para esse evento! (o e-mail utilizado já conta em nossa base de dados)");
+					.removeClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
+					.addClass(CLASSE_CSS_SUBMISSAO_PROBLEMA)
+						.html("Parece que você já se inscreveu para esse evento! (o e-mail utilizado já consta em nossa base de dados)");
 				}
 				else if (httpCode == 404){
 					naoEncontrado();
+				}
+				else {
+					$("#status_inscricao")
+					.removeClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
+					.addClass(CLASSE_CSS_SUBMISSAO_PROBLEMA)
+					.html("Ocorreu um erro interno. Por gentileza, envie um e-mail para jugvale@gmail.com");				
 				}
 			}
 		});		
