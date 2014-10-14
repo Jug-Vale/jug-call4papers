@@ -63,6 +63,21 @@
 			<role-name>ADMINISTRADOR</role-name>
 		</auth-constraint>
 	</security-constraint>	
+	<!-- Só administrador acessa e sobe backup -->		
+	<security-constraint>
+		<display-name>Segurança do REST para Inscritos no evento</display-name>
+		<web-resource-collection>
+			<web-resource-name>rest</web-resource-name>
+			<url-pattern>/rest/backup/*</url-pattern>
+			<http-method>POST</http-method>
+			<http-method>PUT</http-method>
+			<http-method>DELETE</http-method>
+			<http-method>GET</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>ADMINISTRADOR</role-name>
+		</auth-constraint>
+	</security-constraint>		
 	<login-config>
 		<auth-method>BASIC</auth-method>
 		<realm-name>ApplicationRealm</realm-name>
