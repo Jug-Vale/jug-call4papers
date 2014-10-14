@@ -14,34 +14,6 @@ $(function() {
 		$(".form-group input[type=tel]").mask("(00) 00000-0000");
 	}
 	
-	function haErrosNosForms() {
-		var temErro = false;
-		var funcaoVerificaCampos = function () {
-			var el = $(this);
-			el.find("input[type=text], textarea, input[type=tel]").each(function () {
-				if(validar(this)) {
-					el.removeClass(CLASSE_CSS_ERRO_FORM).addClass(CLASSE_CSS_SUCESSO_FORM);
-				} else {
-					el.addClass(CLASSE_CSS_ERRO_FORM);
-					temErro = true;
-				}
-			});
-		};
-		$(".form-group").each(funcaoVerificaCampos);
-		return temErro;
-	}
-	
-	function validar (el) {
-		var validador = /.+/;
-		if(el.id == 'input_email') {
-			validador = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		}
-		if (el.id == 'input_site') {
-			validador = /^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/;
-		}
-		return validador.test(el.value);
-	}
-	
 	function carregaEvento() {
 		var eventoId = readURLParam('evento');
 		if(!eventoId) naoEncontrado();
@@ -61,16 +33,6 @@ $(function() {
 	
 	function vaiParaOTopo() {
 		window.scrollTo(0,0);
-	}
-	
-	function limpaCamposForm() {
-		$(".form-group").each(function (){
-			$(this).removeClass(CLASSE_CSS_SUCESSO_FORM)
-				.removeClass(CLASSE_CSS_ERRO_FORM)
-		    	.find("input[type=text], textarea, input[type=tel]").each(function () {
-		    	this.value = "";
-		    })
-		});
 	}
 	
 	function salvaEvento() {

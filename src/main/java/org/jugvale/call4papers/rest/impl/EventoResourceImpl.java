@@ -25,7 +25,7 @@ public class EventoResourceImpl implements EventoResource {
 
 	@Inject
 	PaperService paperService;
-	
+
 	@Inject
 	ParticipanteService participanteService;
 
@@ -89,6 +89,8 @@ public class EventoResourceImpl implements EventoResource {
 			inscricao = eventoService.inscreverParticipante(evento,
 					participante);
 			rb = Response.ok();
+			System.out.println("Participante com e-mail "
+					+ participante.getEmail() + " inscrito.");
 		}
 		return rb.entity(inscricao).build();
 	}

@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Startup;
 import javax.inject.Singleton;
 
 /**
@@ -18,6 +19,7 @@ import javax.inject.Singleton;
  *
  */
 @Singleton
+@Startup
 public class VotosSalvos {
 
 	/**
@@ -38,6 +40,12 @@ public class VotosSalvos {
 			votosSalvos.put(ip, papersVotados);
 		}
 		return paperVotadoParaIp;		
+	}
+	
+	// TODO: SCHEDULAR
+	public void limpaVotosSalvos() {
+		System.out.println("** LIMPANDO DADOS DE VOTO **");
+		votosSalvos = new HashMap<>();
 	}
 
 }
