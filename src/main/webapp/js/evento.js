@@ -14,7 +14,7 @@ $(function() {
 			r.setURI("./rest/paper/" + idPaper + "/votar");
 			r.setMethod("POST");	
 			r.execute(function(status, request, response, entity) {
-				console.log(status + " - " + response)
+				console.log(status)
 				var alertaVoto = $("#status_voto");
 				if(status == 200) {
 					alertaVoto
@@ -27,13 +27,13 @@ $(function() {
 					alertaVoto
 						.removeClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
 						.addClass(CLASSE_CSS_SUBMISSAO_PROBLEMA)
-						.html("Opa, votação não autorizada! Já votou nessa submissão?");
+						.html("<em>Erro ao realizar voto...</em> <br /> <b>Status:</b>  " +  request.statusText + ". <br/><b>Mensagem:</b> " + request.responseText);
 				}
 				else {
 					alertaVoto
 						.removeClass(CLASSE_CSS_SUBMISSAO_SUCESSO)
 						.addClass( "alert alert-danger alert-dismissible" )
-						.html("Erro no servidor ao realizar a votação...<br /> " + response);
+						.html("Erro no servidor ao realizar a votação...<br /> " + request.statusText);
 				}
 				alertaVoto.fadeOut(200, function() {
 					alertaVoto.fadeIn(200);

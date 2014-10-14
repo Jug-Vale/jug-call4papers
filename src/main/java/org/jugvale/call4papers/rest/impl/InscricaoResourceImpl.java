@@ -16,14 +16,14 @@ import org.jugvale.call4papers.service.impl.EventoService;
 import org.jugvale.call4papers.service.impl.ParticipanteService;
 
 @Stateless
-public class InscricaoResourceImpl implements InscricaoResource{
+public class InscricaoResourceImpl implements InscricaoResource {
 
 	@Inject
 	EventoService eventoService;
 
 	@Inject
 	ParticipanteService participanteService;
-	
+
 	@Override
 	public Response inscrever(long eventoId, Participante participante) {
 		ResponseBuilder rb;
@@ -31,6 +31,10 @@ public class InscricaoResourceImpl implements InscricaoResource{
 				eventoId);
 		Participante partipanteExistente = participanteService
 				.buscaPorEmail(participante.getEmail());
+		if (!evento.isInscricoesAbertas()) {
+			return Response.status(Status.FORBIDDEN)
+					.entity("Inscrições já passaram").build();
+		}
 		if (partipanteExistente != null) {
 			participante.setId(partipanteExistente.getId());
 		} else {

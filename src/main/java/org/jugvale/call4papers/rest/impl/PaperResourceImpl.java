@@ -64,19 +64,19 @@ public class PaperResourceImpl implements PaperResource {
 		Paper paper = paperService.buscarPorId(id);
 		lanca404SeNulo(paper, id);
 		String ip = request.getRemoteAddr();
-		if (votosSalvos.ipJaVotouNoPaper(ip, id)) {
+		if (!paper.getEvento().getDataFim().after(new Date())) {
+			rb = Response.status(Status.FORBIDDEN).entity(
+					"Esse evento já passou.");
+		} else if (votosSalvos.ipJaVotouNoPaper(ip, id)) {
 			System.out.printf("Proibindo %s de votar no paper %d.\n", ip, id);
 			rb = Response.status(Status.FORBIDDEN).entity(
 					"Você já votou nesse Paper!");
-		}
-		else if (paper.getEvento().getDataFim().before(new Date())) {
+		} else {
 			System.out.printf("IP %s votando para paper %d\n", ip, id);
 			long nota = paper.getNota();
 			paper.setNota(nota + 1);
 			paperService.atualizar(paper);
 			rb = Response.ok();
-		} else {
-			rb = Response.status(Status.FORBIDDEN).entity("Evento já passou!");
 		}
 		return rb.build();
 	}
