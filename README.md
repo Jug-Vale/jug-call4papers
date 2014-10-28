@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/Jug-Vale/jug-call4papers.png?label=ready&title=Ready)](https://waffle.io/Jug-Vale/jug-call4papers)
 jug-call4papers
 ===============
 
