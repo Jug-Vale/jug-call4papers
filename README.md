@@ -1,8 +1,7 @@
 [![Stories in Ready](https://badge.waffle.io/Jug-Vale/jug-call4papers.png?label=ready&title=Ready)](https://waffle.io/Jug-Vale/jug-call4papers)
+[![Build status](https://travis-ci.org/Jug-Vale/jug-call4papers.png)](https://travis-ci.org/Jug-Vale/jug-call4papers.png?branch=master)
 jug-call4papers
 ===============
-
-[![Build status](https://travis-ci.org/CodeVale/jug-call4papers.png)](https://travis-ci.org/CodeVale/jug-call4papers.png?branch=master)
 
 Uma aplicação de Call4Paper com JEE 6 para uso nos eventos do JUG Vale
 
