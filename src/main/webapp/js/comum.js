@@ -69,3 +69,10 @@ function limpaCamposForm() {
 	    })
 	});
 }
+
+function converteParaData(strData) {
+	var pattern = /(\d{2})-(\d{2})-(\d{4})\s(\d{2}):(\d{2})/;
+	var dadosData = strData.match(pattern);
+	return new Date(dadosData[3], dadosData[2], dadosData[1], dadosData[4], dadosData[5]);
+	
+}

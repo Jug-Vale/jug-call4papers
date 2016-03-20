@@ -52,13 +52,9 @@ $(function() {
 		
 		$("#mapa_id").attr("src", maps);
 		
-		var pattern = /(\d{2})-(\d{2})-(\d{4})\s(\d{2}):(\d{2})/;
-		var dadosData = evento.dataFim.match(pattern);
-		var dataFim = new Date(dadosData[3], dadosData[2], dadosData[1], dadosData[4], dadosData[5]);
+		var dataFim = converteParaData(evento.dataFim);
 		var naoPassou = new Date() < dataFim;
-		console.log(dataFim)
-		console.log(new Date())		
-		if(evento.aceitandoTrabalho  && naoPassou) {
+		if(evento.aceitandoTrabalhos  && naoPassou) {
 			$("#aceitando_paper").addClass( "alert alert-info alert-dismissible" )
 								 .append("Uhul !!!!! Este evento está aceitando Papers. " +
 								 		 	"<a href='paper.html?evento=" + evento.id+ "' class='alert-link'>Submeta o seu</a>");
