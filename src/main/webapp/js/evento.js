@@ -51,15 +51,21 @@ $(function() {
 		var maps = "http://maps.googleapis.com/maps/api/staticmap?center=" + evento.local + "&zoom=15&size=580x300&sensor=false";
 		
 		$("#mapa_id").attr("src", maps);
-				
-		if(evento.aceitandoTrabalhos === true) {
+		
+		var pattern = /(\d{2})-(\d{2})-(\d{4})\s(\d{2}):(\d{2})/;
+		var dadosData = evento.dataFim.match(pattern);
+		var dataFim = new Date(dadosData[3], dadosData[2], dadosData[1], dadosData[4], dadosData[5]);
+		var naoPassou = new Date() < dataFim;
+		console.log(dataFim)
+		console.log(new Date())		
+		if(evento.aceitandoTrabalho  && naoPassou) {
 			$("#aceitando_paper").addClass( "alert alert-info alert-dismissible" )
 								 .append("Uhul !!!!! Este evento está aceitando Papers. " +
 								 		 	"<a href='paper.html?evento=" + evento.id+ "' class='alert-link'>Submeta o seu</a>");
 		} else {
 			$("#aceitando_paper").addClass( "alert alert-danger alert-dismissible" ).append("Ops!!! Já encerramos os papers :(");
 		}
-		if(evento.inscricoesAbertas === true) {
+		if(evento.inscricoesAbertas && naoPassou) {
 			$("#aceitando_inscricao").addClass( "alert alert-info alert-dismissible" )
 								 .append("Inscrições abertas para esse evento!! \o/ " +
 								 		 	"<a href='inscricao.html?evento=" + evento.id+ "' class='alert-link'>Inscrição.</a>");
