@@ -14,7 +14,9 @@ $(function() {
 			EventoResource.criar({
 				$entity: evento,
 				$callback: function(httpCode, xmlHttpRequest) {	
-					alert(httpCode)
+					if(httpCode == 201) 
+						alert("Evento criado com sucesso!")
+						limpaCamposForm();
 				}
 			});
 			
