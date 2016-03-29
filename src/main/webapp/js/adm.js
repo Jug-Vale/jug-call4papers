@@ -2,7 +2,6 @@ $(function() {
 	$('.data').mask('00-00-0000 00:00');
 	// com angular td seria mais fácil ..
 	// como é página fechada de admin, vamos fazer td travando a UI msm
-	var eventosHtml = "";
 	var inscritosEvento = {};
 	var eventos = EventoResource.listarTodos();
 	eventos.sort(function(a, b) {
@@ -10,24 +9,13 @@ $(function() {
 		var d2 = converteParaData(b.dataFim);
 		return d1 < d2;
 	});
+	console.log(new Date())
 	var eventosOptions = $("#eventosOptions");
-	var agora = new Date();
 	$.each(eventos, function(key, evt) {
 		eventosOptions.append($("<option />").val(evt.id).text(evt.nome));
-		eventosHtml += "<li>";
-		if(converteParaData(evt.dataFim) > agora) {
-			eventosHtml += "<span style='color: blue'>"
-		} else {
-			eventosHtml += "<span style='color: red'>"
-		}
-		eventosHtml += evt.nome;
-		eventosHtml += " ( <a href='./rest/evento/"+ evt.id + "/inscritos'>ver inscritos</a> )";
-		eventosHtml += "</span>"
-		eventosHtml +=	"</li>";
-		
 	});
 	
-	$("#todosEventos").append(eventosHtml);
+	mostrarEventos(eventos);
 	
 	// listeners
 	eventosOptions.change(function() {
@@ -36,7 +24,7 @@ $(function() {
 			eventoId: eventosOptions.val(),
 			$callback: function(httpCode, xmlHttpRequest, inscritos) {	
 				inscritosEvento = inscritos;
-				mostraInscritos(inscritos)
+				mostrarInscritos(inscritos)
 			}
 		})
 	});
@@ -49,8 +37,19 @@ $(function() {
 				return inscrito
 			}
 		});
-		mostraInscritos(inscritosFiltrados);
+		mostrarInscritos(inscritosFiltrados);
 	})
+	$("#filtroEvento").keyup(function(){
+		var eventosFiltrados = $.grep(eventos, function(evt, i) {
+			var filtro = $("#filtroEvento").val();
+			var nome = evt.nome;
+			if(nome.indexOf(filtro) != -1 ) {
+				return evt
+			}
+		});
+		mostrarEventos(eventosFiltrados);
+	})
+	
 	$('#btnNovoEvento').click(function() {
 		if(!haErrosNosForms()) {
 			var evento = {};
@@ -73,7 +72,7 @@ $(function() {
 	});
 });
 
-function mostraInscritos(inscritos) {
+function mostrarInscritos(inscritos) {
 	var inscritosHtml = ""
 	$.each(inscritos, function(key, inscrito) {
 		inscritosHtml += "<li>";
@@ -81,4 +80,23 @@ function mostraInscritos(inscritos) {
 		inscritosHtml += "</li>";
 	});
 	$("#inscritosFiltrados").html(inscritosHtml);
+}
+
+
+function mostrarEventos(eventos){
+	var agora = new Date();
+	var eventosHtml = "";
+	$.each(eventos, function(key, evt) {
+		eventosHtml += "<li>";
+		if(converteParaData(evt.dataFim) > agora) {
+			eventosHtml += "<span style='color: blue'>"
+		} else {
+			eventosHtml += "<span style='color: red'>"
+		}
+		eventosHtml += evt.nome;
+		eventosHtml += " ( <a href='./rest/evento/"+ evt.id + "/inscritos'>ver inscritos</a> )";
+		eventosHtml += "</span>"
+		eventosHtml +=	"</li>";
+	});
+	$("#todosEventos").html(eventosHtml);
 }
