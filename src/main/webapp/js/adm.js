@@ -76,6 +76,7 @@ function atualizaInscritos() {
 		eventoId: $("#eventosOptions").val(),
 		$callback: function(httpCode, xmlHttpRequest, inscritos) {	
 			inscritosEvento = inscritos;
+			$("#totalInscritos").html(inscritos.length);
 			mostrarInscritos(inscritos)
 		}
 	})
