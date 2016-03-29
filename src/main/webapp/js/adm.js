@@ -16,18 +16,8 @@ $(function() {
 	});
 	
 	mostrarEventos(eventos);
-	
 	// listeners
-	eventosOptions.change(function() {
-		console.log(eventosOptions.val());
-		participanteEvento = EventoResource.buscarInscritosTodosCampos({
-			eventoId: eventosOptions.val(),
-			$callback: function(httpCode, xmlHttpRequest, inscritos) {	
-				inscritosEvento = inscritos;
-				mostrarInscritos(inscritos)
-			}
-		})
-	});
+	eventosOptions.change(atualizaInscritos);
 	$("#filtroParticipante").keyup(function(){
 		var inscritosFiltrados = $.grep(inscritosEvento, function(inscrito, i) {
 			var filtro = $("#filtroParticipante").val();
@@ -70,14 +60,45 @@ $(function() {
 			
 		}
 	});
+	// depois de td
+	atualizaInscritos();
 });
+
+function atualizaInscritos() {
+	EventoResource.buscarInscritosTodosCampos({
+		eventoId: $("#eventosOptions").val(),
+		$callback: function(httpCode, xmlHttpRequest, inscritos) {	
+			inscritosEvento = inscritos;
+			mostrarInscritos(inscritos)
+		}
+	})
+};
+
+function mudaPresenca(id) {
+	InscricaoResource.mudaPresenca({
+		inscricaoId: id,
+		$callback: function(httpCode, xmlHttpRequest, inscritos) {	
+			if(httpCode == 200) {
+				 atualizaInscritos()
+			}
+		}
+	})
+}
 
 function mostrarInscritos(inscritos) {
 	var inscritosHtml = ""
 	$.each(inscritos, function(key, inscrito) {
-		inscritosHtml += "<li>";
-		inscritosHtml += inscrito.participante.nome  + " RG: " + inscrito.participante.rg
-		inscritosHtml += "</li>";
+		inscritosHtml += "<tr>";
+		inscritosHtml += "<td>" + inscrito.participante.nome  + "</td>";
+		inscritosHtml += "<td>" + inscrito.participante.rg  + "</td>";
+		inscritosHtml += "<td><button onclick='mudaPresenca(" + inscrito.id + ")' class='btn btn-default'>"
+		if(inscrito.compareceu) {
+			inscritosHtml += "Cancelar Presença"
+		} else {
+			inscritosHtml += "Marcar Presença"
+		}
+		inscritosHtml += "</button></td>"
+		inscritosHtml += "</tr>";
 	});
 	$("#inscritosFiltrados").html(inscritosHtml);
 }
