@@ -18,4 +18,8 @@ public interface InscricaoResource {
 	@POST
 	@Path("evento/{eventoId}")
 	public Response inscrever(@PathParam("eventoId") long eventoId, Participante participante);
+	
+	@POST
+	@Path("{inscricaoId}/presenca")
+	public Response mudaPresenca(@PathParam("inscricaoId") long inscricaoId);
 }

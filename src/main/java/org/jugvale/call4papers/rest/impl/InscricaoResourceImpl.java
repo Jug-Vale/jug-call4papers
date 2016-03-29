@@ -10,7 +10,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
-import org.apache.commons.mail.SimpleEmail;
 import org.jugvale.call4papers.model.config.RemetentePadraoDeEMailConfig;
 import org.jugvale.call4papers.model.impl.Evento;
 import org.jugvale.call4papers.model.impl.Inscricao;
@@ -18,6 +17,7 @@ import org.jugvale.call4papers.model.impl.Participante;
 import org.jugvale.call4papers.rest.InscricaoResource;
 import org.jugvale.call4papers.sender.EmailSender;
 import org.jugvale.call4papers.service.impl.EventoService;
+import org.jugvale.call4papers.service.impl.InscricaoService;
 import org.jugvale.call4papers.service.impl.ParticipanteService;
 
 @Stateless
@@ -28,6 +28,9 @@ public class InscricaoResourceImpl implements InscricaoResource {
 
 	@Inject
 	ParticipanteService participanteService;
+	
+	@Inject
+	InscricaoService inscricaoService;
 	
 	@Inject
 	EmailSender emailSender;
@@ -64,6 +67,13 @@ public class InscricaoResourceImpl implements InscricaoResource {
 			
 		}
 		return rb.entity(inscricao).build();
+	}
+	
+	@Override
+	public Response mudaPresenca(long inscricaoId) {
+		Inscricao inscricao = inscricaoService.buscarPorId(inscricaoId);
+		inscricao.setCompareceu(!inscricao.isCompareceu());
+		return Response.ok(inscricao).build();
 	}
 
 	/**
