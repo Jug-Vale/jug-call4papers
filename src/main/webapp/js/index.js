@@ -12,7 +12,7 @@ $(function() {
 
 			size += "<div class='evento_box' id='evento_box'>" +
 			"<div class='row'>" +
-					"<div class='col-xs-6 col-md-3'>" +
+					"<div class='col-xs-6 col-md-12'>" +
 					"<div class='panel panel-default'>";
 			size += "<div class='panel-heading'>";
 			size += "<a href='./evento.html?id=" + value.id + "'>" + value.nome + "</a></div>";
