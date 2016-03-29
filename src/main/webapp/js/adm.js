@@ -32,7 +32,6 @@ $(function() {
 	// listeners
 	eventosOptions.change(function() {
 		console.log(eventosOptions.val());
-		// BUSCAR PARTICIPANTES E PREENCHER LISTINHA
 		participanteEvento = EventoResource.buscarInscritosTodosCampos({
 			eventoId: eventosOptions.val(),
 			$callback: function(httpCode, xmlHttpRequest, inscritos) {	
@@ -41,10 +40,16 @@ $(function() {
 			}
 		})
 	});
-	$("#filtroParticipante").keydown(function(){
+	$("#filtroParticipante").keyup(function(){
 		var inscritosFiltrados = $.grep(inscritosEvento, function(inscrito, i) {
-			console.log(inscrito)
+			var filtro = $("#filtroParticipante").val();
+			var nome = inscrito.participante.nome;
+			var rg = inscrito.participante.rg;
+			if(nome.indexOf(filtro) != -1 ||  rg.indexOf(filtro) != -1){
+				return inscrito
+			}
 		});
+		mostraInscritos(inscritosFiltrados);
 	})
 	$('#btnNovoEvento').click(function() {
 		if(!haErrosNosForms()) {
