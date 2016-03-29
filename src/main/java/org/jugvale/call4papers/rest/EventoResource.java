@@ -103,4 +103,11 @@ public interface EventoResource {
 	public Response mudaInscricoesAbertas(
 			@PathParam("eventoId") Long eventoId);
 	
+	@GET
+	@Path("/admin/{eventoId}/inscritos/baixar")
+	@RolesAllowed({ "ADMINISTRADOR" })
+	@Produces("text/csv;charset=utf-8")
+	public Response baixaInscritos(
+			@PathParam("eventoId") Long eventoId);
+	
 }

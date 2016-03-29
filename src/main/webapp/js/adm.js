@@ -145,8 +145,7 @@ function mostrarEventos(eventos){
 		}
 		eventosHtml += evt.nome;
 		eventosHtml += " (<a href='./evento.html?id=" + evt.id + "' target='_new'>Ver página</a> )";
-		
-		eventosHtml += " (<a href='./rest/evento/"+ evt.id + "/inscritos' target='_new'>ver inscritos</a>)";
+		eventosHtml += " (<a href='./rest/evento/admin/"+ evt.id + "/inscritos/baixar' target='_new'>ver inscritos</a>)";
 		eventosHtml += "</td>"
 		eventosHtml += "<td><button onclick='mudaInscricoesAbertas(" + evt.id + ")' class='btn btn-default'>"
 		if(evt.inscricoesAbertas){

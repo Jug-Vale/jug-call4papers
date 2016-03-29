@@ -3,6 +3,8 @@ package org.jugvale.call4papers.rest.impl;
 import static org.jugvale.call4papers.rest.utils.RESTUtils.lanca404SeNulo;
 import static org.jugvale.call4papers.rest.utils.RESTUtils.recursoCriado;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
@@ -120,6 +122,33 @@ public class EventoResourceImpl implements EventoResource {
 		e.setInscricoesAbertas(!e.isInscricoesAbertas());
 		eventoService.atualizar(e);
 		return Response.ok(e).build();
+	}
+
+	@Override
+	public Response baixaInscritos(Long eventoId) {
+		Evento e = lanca404SeNulo(eventoService.buscarPorId(eventoId), eventoId);
+		StringBuffer inscritosCSV = new StringBuffer();
+		String nomeArquivo = "Inscritos_" +  e.getNome().replaceAll(" ", "") + ".csv";
+		List<Inscricao> inscritosNoEvento = eventoService.inscritosNoEvento(e);
+		inscritosCSV.append("nome,rg,email,empresa,instituicao,dataInscricao,compareceu\n");
+		for (Inscricao inscricao : inscritosNoEvento) {
+			inscritosCSV.append("\"");
+			inscritosCSV.append(inscricao.getParticipante().getNome());
+			inscritosCSV.append("\",\"");
+			inscritosCSV.append(inscricao.getParticipante().getRg());
+			inscritosCSV.append("\",\"");
+			inscritosCSV.append(inscricao.getParticipante().getEmail());
+			inscritosCSV.append("\",\"");
+			inscritosCSV.append(inscricao.getParticipante().getEmpresa());
+			inscritosCSV.append("\",\"");
+			inscritosCSV.append(inscricao.getParticipante().getInstituicao());
+			inscritosCSV.append("\",\"");
+			inscritosCSV.append(inscricao.getData());
+			inscritosCSV.append("\",\"");
+			inscritosCSV.append(inscricao.isCompareceu());
+			inscritosCSV.append("\"\n");
+		}
+		return Response.ok(inscritosCSV.toString().getBytes()).header("Content-disposition", "attachment;filename=\"" + nomeArquivo +"\"").build();
 	}
 
 }
