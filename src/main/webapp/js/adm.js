@@ -1,23 +1,13 @@
+// globais
+var inscritosEvento = {};
+
+// inicialização
 $(function() {
 	$('.data').mask('00-00-0000 00:00');
 	// com angular td seria mais fácil ..
 	// como é página fechada de admin, vamos fazer td travando a UI msm
-	var inscritosEvento = {};
-	var eventos = EventoResource.listarTodos();
-	eventos.sort(function(a, b) {
-		var d1 = converteParaData(a.dataFim);
-		var d2 = converteParaData(b.dataFim);
-		return d1 < d2;
-	});
-	console.log(new Date())
-	var eventosOptions = $("#eventosOptions");
-	$.each(eventos, function(key, evt) {
-		eventosOptions.append($("<option />").val(evt.id).text(evt.nome));
-	});
-	
-	mostrarEventos(eventos);
+	var eventos = buscaEventos();
 	// listeners
-	eventosOptions.change(atualizaInscritos);
 	$("#filtroParticipante").keyup(function(){
 		var inscritosFiltrados = $.grep(inscritosEvento, function(inscrito, i) {
 			var filtro = $("#filtroParticipante").val();
@@ -64,6 +54,23 @@ $(function() {
 	atualizaInscritos();
 });
 
+function buscaEventos() {
+	var eventos = EventoResource.listarTodos();
+	eventos.sort(function(a, b) {
+		var d1 = converteParaData(a.dataFim);
+		var d2 = converteParaData(b.dataFim);
+		return d1 < d2;
+	});
+	var eventosOptions = $("#eventosOptions");
+	$.each(eventos, function(key, evt) {
+		eventosOptions.append($("<option />").val(evt.id).text(evt.nome));
+	});
+	
+	mostrarEventos(eventos);
+	eventosOptions.change(atualizaInscritos);
+	return eventos;
+}
+
 function atualizaInscritos() {
 	EventoResource.buscarInscritosTodosCampos({
 		eventoId: $("#eventosOptions").val(),
@@ -73,6 +80,28 @@ function atualizaInscritos() {
 		}
 	})
 };
+
+function mudaInscricoesAbertas(id) {
+	EventoResource.mudaInscricoesAbertas({
+		eventoId: id,
+		$callback: function(httpCode, xmlHttpRequest) {	
+			if(httpCode == 200) {
+				buscaEventos()
+			}
+		}
+	})
+}
+
+function mudaAceitandoPapers(id) {
+	EventoResource.mudaAceitandoPapers({
+		eventoId: id,
+		$callback: function(httpCode, xmlHttpRequest) {	
+			if(httpCode == 200) {
+				buscaEventos()
+			}
+		}
+	})
+}
 
 function mudaPresenca(id) {
 	InscricaoResource.mudaPresenca({
@@ -108,15 +137,31 @@ function mostrarEventos(eventos){
 	var agora = new Date();
 	var eventosHtml = "";
 	$.each(eventos, function(key, evt) {
-		eventosHtml += "<li>";
+		eventosHtml += "<tr>";
 		if(converteParaData(evt.dataFim) > agora) {
-			eventosHtml += "<span style='color: blue'>"
+			eventosHtml += "<td style='color: blue'>"
 		} else {
-			eventosHtml += "<span style='color: red'>"
+			eventosHtml += "<td style='color: red'>"
 		}
 		eventosHtml += evt.nome;
-		eventosHtml += " ( <a href='./rest/evento/"+ evt.id + "/inscritos'>ver inscritos</a> )";
-		eventosHtml += "</span>"
+		eventosHtml += " (<a href='./evento.html?id=" + evt.id + "' target='_new'>Ver página</a> )";
+		
+		eventosHtml += " (<a href='./rest/evento/"+ evt.id + "/inscritos' target='_new'>ver inscritos</a>)";
+		eventosHtml += "</td>"
+		eventosHtml += "<td><button onclick='mudaInscricoesAbertas(" + evt.id + ")' class='btn btn-default'>"
+		if(evt.inscricoesAbertas){
+			eventosHtml += "Fechar inscrições"
+		}else {
+			eventosHtml += "Abrir inscrições"
+		}
+		eventosHtml += "</td>"
+		eventosHtml += "<td><button onclick='mudaAceitandoPapers(" + evt.id + ")' class='btn btn-default'>"
+		if(evt.aceitandoTrabalhos){
+			eventosHtml += "Fechar Call4Papers"
+		}else {
+			eventosHtml += "Abrir Call4Papers"
+		}
+		eventosHtml += "</td>"
 		eventosHtml +=	"</li>";
 	});
 	$("#todosEventos").html(eventosHtml);

@@ -106,4 +106,20 @@ public class EventoResourceImpl implements EventoResource {
 		return buscarInscritos(eventoId);
 	}
 
+	@Override
+	public Response mudaAceitandoPapers(Long eventoId) {
+		Evento e = lanca404SeNulo(eventoService.buscarPorId(eventoId), eventoId);
+		e.setAceitandoTrabalhos(!e.isAceitandoTrabalhos());
+		eventoService.atualizar(e);
+		return Response.ok(e).build();
+	}
+
+	@Override
+	public Response mudaInscricoesAbertas(Long eventoId) {
+		Evento e = lanca404SeNulo(eventoService.buscarPorId(eventoId), eventoId);
+		e.setInscricoesAbertas(!e.isInscricoesAbertas());
+		eventoService.atualizar(e);
+		return Response.ok(e).build();
+	}
+
 }

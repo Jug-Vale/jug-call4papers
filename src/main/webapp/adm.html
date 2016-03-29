@@ -110,9 +110,18 @@
 						<span>Filtrar por nome: </span> <input type="text"
 							id="filtroEvento" /> <br />
 						<br />
-						<ul id="todosEventos">
-
-						</ul>
+						
+						<table class="table">
+								<thead>
+									<tr>
+										<th>Nome</th>
+										<th>Inscrições</th>
+										<th>Papers</th>
+									</tr>
+								</thead>
+								<tbody id="todosEventos">
+								</tbody>
+							</table>
 					</div>
 				</div>
 			</div>
@@ -128,7 +137,7 @@
 				<div id="marcaInscritos" class="panel-collapse collapse">
 					<div class="panel-body">
 						<div>
-							<span>Selecione Evento: </span> <select id="eventosOptions"></select>
+							<span>Selecione Evento: </span> <select id="eventosOptions" class="select"></select>
 							<span>Filtrar por nome/rg: </span> <input type="text"
 								id="filtroParticipante" />
 						</div>

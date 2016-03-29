@@ -21,7 +21,7 @@ public interface InscricaoResource {
 	public Response inscrever(@PathParam("eventoId") long eventoId, Participante participante);
 	
 	@POST
-	@Path("{inscricaoId}/presenca")
+	@Path("/admin/{inscricaoId}/presenca")
 	@RolesAllowed({ "ADMINISTRADOR" })
 	public Response mudaPresenca(@PathParam("inscricaoId") long inscricaoId);
 }

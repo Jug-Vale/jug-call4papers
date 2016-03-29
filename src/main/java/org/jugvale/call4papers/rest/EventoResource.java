@@ -90,4 +90,17 @@ public interface EventoResource {
 	@JsonView({ Views.Interno.class })
 	public Response buscarInscritosTodosCampos(
 			@PathParam("eventoId") Long eventoId);
+	
+	@POST
+	@Path("/admin/{eventoId}/muda-aceitando-papers")
+	@RolesAllowed({ "ADMINISTRADOR" })
+	public Response mudaAceitandoPapers(
+			@PathParam("eventoId") Long eventoId);
+	
+	@POST
+	@Path("/admin/{eventoId}/muda-inscricoes-abertas")
+	@RolesAllowed({ "ADMINISTRADOR" })
+	public Response mudaInscricoesAbertas(
+			@PathParam("eventoId") Long eventoId);
+	
 }
