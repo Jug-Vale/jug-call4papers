@@ -25,14 +25,6 @@
 
 	<div class="container">
 
-
-		<div class="row">
-			<div id="accordion">
-				<h3>Adicionar Evento</h3>
-				<div></div>
-			</div>
-		</div>
-
 		<div class="panel-group">
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -45,62 +37,62 @@
 					<div class="panel-body">
 
 						<!-- <form id="formAddEvento" class="form-horizontal"> -->
-							<div class="form-group">
-								<label for="InputName">Nome </label>
-								<div class="input-group">
-									<input type="text" class="form-control" name="InputName"
-										id="nome" placeholder="Nome" required> <span
-										class="input-group-addon"><span
-										class="glyphicon glyphicon-asterisk"></span></span>
-								</div>
+						<div class="form-group">
+							<label for="InputName">Nome </label>
+							<div class="input-group">
+								<input type="text" class="form-control" name="InputName"
+									id="nome" placeholder="Nome" required> <span
+									class="input-group-addon"><span
+									class="glyphicon glyphicon-asterisk"></span></span>
 							</div>
-							<div class="form-group">
-								<label for="InputDataFim">Descrição</label>
-								<div class="input-group">
-									<textarea class="form-control" id="descricao" name="InputDesc"
-										placeholder="Descrição" required></textarea>
-								</div>
+						</div>
+						<div class="form-group">
+							<label for="InputDataFim">Descrição</label>
+							<div class="input-group">
+								<textarea class="form-control" id="descricao" name="InputDesc"
+									placeholder="Descrição" required></textarea>
 							</div>
-							<div class="form-group">
-								<label for="InputDataInicio">Data Início: </label>
-								<div class="input-group">
-									<input type="text" class="form-control data" id="dataInicio"
-										name="InputDataInicio"
-										placeholder="Data Início (dd/MM/AAAA hh:mm)" required>
-									<span class="input-group-addon"><span
-										class="glyphicon glyphicon-asterisk"></span></span>
-								</div>
+						</div>
+						<div class="form-group">
+							<label for="InputDataInicio">Data Início: </label>
+							<div class="input-group">
+								<input type="text" class="form-control data" id="dataInicio"
+									name="InputDataInicio"
+									placeholder="Data Início (dd/MM/AAAA hh:mm)" required>
+								<span class="input-group-addon"><span
+									class="glyphicon glyphicon-asterisk"></span></span>
 							</div>
-							<div class="form-group">
-								<label for="InputDataFim">Data Fim: </label>
-								<div class="input-group">
-									<input type="text" class="form-control data" id="dataFim"
-										name="InputDataFim" placeholder="Data Fim (dd/MM/AAAA hh:mm)"
-										required> <span class="input-group-addon"><span
-										class="glyphicon glyphicon-asterisk"></span></span>
-								</div>
+						</div>
+						<div class="form-group">
+							<label for="InputDataFim">Data Fim: </label>
+							<div class="input-group">
+								<input type="text" class="form-control data" id="dataFim"
+									name="InputDataFim" placeholder="Data Fim (dd/MM/AAAA hh:mm)"
+									required> <span class="input-group-addon"><span
+									class="glyphicon glyphicon-asterisk"></span></span>
 							</div>
-							<div class="form-group">
-								<label for="InputLocal">Local</label>
-								<div class="input-group">
-									<input type="text" class="form-control" id="local"
-										name="InputLocal" placeholder="Local (endereço completo)"> <span
-										class="input-group-addon"><span
-										class="glyphicon glyphicon-asterisk"></span></span>
-								</div>
+						</div>
+						<div class="form-group">
+							<label for="InputLocal">Local</label>
+							<div class="input-group">
+								<input type="text" class="form-control" id="local"
+									name="InputLocal" placeholder="Local (endereço completo)">
+								<span class="input-group-addon"><span
+									class="glyphicon glyphicon-asterisk"></span></span>
 							</div>
-							<div class="form-group">
-								<label for="InputURL">Site</label>
-								<div class="input-group">
-									<input type="text" class="form-control" id="input_site"
-										name="InputURL"
-										placeholder="Algum site com mais informações sobre o evento">
-									<span class="input-group-addon"><span
-										class="glyphicon glyphicon-asterisk"></span></span>
-								</div>
+						</div>
+						<div class="form-group">
+							<label for="InputURL">Site</label>
+							<div class="input-group">
+								<input type="text" class="form-control" id="input_site"
+									name="InputURL"
+									placeholder="Algum site com mais informações sobre o evento">
+								<span class="input-group-addon"><span
+									class="glyphicon glyphicon-asterisk"></span></span>
 							</div>
-							<button id="btnNovoEvento" name="btn_salvar"
-								class="btn btn-default">Salvar Evento</button>
+						</div>
+						<button id="btnNovoEvento" name="btn_salvar"
+							class="btn btn-default">Salvar Evento</button>
 						<!--  </form>-->
 					</div>
 				</div>
@@ -114,22 +106,16 @@
 					</h4>
 				</div>
 				<div id="eventos" class="panel-collapse collapse">
-					<div class="panel-body">eventos</div>
+					<div class="panel-body">
+						<ul id="todosEventos">
+
+						</ul>
+					</div>
 				</div>
 			</div>
+			
+			
 
-			<div class="panel panel-default">
-				<div class="panel-heading">
-
-					<h4 class="panel-title">
-						<a data-toggle="collapse" data-target="#inscritos">Ver
-							inscritos</a>
-					</h4>
-				</div>
-				<div id="inscritos" class="panel-collapse collapse">
-					<div class="panel-body">inscritos</div>
-				</div>
-			</div>
 		</div>
 	</div>
 	<hr>
