@@ -81,3 +81,9 @@ A configuração de segurança foi simplicada já que não temos mais a role de 
 No Openshift você deverá fazer ssh ao servidor para adicionar esse usuário.
 
 Fazendo o deploy, uns dados inicíais você já terá para ver a aplicação rodando. Você pode ver o evento de teste em: `http://localhost:8080/jugvale-call4papers/rest/evento/` ou a página inicial em `http://localhost:8080/jugvale-call4papers/`.
+
+**Realizando backup**
+
+* Realizando um backup:
+
+`curl -X GET    -u '{usuario}:{senha}' http://localhost:8080/jugvale-call4papers/rest/backup?eventoId={idEvento} > backup.json`
