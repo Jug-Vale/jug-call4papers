@@ -42,6 +42,7 @@ public class ApacheEmailSender implements EmailSender {
 				email.setHostName(configuracaoDeEnvioDeEMail.getHostSmtp());
 				email.setSmtpPort(configuracaoDeEnvioDeEMail.getPorta());	
 				email.setStartTLSEnabled(configuracaoDeEnvioDeEMail.getTlsHabilitado());
+				email.setSSLOnConnect(configuracaoDeEnvioDeEMail.getUsarSSL());
 				email.										
 					setFrom(this.remetente).//De
 					addTo(this.destinatarios.toArray(new String[this.destinatarios.size()])).//Para
@@ -51,6 +52,7 @@ public class ApacheEmailSender implements EmailSender {
 			} catch(Exception e){
 				//Tratamento de erro feito provisório
 				System.err.println(MessageFormat.format("Falha no envio de e-mail para {0} o seguinte erro ocorreu: {1}",this.destinatarios, e.getMessage()));
+				e.printStackTrace();
 			}
 			return EmailSender.SUCESSO;
 		}

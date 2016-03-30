@@ -3,9 +3,6 @@
  */
 package org.jugvale.call4papers.model.config;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -16,16 +13,20 @@ import javax.inject.Singleton;
 /**
  * Classe que representa os atributos da configuração do remetente padrão de e-mail do sistema.
  * @author daniel
+ * @author wsiqueir
  *
  */
 @Singleton
 public class RemetentePadraoDeEMailConfig {
 	
+	private static final String EMAIL_PROPERTIES = "email.properties";
 	private String email;
 	private String senha;
 	private String hostSmtp;
 	private Integer porta;
 	private Boolean tlsHabilitado;
+	private Boolean usarSSL;
+	
 	
 	public RemetentePadraoDeEMailConfig(){
 		carregarInformacoesDoPropeties();
@@ -36,7 +37,7 @@ public class RemetentePadraoDeEMailConfig {
 	 */
 	private void carregarInformacoesDoPropeties() {
 		Properties emailProperties = new Properties();		
-		String propertyName = "email.properties";		
+		String propertyName = EMAIL_PROPERTIES;		
 		InputStream emailStream = getClass().getClassLoader().getResourceAsStream(propertyName);
 		try {
 			emailProperties.load(emailStream);		
@@ -45,6 +46,7 @@ public class RemetentePadraoDeEMailConfig {
 			this.hostSmtp = emailProperties.getProperty("hostSmtp");
 			this.porta = Integer.parseInt(emailProperties.getProperty("porta"));
 			this.tlsHabilitado = emailProperties.getProperty("tlsHabilitado").equals("sim") ? true : false;
+			this.usarSSL= emailProperties.getProperty("usarSSL").equals("sim") ? true : false;
 		} catch (IOException e) {
 			//Tratamento de erro feito provisório
 			System.err.println("Falha na leitura do arquivo email.properties");
@@ -73,5 +75,11 @@ public class RemetentePadraoDeEMailConfig {
 	public Boolean getTlsHabilitado() {
 		return tlsHabilitado;
 	}
+
+	public Boolean getUsarSSL() {
+		return usarSSL;
+	}
+	
+	
 
 }
