@@ -40,8 +40,12 @@ $(function() {
 		});
 		
 
-		$('#eventos_box').append(size);
-		$('#eventos_passados').append(passadosHtml);
+		if(novosEventos.length > 0) {
+			$('#eventos_box').html(size);
+		}
+		if(eventosPassados.length > 0) {
+			$('#eventos_passados').html(passadosHtml);
+		}
 
 	}
 
