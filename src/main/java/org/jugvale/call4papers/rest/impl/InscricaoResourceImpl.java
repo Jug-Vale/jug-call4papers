@@ -35,12 +35,12 @@ public class InscricaoResourceImpl implements InscricaoResource {
 		ResponseBuilder rb;
 		Evento evento = lanca404SeNulo(eventoService.buscarPorId(eventoId),
 				eventoId);
-		Participante partipanteExistente = participanteService
-				.buscaPorEmail(participante.getEmail());
 		if (!evento.isInscricoesAbertas()) {
 			return Response.status(Status.FORBIDDEN)
 					.entity("Inscrições já passaram").build();
 		}
+		Participante partipanteExistente = participanteService
+				.buscaPorEmail(participante.getEmail());
 		if (partipanteExistente != null) {
 			participante.setId(partipanteExistente.getId());
 			participante = participanteService.atualizar(participante);
