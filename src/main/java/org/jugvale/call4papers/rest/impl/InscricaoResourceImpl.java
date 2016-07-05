@@ -46,7 +46,6 @@ public class InscricaoResourceImpl implements InscricaoResource {
 			participante = participanteService.atualizar(participante);
 		} else {
 			participanteService.salvar(participante);		
-		
 		}
 		Inscricao inscricao = eventoService
 				.buscaInscricao(evento, participante);
@@ -68,7 +67,12 @@ public class InscricaoResourceImpl implements InscricaoResource {
 		inscricao.setCompareceu(!inscricao.isCompareceu());
 		return Response.ok(inscricao).build();
 	}
-
 	
+	@Override
+	public Response anularInscricao(long id) {
+		Inscricao inscricao = lanca404SeNulo(inscricaoService.buscarPorId(id), id);
+		inscricaoService.anularInscricao(inscricao);
+		return Response.ok("Inscrição de '" + inscricao.getParticipante() + "' no evento '" +inscricao.getEvento()  + "' anulada.").build();
+	}
 
 }

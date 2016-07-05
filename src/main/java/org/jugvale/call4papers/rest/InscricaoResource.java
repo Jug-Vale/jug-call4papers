@@ -2,6 +2,7 @@ package org.jugvale.call4papers.rest;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -24,4 +25,10 @@ public interface InscricaoResource {
 	@Path("/admin/{inscricaoId}/presenca")
 	@RolesAllowed({ "ADMINISTRADOR" })
 	public Response mudaPresenca(@PathParam("inscricaoId") long inscricaoId);
+
+	
+	@DELETE
+	@Path("/admin/{inscricaoId}")
+	@RolesAllowed({ "ADMINISTRADOR" })
+	public Response anularInscricao(@PathParam("inscricaoId") long id);
 }

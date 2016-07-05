@@ -5,4 +5,8 @@ import org.jugvale.call4papers.service.Service;
 
 public class InscricaoService extends Service<Inscricao> {
 
+	public void anularInscricao(Inscricao inscricao) {
+		em.remove(inscricao);
+	}
+
 }
