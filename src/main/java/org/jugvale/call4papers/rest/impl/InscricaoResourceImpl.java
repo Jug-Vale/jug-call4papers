@@ -43,6 +43,7 @@ public class InscricaoResourceImpl implements InscricaoResource {
 		}
 		if (partipanteExistente != null) {
 			participante.setId(partipanteExistente.getId());
+			participante = participanteService.atualizar(participante);
 		} else {
 			participanteService.salvar(participante);		
 		
