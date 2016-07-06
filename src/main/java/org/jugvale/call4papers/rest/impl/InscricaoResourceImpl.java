@@ -69,10 +69,10 @@ public class InscricaoResourceImpl implements InscricaoResource {
 	}
 	
 	@Override
-	public Response anularInscricao(long id) {
+	public Response anulaInscricao(long id) {
 		Inscricao inscricao = lanca404SeNulo(inscricaoService.buscarPorId(id), id);
 		inscricaoService.anularInscricao(inscricao);
-		return Response.ok("Inscrição de '" + inscricao.getParticipante() + "' no evento '" +inscricao.getEvento()  + "' anulada.").build();
+		return Response.ok("Inscrição de '" + inscricao.getParticipante().getEmail() + "' no evento '" +inscricao.getEvento().getNome()  + "' anulada.").build();
 	}
 
 }

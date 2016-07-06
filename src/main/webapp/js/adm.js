@@ -42,9 +42,13 @@ $(function() {
 			EventoResource.criar({
 				$entity: evento,
 				$callback: function(httpCode, xmlHttpRequest) {	
-					if(httpCode == 201) 
-						alert("Evento criado com sucesso!")
+					if(httpCode == 201) {
+						alert("Evento criado com sucesso!");
 						limpaCamposForm();
+						buscaEventos();
+					} else {
+						alert("Problema encontrando quando adicionando o evento");
+					}
 				}
 			});
 			
@@ -109,7 +113,27 @@ function mudaPresenca(id) {
 		inscricaoId: id,
 		$callback: function(httpCode, xmlHttpRequest, inscritos) {	
 			if(httpCode == 200) {
-				 atualizaInscritos()
+				 atualizaInscritos();
+			} else {
+				alert("Erro mudando presença");
+			}
+		}
+	})
+}
+
+function cancelaInscricao(id) {
+	var confirmacaoApagar = confirm("Deseja mesmo anular essa inscrição?");
+	if(!confirmacaoApagar) {
+		return;
+	};
+	InscricaoResource.anulaInscricao({
+		inscricaoId: id,
+		$callback: function(httpCode, xmlHttpRequest, resposta) {	
+			if(httpCode == 200) {
+				alert(resposta);
+				atualizaInscritos();
+			} else {
+				alert("Erro cancelando presença");
 			}
 		}
 	})
@@ -128,6 +152,7 @@ function mostrarInscritos(inscritos) {
 			inscritosHtml += "Marcar Presença"
 		}
 		inscritosHtml += "</button></td>"
+		inscritosHtml += "<td><button onclick='cancelaInscricao(" + inscrito.id + ")' class='btn btn-default'>Cancelar</button>";
 		inscritosHtml += "</tr>";
 	});
 	$("#inscritosFiltrados").html(inscritosHtml);

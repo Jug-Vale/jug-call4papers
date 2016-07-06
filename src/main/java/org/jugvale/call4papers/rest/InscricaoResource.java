@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
 
 import org.jugvale.call4papers.model.impl.Participante;
 
-@Path("incricao")
+@Path("inscricao")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface InscricaoResource {
@@ -30,5 +30,6 @@ public interface InscricaoResource {
 	@DELETE
 	@Path("/admin/{inscricaoId}")
 	@RolesAllowed({ "ADMINISTRADOR" })
-	public Response anularInscricao(@PathParam("inscricaoId") long id);
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response anulaInscricao(@PathParam("inscricaoId") long id);
 }
