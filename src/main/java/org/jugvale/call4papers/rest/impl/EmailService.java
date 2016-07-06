@@ -1,6 +1,7 @@
 package org.jugvale.call4papers.rest.impl;
 
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
@@ -14,6 +15,8 @@ import org.jugvale.call4papers.sender.EmailSender;
 @Stateless
 public class EmailService {
 	
+	private static final String FORMATO_DATA = "dd/MM/yyyy hh:mm";
+
 	@Inject
 	EmailSender emailSender;
 	
@@ -56,9 +59,11 @@ public class EmailService {
 	 */
 	private String gerarMensagemDeConfirmacaoDeEmail(Evento evento,
 			Participante participante) {
+		// faz o parse da data, pois o MessageFormate usa o locale do server para fazer o parse, precisamos da data cadastrada como foi
+		String dataFormatada = new SimpleDateFormat(FORMATO_DATA).format(evento.getDataInicio());
 		return MessageFormat.format(
 		"Parabéns {0}, sua inscrição no evento {1} que ocorrerá no dia {2} no local {3} está confirmada.\n Contamos com a sua participação.",
-		participante.getNome(), evento.getNome(), evento.getDataInicio(), evento.getLocal());
+		participante.getNome(), evento.getNome(), dataFormatada, evento.getLocal());
 	}
 
 }
