@@ -11,6 +11,7 @@ import static org.jugvale.call4papers.rest.util.Constantes.SERVICES_CONTEXT;
 import static org.jugvale.cfp.rest.utils.RESTUtils.getMessage404;
 
 import org.jugvale.call4papers.rest.TestResourceDefault;
+import org.jugvale.cfp.model.builder.AutorBuilder;
 import org.jugvale.cfp.model.impl.Autor;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class AutorResourceIT implements TestResourceDefault{
 
 	@Before
 	public void setUp() throws Exception {
-		 autor = Autor.newAutor()
+		 autor = AutorBuilder.newAutor()
 				.comNome("Maria")
 				.comEmail("meuemail@gmail.com")
 				.comSite("www.mariajava.com")

@@ -59,11 +59,11 @@
 			<artifactId>jboss-ejb-api_3.2_spec</artifactId>
 			<scope>provided</scope>
 		</dependency>
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>jaxrs-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>jaxrs-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>javax.enterprise</groupId>
 			<artifactId>cdi-api</artifactId>
@@ -143,7 +143,7 @@
 				<groupId>org.wildfly.plugins</groupId>
 				<artifactId>wildfly-maven-plugin</artifactId>
 				<version>1.0.2.Final</version>
-				<executions>
+<!--				<executions>
 					<execution>
 						<id>pre-integration-test-wildfly</id>
 						<phase>pre-integration-test</phase>
@@ -158,7 +158,7 @@
 							<goal>undeploy</goal>
 						</goals>
 					</execution>
-				</executions>
+				</executions> -->
 			</plugin>
 
 			<plugin>

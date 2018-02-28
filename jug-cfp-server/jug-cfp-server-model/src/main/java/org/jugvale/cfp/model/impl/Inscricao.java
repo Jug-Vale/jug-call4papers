@@ -6,14 +6,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jugvale.cfp.model.DefaultModel;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@XmlRootElement
 public class Inscricao extends DefaultModel{
 	
 	private static final long serialVersionUID = 1L;

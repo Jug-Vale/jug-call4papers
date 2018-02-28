@@ -1,0 +1,8 @@
+<module>
+	<source path="">
+		<include name="AutorResource.java" />
+		<include name="EventoResource.java" />
+		<include name="InscricaoResource.java" />
+		<include name="PaperResource.java" />
+	</source>
+</module>

@@ -32,8 +32,16 @@
 			<version>2.2.3</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
-	   <finalName>${project.artifactId}</finalName>
+		<finalName>${project.artifactId}</finalName>
+		<resources>
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>${basedir}/src/main/java</directory>
+			</resource>
+		</resources>
 	</build>
 </project>

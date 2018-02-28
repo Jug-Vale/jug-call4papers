@@ -10,6 +10,10 @@ public class ParticipanteBuilder {
 		this.participante = new Participante();
 	}
 
+	public static ParticipanteBuilder newParticipante() {
+		return new ParticipanteBuilder();
+	}
+
 	public ParticipanteBuilder comNome(String nome) {
 		this.participante.setNome(nome);
 		return this;

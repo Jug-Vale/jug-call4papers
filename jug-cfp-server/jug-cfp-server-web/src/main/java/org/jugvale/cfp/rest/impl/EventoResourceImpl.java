@@ -50,8 +50,8 @@ public class EventoResourceImpl implements EventoResource {
 	}
 
 	@Override
-	public Response listarTodos() {
-		return Response.ok(eventoService.todos()).build();
+	public List<Evento> listarTodos() {
+		return eventoService.todos();
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import static org.jugvale.cfp.rest.utils.RESTUtils.getMessage404;
 import java.util.Date;
 
 import org.jugvale.call4papers.rest.TestResourceDefault;
+import org.jugvale.cfp.model.builder.EventoBuilder;
 import org.jugvale.cfp.model.impl.Evento;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +29,7 @@ public class EventoResourceIT implements TestResourceDefault {
 	@Before
 	public void setUp() throws Exception {
 		
-		evento =  Evento.newEvento()
+		evento =  EventoBuilder.newEvento()
 							   .comNome("O Grande Evento Segunda Edição")
 							   .comDescricao("Esse é o melhor evento do mundo, o grande evento, " +
 									   		 "se o primeiro foi melhor, o segundo melhor ainda...")

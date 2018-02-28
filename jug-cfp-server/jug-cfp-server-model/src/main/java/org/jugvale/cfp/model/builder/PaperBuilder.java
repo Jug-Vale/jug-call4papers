@@ -18,6 +18,10 @@ import org.jugvale.cfp.model.impl.Paper;
 public class PaperBuilder {
 
 	private Paper paper;
+	
+	public static PaperBuilder newPapper() {
+		return new PaperBuilder();
+	}
 
 	public PaperBuilder() {
 		this.paper = new Paper();

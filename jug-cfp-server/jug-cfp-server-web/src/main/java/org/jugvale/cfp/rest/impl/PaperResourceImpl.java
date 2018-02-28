@@ -4,11 +4,13 @@ import static org.jugvale.cfp.rest.utils.RESTUtils.lanca404SeNulo;
 import static org.jugvale.cfp.rest.utils.RESTUtils.recursoCriado;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
@@ -26,6 +28,8 @@ public class PaperResourceImpl implements PaperResource {
 
 	@Inject
 	VotosSalvos votosSalvos;
+	
+	@Context HttpServletRequest request;
 
 	public Response criar(Paper paper) {
 		paperService.salvar(paper);
@@ -46,8 +50,8 @@ public class PaperResourceImpl implements PaperResource {
 	}
 
 	@Override
-	public Response listarTodos() {
-		return Response.ok(paperService.todos()).build();
+	public List<Paper> listarTodos() {
+		return paperService.todos();
 	}
 
 	@Override
@@ -59,7 +63,7 @@ public class PaperResourceImpl implements PaperResource {
 	}
 
 	@Override
-	public Response votarNoPaper(long id, HttpServletRequest request) {
+	public Response votarNoPaper(long id) {
 		ResponseBuilder rb;
 		Paper paper = paperService.buscarPorId(id);
 		lanca404SeNulo(paper, id);

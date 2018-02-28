@@ -20,6 +20,11 @@ public class EventoBuilder {
 		return evento;
 	}
 	
+	public static EventoBuilder newEvento() {
+		return new EventoBuilder();
+	}
+	
+	
 	public EventoBuilder comNome (String nome) {
 		evento.setNome(nome);
 		return this;

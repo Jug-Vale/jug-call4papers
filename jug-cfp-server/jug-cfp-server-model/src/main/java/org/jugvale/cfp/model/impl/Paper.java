@@ -1,11 +1,7 @@
 package org.jugvale.cfp.model.impl;
 
 import static javax.persistence.FetchType.EAGER;
-import static org.jugvale.cfp.model.enums.Tipo.HANDS_ON;
-import static org.jugvale.cfp.model.enums.Tipo.MINI_CURSO;
-import static org.jugvale.cfp.model.enums.Tipo.PALESTRA;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,10 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jugvale.cfp.model.DefaultModel;
-import org.jugvale.cfp.model.builder.PaperBuilder;
 import org.jugvale.cfp.model.enums.Tipo;
 
 /**
@@ -34,7 +28,6 @@ import org.jugvale.cfp.model.enums.Tipo;
  * 
  */
 @Entity
-@XmlRootElement
 public class Paper extends DefaultModel {
 
 	private static final long serialVersionUID = 1L;
@@ -46,7 +39,7 @@ public class Paper extends DefaultModel {
 	private String descricao;
 
 	@Column
-	private Date dataSubmissao = Calendar.getInstance().getTime();
+	private Date dataSubmissao = new Date();
 
 	@Column
 	private long nota;
@@ -65,21 +58,6 @@ public class Paper extends DefaultModel {
 	@Enumerated(EnumType.STRING)
 	private Tipo tipo;
 
-	public static PaperBuilder newPapper() {
-		return new PaperBuilder();
-	}
-
-	public static PaperBuilder palestra() {
-		return new PaperBuilder(PALESTRA);
-	}
-
-	public static PaperBuilder miniCurso() {
-		return new PaperBuilder(MINI_CURSO);
-	}
-
-	public static PaperBuilder handsOn() {
-		return new PaperBuilder(HANDS_ON);
-	}
 
 	public String getTitulo() {
 		return titulo;

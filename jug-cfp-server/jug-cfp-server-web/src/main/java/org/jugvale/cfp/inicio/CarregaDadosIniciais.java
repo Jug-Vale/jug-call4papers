@@ -10,6 +10,10 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.jugvale.cfp.model.builder.AutorBuilder;
+import org.jugvale.cfp.model.builder.EventoBuilder;
+import org.jugvale.cfp.model.builder.PaperBuilder;
+import org.jugvale.cfp.model.builder.ParticipanteBuilder;
 import org.jugvale.cfp.model.enums.Nivel;
 import org.jugvale.cfp.model.impl.Autor;
 import org.jugvale.cfp.model.impl.Evento;
@@ -49,7 +53,7 @@ public class CarregaDadosIniciais {
 		
 		log.info("#### Carregando dados de demonstração #####");
 
-		Evento grandeEvento = Evento
+		Evento grandeEvento = EventoBuilder
 				.newEvento()
 				.comNome("O Grande Evento")
 				.comDescricao(
@@ -61,7 +65,7 @@ public class CarregaDadosIniciais {
 
 		em.persist(grandeEvento);
 
-		Autor maria = Autor.newAutor().comNome("Maria")
+		Autor maria = AutorBuilder.newAutor().comNome("Maria")
 				.comEmail("meuemail@gmail.com").comSite("www.mariajava.com")
 				.comTelefone("(99) 9 9999-9999")
 				.comMiniCV("Grande conhecida no mundo Java...")
@@ -69,7 +73,7 @@ public class CarregaDadosIniciais {
 
 		em.persist(maria);
 
-		Autor jose = Autor.newAutor().comNome("Josevaldo")
+		Autor jose = AutorBuilder.newAutor().comNome("Josevaldo")
 				.comEmail("josevaldoJava@gmail.com")
 				.comSite("www.josevaldojava.com")
 				.comTelefone("(99) 9 9999-9999")
@@ -78,14 +82,14 @@ public class CarregaDadosIniciais {
 
 		em.persist(jose);
 
-		Paper javaParaJaveiros = Paper.palestra().submetidoNaData(new Date())
+		Paper javaParaJaveiros = PaperBuilder.newPapper().palestra().submetidoNaData(new Date())
 				.comDescricao("Java para quem ama Java. Java para javeiros")
 				.comTitulo("Java para javeiros").noEvento(grandeEvento)
 				.comAutor(maria).comAutor(jose).build();
 
 		em.persist(javaParaJaveiros);
 		
-		Paper paper = Paper.handsOn().submetidoNaData(new Date())
+		Paper paper = PaperBuilder.newPapper().handsOn().submetidoNaData(new Date())
 				.comDescricao(" ac dolor labore sapien varius ac maecenas ligula feugiat sollicitudin risus donec "
 								+ "natoque etiam laborum ullamcorper eu montes libero neque ac ac ante integer proin at non dolor "
 								+ "vestibulum voluptatum ")
@@ -94,7 +98,7 @@ public class CarregaDadosIniciais {
 
 		em.persist(paper);
 		
-		Participante p1 = Participante.newParticipante()
+		Participante p1 = ParticipanteBuilder.newParticipante()
 				.comEmail("jesuino@inc.com")
 				.comEmpresa("Acme")
 				.comInstituicao("ATI")
@@ -103,7 +107,7 @@ public class CarregaDadosIniciais {
 				.comRg("98.098.123.9")
 				.build();
 		
-		Participante p2 = Participante.newParticipante()
+		Participante p2 = ParticipanteBuilder.newParticipante()
 				.comEmail("jay@inc.com")
 				.comEmpresa("Jay Associates")
 				.comInstituicao("TheCollege")

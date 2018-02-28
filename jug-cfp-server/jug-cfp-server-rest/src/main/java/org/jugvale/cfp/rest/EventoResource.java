@@ -1,5 +1,7 @@
 package org.jugvale.cfp.rest;
 
+import java.util.List;
+
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
@@ -30,7 +32,7 @@ public interface EventoResource {
 
 	@GET
 	@PermitAll
-	public Response listarTodos();
+	public List<Evento> listarTodos();
 
 	@DELETE
 	@Path("/{id}")

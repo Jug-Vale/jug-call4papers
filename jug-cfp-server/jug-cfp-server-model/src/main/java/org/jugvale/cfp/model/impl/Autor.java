@@ -2,16 +2,13 @@ package org.jugvale.cfp.model.impl;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jugvale.cfp.model.DefaultModel;
-import org.jugvale.cfp.model.builder.AutorBuilder;
 import org.jugvale.cfp.model.config.Views;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
-@XmlRootElement
 public class Autor extends DefaultModel {
 
 	private static final long serialVersionUID = 2467078273125922962L;
@@ -35,10 +32,6 @@ public class Autor extends DefaultModel {
 	@Column(length=1000)
 	@JsonView(Views.Publico.class)
 	private String miniCurriculo;
-
-	public static AutorBuilder newAutor() {
-		return new AutorBuilder();
-	}
 
 	public String getNome() {
 		return nome;

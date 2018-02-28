@@ -4,17 +4,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jugvale.cfp.model.DefaultModel;
-import org.jugvale.cfp.model.builder.ParticipanteBuilder;
 import org.jugvale.cfp.model.config.Views;
 import org.jugvale.cfp.model.enums.Nivel;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
-@XmlRootElement
 public class Participante extends DefaultModel {
 
 	private static final long serialVersionUID = 1L;
@@ -42,10 +39,6 @@ public class Participante extends DefaultModel {
 	@Enumerated(EnumType.STRING)
 	@Column
 	private Nivel nivel;
-	
-	public static ParticipanteBuilder newParticipante() {
-		return new ParticipanteBuilder();
-	}
 	
 	public Participante() {
 		

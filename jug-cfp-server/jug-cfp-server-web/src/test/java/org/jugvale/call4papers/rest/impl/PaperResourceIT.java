@@ -13,8 +13,9 @@ import static org.jugvale.cfp.rest.utils.RESTUtils.getMessage404;
 import java.util.Date;
 
 import org.jugvale.call4papers.rest.TestResourceDefault;
-import org.jugvale.cfp.model.impl.Autor;
-import org.jugvale.cfp.model.impl.Evento;
+import org.jugvale.cfp.model.builder.AutorBuilder;
+import org.jugvale.cfp.model.builder.EventoBuilder;
+import org.jugvale.cfp.model.builder.PaperBuilder;
 import org.jugvale.cfp.model.impl.Paper;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,9 +31,9 @@ public class PaperResourceIT implements TestResourceDefault {
 
 	@Before
 	public void setUp() throws Exception {
-		paper = Paper.newPapper().aceito().comAutor(Autor.newAutor().build())
+		paper = PaperBuilder.newPapper().aceito().comAutor(AutorBuilder.newAutor().build())
 				.comDescricao("DESCRICAO").comTitulo("").miniCurso()
-				.noEvento(Evento.newEvento().build()).submetidoNaData(new Date())
+				.noEvento(EventoBuilder.newEvento().build()).submetidoNaData(new Date())
 				.build();
 
 		jsonPaper = new ObjectMapper().writeValueAsString(paper);

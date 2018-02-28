@@ -6,15 +6,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jugvale.cfp.model.DefaultModel;
-import org.jugvale.cfp.model.builder.EventoBuilder;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@XmlRootElement
 public class Evento extends DefaultModel {
 
 	private static final long serialVersionUID = 1L;
@@ -45,10 +42,6 @@ public class Evento extends DefaultModel {
 	@Column
 	private boolean inscricoesAbertas;	
 
-	public static EventoBuilder newEvento() {
-		return new EventoBuilder();
-	}
-	
 	public Evento() { }
 
 	public Evento(String nome, String descricao, Date dataInicio, Date dataFim,
