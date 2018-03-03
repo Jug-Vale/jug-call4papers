@@ -1,17 +1,17 @@
 package org.jugvale.cfp.service.impl;
 
-import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Default;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import org.jugvale.cfp.model.impl.Participante;
-import org.jugvale.cfp.service.Service;
+import org.jugvale.cfp.service.AbstractService;
+import org.jugvale.cfp.service.ParticipanteService;
 
 @Default
-@Any
-public class ParticipanteService extends Service<Participante> {
+public class ParticipanteServiceImpl extends AbstractService<Participante> implements ParticipanteService {
 
+	@Override
 	public Participante buscaPorEmail(String email) {
 		TypedQuery<Participante> query = em.createQuery("SELECT p FROM Participante p WHERE p.email = :email",
 				Participante.class);

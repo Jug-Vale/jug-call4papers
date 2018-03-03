@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Default;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -12,24 +11,24 @@ import javax.persistence.TypedQuery;
 import org.jugvale.cfp.model.impl.Evento;
 import org.jugvale.cfp.model.impl.Inscricao;
 import org.jugvale.cfp.model.impl.Participante;
-import org.jugvale.cfp.service.Service;
+import org.jugvale.cfp.service.AbstractService;
+import org.jugvale.cfp.service.EventoService;
 
-@Default @Any
-public class EventoService extends Service<Evento> {
+@Default
+public class EventoServiceImpl extends AbstractService<Evento> implements EventoService {
 
-	public Inscricao inscreverParticipante(Evento evento,
-			Participante participante) {
-		Inscricao inscricao = new Inscricao(evento, participante, false,
-				new Date());
+	@Override
+	public Inscricao inscreverParticipante(Evento evento, Participante participante) {
+		Inscricao inscricao = new Inscricao(evento, participante, false, new Date());
 		em.persist(inscricao);
 		return inscricao;
 	}
 
+	@Override
 	public Inscricao buscaInscricao(Evento evento, Participante participante) {
-		TypedQuery<Inscricao> query = em
-				.createQuery("SELECT i FROM Inscricao i "
-						+ "WHERE i.evento = :evento "
-						+ "AND i.participante = :participante", Inscricao.class);
+		TypedQuery<Inscricao> query = em.createQuery(
+				"SELECT i FROM Inscricao i " + "WHERE i.evento = :evento " + "AND i.participante = :participante",
+				Inscricao.class);
 		query.setParameter("evento", evento);
 		query.setParameter("participante", participante);
 		try {
@@ -39,9 +38,9 @@ public class EventoService extends Service<Evento> {
 		}
 	}
 
+	@Override
 	public List<Inscricao> inscritosNoEvento(Evento evento) {
-		TypedQuery<Inscricao> query = em.createQuery(
-				"SELECT i FROM Inscricao i WHERE i.evento = :evento",
+		TypedQuery<Inscricao> query = em.createQuery("SELECT i FROM Inscricao i WHERE i.evento = :evento",
 				Inscricao.class);
 		query.setParameter("evento", evento);
 		try {

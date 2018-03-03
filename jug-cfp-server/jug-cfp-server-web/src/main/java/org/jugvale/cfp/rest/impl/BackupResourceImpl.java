@@ -16,8 +16,8 @@ import javax.ws.rs.core.MediaType;
 import org.jugvale.cfp.model.impl.Evento;
 import org.jugvale.cfp.model.impl.Inscricao;
 import org.jugvale.cfp.model.impl.Paper;
-import org.jugvale.cfp.service.impl.EventoService;
-import org.jugvale.cfp.service.impl.PaperService;
+import org.jugvale.cfp.service.EventoService;
+import org.jugvale.cfp.service.PaperService;
 
 /**
  * 

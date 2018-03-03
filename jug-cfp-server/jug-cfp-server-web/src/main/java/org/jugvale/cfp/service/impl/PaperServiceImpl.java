@@ -2,17 +2,18 @@ package org.jugvale.cfp.service.impl;
 
 import java.util.List;
 
-import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Default;
 
 import org.jugvale.cfp.model.impl.Autor;
 import org.jugvale.cfp.model.impl.Evento;
 import org.jugvale.cfp.model.impl.Paper;
-import org.jugvale.cfp.service.Service;
+import org.jugvale.cfp.service.AbstractService;
+import org.jugvale.cfp.service.PaperService;
 
-@Default @Any
-public class PaperService extends Service<Paper> {
+@Default 
+public class PaperServiceImpl extends AbstractService<Paper> implements PaperService {
 
+	@Override
 	public List<Paper> listarPapersPorAutor(Autor autor) {
 		@SuppressWarnings("unchecked")
 		List<Paper> papers = (List<Paper>) em
@@ -22,6 +23,7 @@ public class PaperService extends Service<Paper> {
 		return papers;
 	}
 
+	@Override
 	public List<Paper> listarPapersPorEvento(Evento evento) {
 		@SuppressWarnings("unchecked")
 		List<Paper> papers = (List<Paper>) em

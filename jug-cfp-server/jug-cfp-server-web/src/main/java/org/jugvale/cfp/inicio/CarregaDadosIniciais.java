@@ -19,7 +19,7 @@ import org.jugvale.cfp.model.impl.Autor;
 import org.jugvale.cfp.model.impl.Evento;
 import org.jugvale.cfp.model.impl.Paper;
 import org.jugvale.cfp.model.impl.Participante;
-import org.jugvale.cfp.service.impl.EventoService;
+import org.jugvale.cfp.service.impl.EventoServiceImpl;
 
 /**
  * 
@@ -37,7 +37,7 @@ public class CarregaDadosIniciais {
 	EntityManager em;
 	
 	@Inject
-	EventoService eventoService;
+	EventoServiceImpl eventoService;
 	
 		
 	Logger log = Logger

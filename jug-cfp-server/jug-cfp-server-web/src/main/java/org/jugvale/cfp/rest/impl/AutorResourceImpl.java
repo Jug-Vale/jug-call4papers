@@ -9,8 +9,8 @@ import javax.ws.rs.core.Response;
 
 import org.jugvale.cfp.model.impl.Autor;
 import org.jugvale.cfp.rest.AutorResource;
-import org.jugvale.cfp.service.impl.AutorService;
-import org.jugvale.cfp.service.impl.PaperService;
+import org.jugvale.cfp.service.AutorService;
+import org.jugvale.cfp.service.PaperService;
 
 @Stateless
 public class AutorResourceImpl implements AutorResource {

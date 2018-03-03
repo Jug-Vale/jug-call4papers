@@ -15,9 +15,9 @@ import org.jugvale.cfp.model.impl.Evento;
 import org.jugvale.cfp.model.impl.Inscricao;
 import org.jugvale.cfp.model.impl.Participante;
 import org.jugvale.cfp.rest.EventoResource;
-import org.jugvale.cfp.service.impl.EventoService;
-import org.jugvale.cfp.service.impl.PaperService;
-import org.jugvale.cfp.service.impl.ParticipanteService;
+import org.jugvale.cfp.service.EventoService;
+import org.jugvale.cfp.service.PaperService;
+import org.jugvale.cfp.service.ParticipanteService;
 
 @Stateless
 public class EventoResourceImpl implements EventoResource {

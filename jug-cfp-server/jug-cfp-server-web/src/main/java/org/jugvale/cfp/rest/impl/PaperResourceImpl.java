@@ -18,7 +18,7 @@ import javax.ws.rs.core.Response.Status;
 import org.jugvale.cfp.model.impl.Paper;
 import org.jugvale.cfp.rest.PaperResource;
 import org.jugvale.cfp.rest.voto.VotosSalvos;
-import org.jugvale.cfp.service.impl.PaperService;
+import org.jugvale.cfp.service.PaperService;
 
 @Stateless
 public class PaperResourceImpl implements PaperResource {
