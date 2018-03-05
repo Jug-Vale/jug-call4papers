@@ -4,6 +4,7 @@
   <scan>
     <!-- These exclusions were added by Errai to avoid deploying client-side classes to the server -->
     <exclude name = "org.jugvale.cfp.client.local.App" />
+    <exclude name = "org.jugvale.cfp.client.local.EventoWidget" />
     <!-- End of Errai exclusions -->
   </scan>
 </beans>

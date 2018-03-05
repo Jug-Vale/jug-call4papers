@@ -96,7 +96,6 @@
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
-
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -170,6 +169,7 @@
 						-Derrai.client.local.class.pattern=.*/myproject/client/.* -->
 					<extraJvmArgs>-Xmx2048m -XX:CompileThreshold=7000
 						-Derrai.jboss.home=${errai.jboss.home}
+						-Derrai.server.classOutput=src/main/webapp/WEB-INF/classes
 						-Derrai.dev.context=${errai.dev.context}</extraJvmArgs>
 					<server>org.jboss.errai.cdi.server.gwt.EmbeddedWildFlyLauncher</server>
 					<disableCastChecking>true</disableCastChecking>

@@ -16,60 +16,76 @@
 
 package org.jugvale.cfp.client.local;
 
-import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.jboss.errai.common.client.api.Caller;
+import org.jboss.errai.databinding.client.components.ListComponent;
+import org.jboss.errai.databinding.client.components.ListContainer;
+import org.jboss.errai.ioc.client.api.LoadAsync;
 import org.jboss.errai.ui.nav.client.local.DefaultPage;
 import org.jboss.errai.ui.nav.client.local.Page;
+import org.jboss.errai.ui.nav.client.local.PageShown;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
-import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import org.jugvale.cfp.model.impl.Evento;
 import org.jugvale.cfp.rest.EventoResource;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTML;
+import elemental2.dom.HTMLDivElement;
 
-@Templated("#main")
+@Templated("/web/App.html#main")
 @Page(role = DefaultPage.class)
-public class App extends Composite {
-
-	@Inject
-	@DataField
-	HTML lstEventos;
-
-	@Inject
-	@DataField
-	Button btn;
+public class App {
 
 	@Inject
 	Caller<EventoResource> eventoService;
 
-	@PostConstruct
-	public void dosomething() {
-		for (int i = 0; i < 10; i++) {
-			lstEventos.setHTML(lstEventos.getHTML() + "<br />" + i);
-		}
+	@Inject
+	@DataField
+	@ListContainer("listaEventosEmAberto")
+	private ListComponent<Evento, EventoItemWidget> listaEventosEmAberto;
+
+	@Inject
+	@DataField
+	@ListContainer("listaEventosFechados")
+	private ListComponent<Evento, EventoItemWidget> listaEventosFechados;
+
+	@Inject
+	@DataField
+	private HTMLDivElement divEventosAbertos;
+
+	@Inject
+	@DataField
+	private HTMLDivElement divEventosFechados;
+
+	@PageShown
+	public void loadEventos() {
+		eventoService
+				.call((List<Evento> eventos) -> mostraEventos(eventos), (String message, Throwable throwable) -> false)
+				.listarTodos();
 	}
 
-	@EventHandler("btn")
-	public void loadEventos(ClickEvent evt) {
-		lstEventos.setHTML(new Date().toString());
-		eventoService.call((List<Evento> eventos) -> {
-			for (Evento e : eventos ) {
-				lstEventos.setHTML(lstEventos.getHTML() + " <br />" + e.getNome());
-			}
+	private void mostraEventos(List<Evento> eventos) {
+		List<Evento> eventosAbertos = eventos.stream().filter(e -> e.isAceitandoTrabalhos() || e.isInscricoesAbertas())
+				.collect(Collectors.toList());
+		List<Evento> eventosFechados = eventos.stream()
+				.filter(e -> !e.isAceitandoTrabalhos() && !e.isInscricoesAbertas()).collect(Collectors.toList());
+		if (eventosAbertos.size() > 0) {
+			divEventosAbertos.hidden = false;
+			listaEventosEmAberto.setValue(eventosAbertos);
+		} else {
+			divEventosAbertos.hidden = true;
+		}
+		if (eventosFechados.size() > 0) {
+			divEventosFechados.hidden = false;
+			listaEventosFechados.setValue(eventosFechados);
+		} else {
+			divEventosFechados.hidden = true;
+		}
 
-		}, (String message, Throwable throwable) -> {
-			lstEventos.setHTML(message);
-			return false;
-		}).listarTodos();
 	}
 
 }
