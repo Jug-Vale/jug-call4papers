@@ -25,7 +25,6 @@ import javax.inject.Inject;
 import org.jboss.errai.common.client.api.Caller;
 import org.jboss.errai.databinding.client.components.ListComponent;
 import org.jboss.errai.databinding.client.components.ListContainer;
-import org.jboss.errai.ioc.client.api.LoadAsync;
 import org.jboss.errai.ui.nav.client.local.DefaultPage;
 import org.jboss.errai.ui.nav.client.local.Page;
 import org.jboss.errai.ui.nav.client.local.PageShown;
@@ -36,7 +35,7 @@ import org.jugvale.cfp.rest.EventoResource;
 
 import elemental2.dom.HTMLDivElement;
 
-@Templated("/web/App.html#main")
+@Templated("/web/app.html#app")
 @Page(role = DefaultPage.class)
 public class App {
 
@@ -61,14 +60,30 @@ public class App {
 	@DataField
 	private HTMLDivElement divEventosFechados;
 
+	@Inject
+	@DataField
+	private HTMLDivElement mensagemErro;
+
+	@PostConstruct
+	private void init() {
+		divEventosAbertos.hidden = true;
+		divEventosFechados.hidden = true;
+		mensagemErro.hidden = true;
+	}
+
 	@PageShown
 	public void loadEventos() {
-		eventoService
-				.call((List<Evento> eventos) -> mostraEventos(eventos), (String message, Throwable throwable) -> false)
-				.listarTodos();
+		eventoService.call((List<Evento> eventos) -> mostraEventos(eventos), this::mostraErro).listarTodos();
+	}
+
+	public boolean mostraErro(Object obj, Throwable e) {
+		mensagemErro.textContent = "Erro ao carregar eventos:  " + e.getMessage();
+		mensagemErro.hidden = false;
+		return false;
 	}
 
 	private void mostraEventos(List<Evento> eventos) {
+		mensagemErro.hidden = true;
 		List<Evento> eventosAbertos = eventos.stream().filter(e -> e.isAceitandoTrabalhos() || e.isInscricoesAbertas())
 				.collect(Collectors.toList());
 		List<Evento> eventosFechados = eventos.stream()
@@ -76,16 +91,11 @@ public class App {
 		if (eventosAbertos.size() > 0) {
 			divEventosAbertos.hidden = false;
 			listaEventosEmAberto.setValue(eventosAbertos);
-		} else {
-			divEventosAbertos.hidden = true;
 		}
 		if (eventosFechados.size() > 0) {
 			divEventosFechados.hidden = false;
 			listaEventosFechados.setValue(eventosFechados);
-		} else {
-			divEventosFechados.hidden = true;
 		}
-
 	}
 
 }

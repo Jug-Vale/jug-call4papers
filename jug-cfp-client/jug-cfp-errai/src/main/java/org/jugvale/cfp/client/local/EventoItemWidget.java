@@ -3,7 +3,6 @@ package org.jugvale.cfp.client.local;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.errai.common.client.dom.Window;
 import org.jboss.errai.common.client.logging.util.Console;
 import org.jboss.errai.databinding.client.api.DataBinder;
 import org.jboss.errai.ui.client.local.api.IsElement;
@@ -14,9 +13,10 @@ import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.ForEvent;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import org.jugvale.cfp.model.impl.Evento;
+
 import com.google.gwt.user.client.TakesValue;
+
 import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.MouseEvent;
 
 @Templated("/web/EventoItemWidget.html#evento")
