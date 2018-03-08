@@ -36,8 +36,9 @@ public class RESTUtils {
 	}
 	
 	public static String getMessage404(long id) {
-		String key = RESTUtils.class.getPackage().getName();
-		return MessageUtil.getMessage(key + ".status.404", id);
+//		String key = RESTUtils.class.getPackage().getName();
+//		return MessageUtil.getMessage(key + ".status.404", id);
+		return "Não foi encontrado objeto com ID:" + id;
 	}
 	
 }

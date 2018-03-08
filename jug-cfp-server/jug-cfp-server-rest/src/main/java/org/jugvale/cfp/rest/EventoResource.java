@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 
 import org.jugvale.cfp.model.config.Views;
 import org.jugvale.cfp.model.impl.Evento;
+import org.jugvale.cfp.model.impl.Paper;
 import org.jugvale.cfp.model.impl.Participante;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -40,9 +41,9 @@ public interface EventoResource {
 	public Response apagaPorId(@PathParam("id") Long id);
 
 	@GET
-	@Path("/{id}")
 	@PermitAll
-	public Response buscaPorId(@PathParam("id") Long id);
+	@Path("/{id}")
+	public Evento buscaPorId(@PathParam("id") Long id);
 
 	@PUT
 	@Path("/{id}")
@@ -52,8 +53,8 @@ public interface EventoResource {
 	@GET
 	@Path("/{eventoId}/papers")
 	@PermitAll
-	@JsonView({ Views.Publico.class })
-	public Response listaPapersPorEvento(@PathParam("eventoId") Long eventoId);
+	@JsonView({ Views.ResumoPaper.class })
+	public List<Paper> listaPapersPorEvento(@PathParam("eventoId") Long eventoId);
 
 	/**
 	 * Inscreve um participante no evento passado. No futuro deveremos pedir um
@@ -70,8 +71,7 @@ public interface EventoResource {
 	@Path("/{eventoId}/inscrever")
 	@PermitAll
 	@JsonView({ Views.Publico.class })
-	public Response inscreverParticipante(Participante participante,
-			@PathParam("eventoId") Long eventoId);
+	public Response inscreverParticipante(Participante participante, @PathParam("eventoId") Long eventoId);
 
 	@GET
 	@Path("/{eventoId}/inscritos")
@@ -80,7 +80,8 @@ public interface EventoResource {
 	public Response buscarInscritos(@PathParam("eventoId") Long eventoId);
 
 	/**
-	 * Retorna os inscritos para esse evento com todos os campos do participante <br />
+	 * Retorna os inscritos para esse evento com todos os campos do participante
+	 * <br />
 	 * Acessível somente para usuários administradores do sistema!
 	 * 
 	 * @param eventoId
@@ -90,26 +91,22 @@ public interface EventoResource {
 	@Path("/admin/{eventoId}/inscritos")
 	@RolesAllowed({ "ADMINISTRADOR" })
 	@JsonView({ Views.Interno.class })
-	public Response buscarInscritosTodosCampos(
-			@PathParam("eventoId") Long eventoId);
-	
+	public Response buscarInscritosTodosCampos(@PathParam("eventoId") Long eventoId);
+
 	@POST
 	@Path("/admin/{eventoId}/muda-aceitando-papers")
 	@RolesAllowed({ "ADMINISTRADOR" })
-	public Response mudaAceitandoPapers(
-			@PathParam("eventoId") Long eventoId);
-	
+	public Response mudaAceitandoPapers(@PathParam("eventoId") Long eventoId);
+
 	@POST
 	@Path("/admin/{eventoId}/muda-inscricoes-abertas")
 	@RolesAllowed({ "ADMINISTRADOR" })
-	public Response mudaInscricoesAbertas(
-			@PathParam("eventoId") Long eventoId);
-	
+	public Response mudaInscricoesAbertas(@PathParam("eventoId") Long eventoId);
+
 	@GET
 	@Path("/admin/{eventoId}/inscritos/baixar")
 	@RolesAllowed({ "ADMINISTRADOR" })
 	@Produces("text/csv;charset=utf-8")
-	public Response baixaInscritos(
-			@PathParam("eventoId") Long eventoId);
-	
+	public Response baixaInscritos(@PathParam("eventoId") Long eventoId);
+
 }

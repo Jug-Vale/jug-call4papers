@@ -3,8 +3,11 @@
 
   <scan>
     <!-- These exclusions were added by Errai to avoid deploying client-side classes to the server -->
-    <exclude name = "org.jugvale.cfp.client.local.App" />
-    <exclude name = "org.jugvale.cfp.client.local.EventoWidget" />
+    <exclude name = "org.jugvale.cfp.client.local.DateConverter" />
+    <exclude name = "org.jugvale.cfp.client.local.PaginaDetalhesEvento" />
+    <exclude name = "org.jugvale.cfp.client.local.ListaTodosEventos" />
+    <exclude name = "org.jugvale.cfp.client.local.EventoItemWidget" />
+    <exclude name = "org.jugvale.cfp.client.local.AppSetup" />
     <!-- End of Errai exclusions -->
   </scan>
 </beans>

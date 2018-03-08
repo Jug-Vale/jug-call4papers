@@ -23,11 +23,9 @@ public class Evento extends DefaultModel {
 	private String descricao;
 
 	@Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy HH:00", timezone="GMT-3")
 	private Date dataInicio;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy HH:00", timezone="GMT-3")
 	private Date dataFim;
 
 	@Column

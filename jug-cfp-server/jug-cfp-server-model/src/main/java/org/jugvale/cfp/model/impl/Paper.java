@@ -17,7 +17,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import org.jugvale.cfp.model.DefaultModel;
+import org.jugvale.cfp.model.config.Views;
 import org.jugvale.cfp.model.enums.Tipo;
+
+import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * 
@@ -33,15 +36,18 @@ public class Paper extends DefaultModel {
 	private static final long serialVersionUID = 1L;
 
 	@Column
+	@JsonView(Views.ResumoPaper.class)
 	private String titulo;
 
 	@Column(length=1000)
+	@JsonView(Views.ResumoPaper.class)
 	private String descricao;
 
 	@Column
 	private Date dataSubmissao = new Date();
 
 	@Column
+	@JsonView(Views.ResumoPaper.class)
 	private long nota;
 
 	@Column
@@ -49,6 +55,7 @@ public class Paper extends DefaultModel {
 
 	@ManyToMany(fetch = EAGER, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "AUTOR_PAPER", joinColumns = { @JoinColumn(name = "PAPER_ID") }, inverseJoinColumns = { @JoinColumn(name = "AUTOR_ID") })
+	@JsonView(Views.ResumoPaper.class)
 	private Set<Autor> autores = new HashSet<Autor>();
 
 	@ManyToOne

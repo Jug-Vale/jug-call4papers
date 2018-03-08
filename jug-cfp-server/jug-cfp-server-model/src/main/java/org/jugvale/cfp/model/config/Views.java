@@ -30,5 +30,8 @@ public class Views {
 	 */
 	public static class Interno extends Publico {
 	}
+	
+	
+	public static class ResumoPaper extends Publico {}
 
 }

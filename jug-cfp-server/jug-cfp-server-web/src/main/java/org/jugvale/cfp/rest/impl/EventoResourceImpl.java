@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.jugvale.cfp.model.impl.Evento;
 import org.jugvale.cfp.model.impl.Inscricao;
+import org.jugvale.cfp.model.impl.Paper;
 import org.jugvale.cfp.model.impl.Participante;
 import org.jugvale.cfp.rest.EventoResource;
 import org.jugvale.cfp.service.EventoService;
@@ -44,9 +45,10 @@ public class EventoResourceImpl implements EventoResource {
 	}
 
 	@Override
-	public Response buscaPorId(Long id) {
+	public Evento buscaPorId(Long id) {
 		Evento evento = eventoService.buscarPorId(id);
-		return Response.ok(lanca404SeNulo(evento, id)).build();
+		lanca404SeNulo(evento, id);
+		return evento;
 	}
 
 	@Override
@@ -63,11 +65,11 @@ public class EventoResourceImpl implements EventoResource {
 	}
 
 	@Override
-	public Response listaPapersPorEvento(Long eventoId)
+	public List<Paper> listaPapersPorEvento(Long eventoId)
 			throws WebApplicationException {
 		Evento e = eventoService.buscarPorId(eventoId);
 		lanca404SeNulo(e, eventoId);
-		return Response.ok(paperService.listarPapersPorEvento(e)).build();
+		return paperService.listarPapersPorEvento(e);
 	}
 
 	@Override

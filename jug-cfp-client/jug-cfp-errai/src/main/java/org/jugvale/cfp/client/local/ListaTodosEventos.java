@@ -35,9 +35,9 @@ import org.jugvale.cfp.rest.EventoResource;
 
 import elemental2.dom.HTMLDivElement;
 
-@Templated("/web/app.html#app")
 @Page(role = DefaultPage.class)
-public class App {
+@Templated("/web/ListaEventos.html")
+public class ListaTodosEventos {
 
 	@Inject
 	Caller<EventoResource> eventoService;
