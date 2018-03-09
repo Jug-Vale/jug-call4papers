@@ -12,17 +12,25 @@ import org.jboss.errai.databinding.client.components.ListContainer;
 import org.jboss.errai.ui.nav.client.local.Page;
 import org.jboss.errai.ui.nav.client.local.PageShown;
 import org.jboss.errai.ui.nav.client.local.PageState;
+import org.jboss.errai.ui.nav.client.local.TransitionTo;
 import org.jboss.errai.ui.shared.api.annotations.AutoBound;
 import org.jboss.errai.ui.shared.api.annotations.Bound;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
+import org.jboss.errai.ui.shared.api.annotations.EventHandler;
+import org.jboss.errai.ui.shared.api.annotations.ForEvent;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 import org.jugvale.cfp.client.shared.DateConverter;
 import org.jugvale.cfp.model.impl.Evento;
 import org.jugvale.cfp.model.impl.Paper;
 import org.jugvale.cfp.rest.EventoResource;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
+import elemental2.dom.HTMLInputElement;
+import elemental2.dom.MouseEvent;
 
 @Page(path = "evento/{eventoId}")
 @Templated("/web/PaginaEvento.html")
@@ -77,6 +85,13 @@ public class PaginaDetalhesEvento {
 	@DataField
 	@Named("p")
 	HTMLElement local;
+	
+	@Inject
+	@DataField
+	HTMLInputElement btnInscricao;
+	
+	@Inject
+	TransitionTo<PaginaInscricao> paginaInscricaoEvento;
 
 	@PageShown
 	public void carregaDados() {
@@ -87,5 +102,14 @@ public class PaginaDetalhesEvento {
 			}
 			listPapersEvento.setValue(papers);
 		}, (m, t) -> false).listaPapersPorEvento(eventoId);
+	}
+	
+	@EventHandler("btnInscricao")
+	public void irParaPaginaInscricao(final @ForEvent("click") MouseEvent event) {
+		Multimap<String, String> state = HashMultimap.create();
+		state.put("eventoId", eventoBinder.getModel().getId().toString());
+		state.put("nomeEvento", eventoBinder.getModel().getNome());
+		paginaInscricaoEvento.go(state);
+		
 	}
 }

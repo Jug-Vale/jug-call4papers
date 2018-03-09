@@ -36,8 +36,8 @@ public class Participante extends DefaultModel {
 	@JsonView(Views.Interno.class)
 	private String instituicao;
 	
-	@Enumerated(EnumType.STRING)
 	@Column
+	@Enumerated(EnumType.STRING)
 	private Nivel nivel;
 	
 	public Participante() {

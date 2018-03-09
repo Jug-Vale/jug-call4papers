@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
 import org.jboss.errai.common.client.api.Caller;
@@ -30,6 +31,8 @@ import org.jboss.errai.ui.nav.client.local.Page;
 import org.jboss.errai.ui.nav.client.local.PageShown;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
+import org.jugvale.cfp.client.local.shared.Mensagem;
+import org.jugvale.cfp.client.local.shared.Mensagem.Tipo;
 import org.jugvale.cfp.model.impl.Evento;
 import org.jugvale.cfp.rest.EventoResource;
 
@@ -61,14 +64,12 @@ public class ListaTodosEventos {
 	private HTMLDivElement divEventosFechados;
 
 	@Inject
-	@DataField
-	private HTMLDivElement mensagemErro;
+	private Event<Mensagem> eventoMensagem;
 
 	@PostConstruct
 	private void init() {
 		divEventosAbertos.hidden = true;
 		divEventosFechados.hidden = true;
-		mensagemErro.hidden = true;
 	}
 
 	@PageShown
@@ -77,13 +78,11 @@ public class ListaTodosEventos {
 	}
 
 	public boolean mostraErro(Object obj, Throwable e) {
-		mensagemErro.textContent = "Erro ao carregar eventos:  " + e.getMessage();
-		mensagemErro.hidden = false;
+		eventoMensagem.fire(Mensagem.nova("Erro ao listar eventos " + e.getMessage(), Tipo.ERRO));
 		return false;
 	}
 
 	private void mostraEventos(List<Evento> eventos) {
-		mensagemErro.hidden = true;
 		List<Evento> eventosAbertos = eventos.stream().filter(e -> e.isAceitandoTrabalhos() || e.isInscricoesAbertas())
 				.collect(Collectors.toList());
 		List<Evento> eventosFechados = eventos.stream()

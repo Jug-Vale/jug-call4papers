@@ -6,11 +6,6 @@
 				<h3 id="nome"></h3>
 
 				<hr />
-				<div id="papers_id">
-					<h4 id="cabecalhoPalestras">Ainda não foram enviadas palestas!</h4>
-					<div data-field="listPapersEvento"></div>
-					<br />
-				</div>
 				<h4>Descrição</h4>
 				<p id="descricao" class="text-justify"></p>
 
@@ -23,10 +18,18 @@
 
 				<p id="local" class="text-justify"></p>
 
+				<div id="papers_id">
+					<h4 id="cabecalhoPalestras">Ainda não foram enviadas palestras!</h4>
+					<div data-field="listPapersEvento"
+						style="overflow-y: scroll; height: 500px;"></div>
+					<br />
+				</div>
+
 				<br /> <input type="button" class="btn btn-sucess btn-lg"
-					class="btnInscrever" value="Realizar Inscrição" /> <input type="button" class="btn btn-sucess btn-lg"
-                        class="btnSubmeterPaper"
-                        value="Submeta
+					data-field="btnInscricao" value="Realizar Inscrição" /> <input
+					type="button" class="btn btn-sucess btn-lg"
+					class="btnSubmeterPaper"
+					value="Submeta
                 sua palestra" />
 			</div>
 		</div>

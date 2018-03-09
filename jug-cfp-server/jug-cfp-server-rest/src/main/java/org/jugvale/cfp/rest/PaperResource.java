@@ -51,8 +51,8 @@ public interface PaperResource {
 	public Response atualizar(@PathParam("id") long id, Paper paper);
 	
 	@POST
-	@Path("/{id}/votar")
 	@PermitAll
+	@Path("/{id}/votar")
 	public Response votarNoPaper(@PathParam("id") long id);
 
 }
