@@ -27,6 +27,7 @@ import org.jugvale.cfp.rest.EventoResource;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
+import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.HTMLInputElement;
@@ -88,14 +89,25 @@ public class PaginaDetalhesEvento {
 	
 	@Inject
 	@DataField
-	HTMLInputElement btnInscricao;
+	HTMLButtonElement btnInscricao;
+	
+	@Inject
+	@DataField
+	HTMLButtonElement btnSubmeterPaper;
 	
 	@Inject
 	TransitionTo<PaginaInscricao> paginaInscricaoEvento;
 
 	@PageShown
 	public void carregaDados() {
-		eventoService.call((Evento e) -> eventoBinder.setModel(e), (m, t) -> false).buscaPorId(eventoId);
+		eventoService.call((Evento e) -> {
+			eventoBinder.setModel(e);
+			if(!e.isInscricoesAbertas()) {
+				btnInscricao.value= "Inscrições fechadas!";
+			}
+			btnInscricao.disabled = !e.isInscricoesAbertas();
+			btnSubmeterPaper.hidden = !e.isAceitandoTrabalhos();
+		}, (m, t) -> false).buscaPorId(eventoId);
 		eventoService.call((List<Paper> papers) -> {
 			if (papers.size() > 0) {
 				cabecalhoPalestras.textContent = "Vote nas palestras enviadas:";
