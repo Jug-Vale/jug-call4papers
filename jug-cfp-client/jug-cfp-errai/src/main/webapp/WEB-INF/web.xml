@@ -7,22 +7,6 @@
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 
-	<!-- Segurança para a página de administração que não usa Errai -->
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>Página de administração</web-resource-name>
-			<url-pattern>/adm.html</url-pattern>
-			<http-method>GET</http-method>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>ADMINISTRADOR</role-name>
-		</auth-constraint>
-	</security-constraint>
-	<servlet-mapping>
-		<servlet-name>javax.ws.rs.core.Application</servlet-name>
-		<url-pattern>/rest/*</url-pattern>
-	</servlet-mapping>
-
 	<servlet>
 		<servlet-name>ErraiServlet</servlet-name>
 		<servlet-class>org.jboss.errai.bus.server.servlet.DefaultBlockingServlet</servlet-class>
@@ -38,12 +22,4 @@
 		<servlet-name>ErraiServlet</servlet-name>
 		<url-pattern>*.erraiBus</url-pattern>
 	</servlet-mapping>
-
-	<login-config>
-		<auth-method>BASIC</auth-method>
-		<realm-name>ApplicationRealm</realm-name>
-	</login-config>
-	<security-role>
-		<role-name>ADMINISTRADOR</role-name>
-	</security-role>
 </web-app>

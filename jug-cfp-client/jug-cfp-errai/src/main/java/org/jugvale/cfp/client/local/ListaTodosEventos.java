@@ -16,6 +16,7 @@
 
 package org.jugvale.cfp.client.local;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,6 +72,7 @@ public class ListaTodosEventos {
 		divEventosAbertos.hidden = true;
 		divEventosFechados.hidden = true;
 	}
+	
 
 	@PageShown
 	public void loadEventos() {
@@ -83,10 +85,11 @@ public class ListaTodosEventos {
 	}
 
 	private void mostraEventos(List<Evento> eventos) {
-		List<Evento> eventosAbertos = eventos.stream().filter(e -> e.isAceitandoTrabalhos() || e.isInscricoesAbertas())
+		Date hoje = new Date();
+		List<Evento> eventosAbertos = eventos.stream().filter(e -> e.getDataFim().after(hoje))
 				.collect(Collectors.toList());
 		List<Evento> eventosFechados = eventos.stream()
-				.filter(e -> !e.isAceitandoTrabalhos() && !e.isInscricoesAbertas()).collect(Collectors.toList());
+				.filter(e ->e.getDataFim().before(hoje)).collect(Collectors.toList());
 		if (eventosAbertos.size() > 0) {
 			divEventosAbertos.hidden = false;
 			listaEventosEmAberto.setValue(eventosAbertos);

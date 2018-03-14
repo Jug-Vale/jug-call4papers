@@ -1,14 +1,15 @@
-<div class="col-md-8">
-	<h3>Sobre o Autor</h3>
-	<hr>
+<div class="row">
 
-	<form class="form-horizontal" role="form" id="form_cadastro_autor">
+	<h2 id="tituloPagina"></h2>
+	<h4>Sobre o Autor</h4>
+	<hr>
+	<form class="form-horizontal" role="form" id="formAutor">
 
 		<div class="form-group" id="nome_form">
 			<label class="col-sm-3 control-label" for="input_nome">Nome</label>
 			<div class="input-group col-sm-8">
 				<input type="text" class="form-control" name="input_nome"
-					id="input_nome" placeholder="Nome" required>
+					id="nomeAutor" placeholder="Nome" required>
 			</div>
 		</div>
 
@@ -16,7 +17,7 @@
 			<label class="col-sm-3 control-label" for="input_email">E-Mail</label>
 			<div class="input-group col-sm-8">
 				<input type="text" class="form-control" name="input_email"
-					id="input_email" placeholder="E-Mail" required>
+					id="email" placeholder="E-Mail" required>
 			</div>
 		</div>
 
@@ -24,15 +25,14 @@
 			<label class="col-sm-3 control-label" for="input_telefone">Telefone</label>
 			<div class="input-group col-sm-8">
 				<input type="tel" class="form-control" name="input_telefone"
-					id="input_telefone" placeholder="Telefone para Contato">
+					id="telefone" placeholder="Telefone para Contato">
 			</div>
 		</div>
 
 		<div class="form-group" id="site_form">
 			<label class="col-sm-3 control-label" for="input_site">Site</label>
 			<div class="input-group col-sm-8">
-				<input type="text" class="form-control" name="input_site"
-					id="input_site"
+				<input type="text" class="form-control" name="input_site" id="site"
 					placeholder="Site pessoal, linkedin, etc. Comece com 'http://'">
 			</div>
 		</div>
@@ -41,56 +41,35 @@
 			<label class="col-sm-3 control-label" for="mini_cv_area">Mini
 				Currículo</label>
 			<div class="input-group col-sm-8">
-				<textarea name="inputDescricao" maxlength="999" id="mini_cv_area"
+				<textarea name="inputDescricao" maxlength="999" id="miniCurriculo"
 					maxlength="999" class="form-control"
 					placeholder="Fale sobre sua experiência profissional e acadêmica"
 					rows="4" required></textarea>
 			</div>
 		</div>
-
 	</form>
 
-	<h3>Submissão</h3>
+	<h4>Submissão</h4>
 	<hr>
 
 	<!-- FORM Inicio -->
 
-	<form class="form-horizontal" role="form" id="form_submissao_paper">
+	<form class="form-horizontal" role="form" id="formPaper">
 		<div class="form-group" id="titulo_form">
 			<label class="col-sm-3 control-label" for="input_palestra">Titulo</label>
 			<div class="input-group">
 				<input type="text" class="form-control" name="input_palestra"
-					id="input_palestra" placeholder="Informe o título da palestra."
+					id="titulo" placeholder="Informe o título da palestra."
 					required> <span class="input-group-addon"><span
 					class="glyphicon glyphicon-tags"></span></span>
 			</div>
 		</div>
 
-		<div class="form-group" id="evento_form">
-			<label class="col-sm-3 control-label">Evento</label>
-			<div class="input-group">
-				<select id="id_select_evento" class="form-control"
-					disabled="disabled">
-				</select>
-			</div>
-		</div>
-
-		<div class="form-group" id="tipo_form">
-			<label class="col-sm-3 control-label">O que quer fazer?</label> <select
-				id="id_tipo_palestra" class="combobox input-large form-control"
-				name="normal" disabled>
-				<!--        <option value="" selected="selected">Selecione o tipo</option> -->
-				<option value="PALESTRA" selected>Palestra</option>
-				<!-- <option value="HANDS_ON">Hands-on</option> -->
-				<!--  <option value="MINI_CURSO">Mini-Curso</option> -->
-			</select>
-		</div>
-
 		<div class="form-group" id="descricao_form">
 			<label class="col-sm-3 control-label" for="inputDescricao">Descrição</label>
 			<div class="input-group">
-				<textarea name="inputDescricao" id="input_descricao"
-					class="form-control"
+				<textarea name="inputDescricao" id=descricao
+					class="form-control" maxlength="999"
 					placeholder="O que você gostaria de compartilhar?" rows="4"
 					required></textarea>
 				<span class="input-group-addon"><span
@@ -102,7 +81,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label" for="btn_salvar"></label>
 		<div class="input-group">
-			<button type="submit" id="btn_salvar" name="btn_salvar"
+			<button type="submit" id="btnSalvar" name="btn_salvar"
 				class="btn btn-default">Salvar</button>
 		</div>
 	</div>

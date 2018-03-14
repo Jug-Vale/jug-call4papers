@@ -71,5 +71,5 @@ function limpaCamposForm() {
 }
 
 function converteData(dataStr) {
-	return new Date(dataStr.substring(6, 10), dataStr.substring(3, 5), dataStr.substring(0, 2), dataStr.substring(11, 13), dataStr.substring(14, 16));
+	return new Date(dataStr.substring(6, 10), parseInt(dataStr.substring(3, 5)) - 1, dataStr.substring(0, 2), dataStr.substring(11, 13), dataStr.substring(14, 16));
 }

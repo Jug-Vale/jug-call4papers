@@ -4,6 +4,9 @@
 
 <module rename-to="app">
 	<inherits name="org.jboss.errai.enterprise.All" />
+	<inherits name="org.jboss.errai.validation.Validation" />
+	<inherits name="org.hibernate.validator.HibernateValidator" />
+
 
 	<set-property name="gwt.logging.enabled" value="TRUE" />
 

@@ -2,6 +2,7 @@ package org.jugvale.cfp.client.local;
 
 import java.util.List;
 
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -19,6 +20,8 @@ import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.ForEvent;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
+import org.jugvale.cfp.client.local.shared.Mensagem;
+import org.jugvale.cfp.client.local.shared.Mensagem.Tipo;
 import org.jugvale.cfp.client.shared.DateConverter;
 import org.jugvale.cfp.model.impl.Evento;
 import org.jugvale.cfp.model.impl.Paper;
@@ -30,7 +33,6 @@ import com.google.common.collect.Multimap;
 import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
-import elemental2.dom.HTMLInputElement;
 import elemental2.dom.MouseEvent;
 
 @Page(path = "evento/{eventoId}")
@@ -86,42 +88,66 @@ public class PaginaDetalhesEvento {
 	@DataField
 	@Named("p")
 	HTMLElement local;
-	
+
 	@Inject
 	@DataField
 	HTMLButtonElement btnInscricao;
-	
+
 	@Inject
 	@DataField
 	HTMLButtonElement btnSubmeterPaper;
-	
+
 	@Inject
 	TransitionTo<PaginaInscricao> paginaInscricaoEvento;
+	
+	@Inject
+	TransitionTo<PaginaSubmeterPaper> paginaSubmeterPaper;
+
+	@Inject
+	private Event<Mensagem> eventoMensagem;
 
 	@PageShown
 	public void carregaDados() {
 		eventoService.call((Evento e) -> {
 			eventoBinder.setModel(e);
-			if(!e.isInscricoesAbertas()) {
-				btnInscricao.value= "Inscrições fechadas!";
+			if (!e.isInscricoesAbertas()) {
+				btnInscricao.nodeValue = "Inscrições fechadas!";
 			}
 			btnInscricao.disabled = !e.isInscricoesAbertas();
 			btnSubmeterPaper.hidden = !e.isAceitandoTrabalhos();
-		}, (m, t) -> false).buscaPorId(eventoId);
+		}, this::erroCarregarEvento).buscaPorId(eventoId);
 		eventoService.call((List<Paper> papers) -> {
 			if (papers.size() > 0) {
 				cabecalhoPalestras.textContent = "Vote nas palestras enviadas:";
 			}
 			listPapersEvento.setValue(papers);
-		}, (m, t) -> false).listaPapersPorEvento(eventoId);
+		}, this::erroCarregarPapers).listaPapersPorEvento(eventoId);
 	}
-	
+
 	@EventHandler("btnInscricao")
 	public void irParaPaginaInscricao(final @ForEvent("click") MouseEvent event) {
+		paginaInscricaoEvento.go(pegaParametros());
+	}
+
+	@EventHandler("btnSubmeterPaper")
+	public void irParaPaginaNovoPaper(final @ForEvent("click") MouseEvent event) {
+		paginaSubmeterPaper.go(pegaParametros());
+	}
+
+	private Multimap<String, String> pegaParametros() {
 		Multimap<String, String> state = HashMultimap.create();
 		state.put("eventoId", eventoBinder.getModel().getId().toString());
 		state.put("nomeEvento", eventoBinder.getModel().getNome());
-		paginaInscricaoEvento.go(state);
-		
+		return state;
+	}
+	
+	public boolean erroCarregarEvento(Object obj, Throwable e) {
+		eventoMensagem.fire(Mensagem.nova("Erro ao carregar evento: " + e.getMessage(), Tipo.ERRO));
+		return false;
+	}
+
+	public boolean erroCarregarPapers(Object obj, Throwable e) {
+		eventoMensagem.fire(Mensagem.nova("Erro ao carregar palestras: " + e.getMessage(), Tipo.ERRO));
+		return false;
 	}
 }
