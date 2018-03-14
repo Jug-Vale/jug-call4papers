@@ -2,7 +2,11 @@ package org.jugvale.cfp.model.impl;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.URL;
 import org.jugvale.cfp.model.DefaultModel;
 import org.jugvale.cfp.model.config.Views;
 
@@ -15,22 +19,34 @@ public class Autor extends DefaultModel {
 
 	@Column(nullable = false)
 	@JsonView(Views.Publico.class)
+	@NotNull(message = "Nome do autor não pode ser nulo")
+	@NotEmpty(message = "Nome do autor não pode ser em branco")
 	private String nome;
 
 	@Column
-	@JsonView(Views.Interno.class)	
+	@JsonView(Views.Interno.class)
+	@NotNull(message = "E-mail do autor não pode ser nulo")
+	@NotEmpty(message = "E-mail do autor não pode ser em branco")
 	private String email;
 
 	@Column
-	@JsonView(Views.Interno.class)		
+	@JsonView(Views.Interno.class)
+	@NotNull(message = "Telefone do autor não pode ser nulo")
+	@NotEmpty(message = "Telefone do autor não pode ser em branco")
 	private String telefone;
 
 	@Column
 	@JsonView(Views.Publico.class)
+	@URL(message = "Forneça uma URL válida")
+	@NotNull(message = "Site do autor não pode ser nulo")
+	@NotEmpty(message = "Site do autor não pode ser em branco")
 	private String site;
 
 	@Column(length=1000)
 	@JsonView(Views.Publico.class)
+	@NotNull(message = "Mini Currículo do autor não pode ser nulo")
+	@NotEmpty(message = "Mini Currículo do autor não pode ser em branco")
+	@Length(min = 20, max = 1000, message = "Forneça um mini currículo com tamanho entre 20 e 1000")
 	private String miniCurriculo;
 
 	public String getNome() {

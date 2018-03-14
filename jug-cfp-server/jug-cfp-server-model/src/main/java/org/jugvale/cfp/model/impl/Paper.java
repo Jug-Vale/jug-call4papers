@@ -15,7 +15,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.jugvale.cfp.model.DefaultModel;
 import org.jugvale.cfp.model.config.Views;
 import org.jugvale.cfp.model.enums.Tipo;
@@ -37,10 +40,15 @@ public class Paper extends DefaultModel {
 
 	@Column
 	@JsonView(Views.ResumoPaper.class)
+	@NotNull(message = "Título da proposta não pode ser nulo")
+	@NotEmpty(message = "Título da proposta não pode ser vazio")
 	private String titulo;
 
-	@Column(length=1000)
+	@Column(length = 1000)
 	@JsonView(Views.ResumoPaper.class)
+	@NotEmpty(message = "A proposta precisa de uma descrição!")
+	@NotNull(message = "A descrição da proposta não pode ser nula")
+	@Length(min = 50, max = 1000, message = "O texto da descrição deve conter entre 50 e 1000 caracteres")
 	private String descricao;
 
 	@Column
@@ -54,7 +62,8 @@ public class Paper extends DefaultModel {
 	private boolean aceito;
 
 	@ManyToMany(fetch = EAGER, cascade = CascadeType.PERSIST)
-	@JoinTable(name = "AUTOR_PAPER", joinColumns = { @JoinColumn(name = "PAPER_ID") }, inverseJoinColumns = { @JoinColumn(name = "AUTOR_ID") })
+	@JoinTable(name = "AUTOR_PAPER", joinColumns = { @JoinColumn(name = "PAPER_ID") }, inverseJoinColumns = {
+			@JoinColumn(name = "AUTOR_ID") })
 	@JsonView(Views.ResumoPaper.class)
 	private Set<Autor> autores = new HashSet<Autor>();
 
@@ -64,7 +73,6 @@ public class Paper extends DefaultModel {
 	@Column
 	@Enumerated(EnumType.STRING)
 	private Tipo tipo;
-
 
 	public String getTitulo() {
 		return titulo;
