@@ -12,7 +12,7 @@ import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.ForEvent;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
-import org.jugvale.cfp.client.shared.DateConverter;
+import org.jugvale.cfp.client.local.shared.DateConverter;
 import org.jugvale.cfp.model.impl.Evento;
 
 import com.google.common.collect.HashMultimap;

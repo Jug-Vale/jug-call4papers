@@ -16,6 +16,7 @@
 
 package org.jugvale.cfp.client.local;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -86,6 +87,9 @@ public class ListaTodosEventos {
 
 	private void mostraEventos(List<Evento> eventos) {
 		Date hoje = new Date();
+		Collections.sort(eventos, Collections.reverseOrder((e1, e2) -> 
+			e1.getDataFim().compareTo(e2.getDataFim())
+		));
 		List<Evento> eventosAbertos = eventos.stream().filter(e -> e.getDataFim().after(hoje))
 				.collect(Collectors.toList());
 		List<Evento> eventosFechados = eventos.stream()
