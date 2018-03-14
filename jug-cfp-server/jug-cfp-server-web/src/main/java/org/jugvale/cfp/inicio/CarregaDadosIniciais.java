@@ -66,7 +66,7 @@ public class CarregaDadosIniciais {
 		em.persist(grandeEvento);
 
 		Autor maria = AutorBuilder.newAutor().comNome("Maria")
-				.comEmail("meuemail@gmail.com").comSite("www.mariajava.com")
+				.comEmail("meuemail@gmail.com").comSite("http://www.mariajava.com")
 				.comTelefone("(99) 9 9999-9999")
 				.comMiniCV("Grande conhecida no mundo Java...")
 				.build();
@@ -75,7 +75,7 @@ public class CarregaDadosIniciais {
 
 		Autor jose = AutorBuilder.newAutor().comNome("Josevaldo")
 				.comEmail("josevaldoJava@gmail.com")
-				.comSite("www.josevaldojava.com")
+				.comSite("http://www.josevaldojava.com")
 				.comTelefone("(99) 9 9999-9999")
 				.comMiniCV("Mestre no mundo Java...")
 				.build();
@@ -83,7 +83,7 @@ public class CarregaDadosIniciais {
 		em.persist(jose);
 
 		Paper javaParaJaveiros = PaperBuilder.newPapper().palestra().submetidoNaData(new Date())
-				.comDescricao("Java para quem ama Java. Java para javeiros")
+				.comDescricao("Java para quem ama Java. Java para javeiros - Java para quem ama Java. Java para javeiros")
 				.comTitulo("Java para javeiros").noEvento(grandeEvento)
 				.comAutor(maria).comAutor(jose).build();
 
