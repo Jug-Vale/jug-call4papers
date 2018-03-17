@@ -6,7 +6,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.URL;
 import org.jugvale.cfp.model.DefaultModel;
 import org.jugvale.cfp.model.config.Views;
 
@@ -37,7 +36,6 @@ public class Autor extends DefaultModel {
 
 	@Column
 	@JsonView(Views.Publico.class)
-	@URL(message = "Forneça uma URL válida")
 	@NotNull(message = "Site do autor não pode ser nulo")
 	@NotEmpty(message = "Site do autor não pode ser em branco")
 	private String site;

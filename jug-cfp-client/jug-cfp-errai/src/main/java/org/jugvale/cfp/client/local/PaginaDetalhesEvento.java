@@ -111,10 +111,13 @@ public class PaginaDetalhesEvento {
 		eventoService.call((Evento e) -> {
 			eventoBinder.setModel(e);
 			if (!e.isInscricoesAbertas()) {
-				btnInscricao.nodeValue = "Inscrições fechadas!";
+				btnInscricao.innerHTML = "Inscrições fechadas!";
+			}
+			if(!e.isAceitandoTrabalhos()) {
+				btnSubmeterPaper.innerHTML = "Submissão palestras fechada!";
 			}
 			btnInscricao.disabled = !e.isInscricoesAbertas();
-			btnSubmeterPaper.hidden = !e.isAceitandoTrabalhos();
+			btnSubmeterPaper.disabled = !e.isAceitandoTrabalhos();
 		}, this::erroCarregarEvento).buscaPorId(eventoId);
 		eventoService.call((List<Paper> papers) -> {
 			if (papers.size() > 0) {

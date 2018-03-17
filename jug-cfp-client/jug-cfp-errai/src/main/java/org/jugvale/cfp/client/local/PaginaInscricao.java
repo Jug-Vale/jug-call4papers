@@ -10,6 +10,7 @@ import org.jboss.errai.databinding.client.api.DataBinder;
 import org.jboss.errai.ui.nav.client.local.Page;
 import org.jboss.errai.ui.nav.client.local.PageShown;
 import org.jboss.errai.ui.nav.client.local.PageState;
+import org.jboss.errai.ui.nav.client.local.TransitionTo;
 import org.jboss.errai.ui.shared.api.annotations.AutoBound;
 import org.jboss.errai.ui.shared.api.annotations.Bound;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
@@ -22,6 +23,10 @@ import org.jugvale.cfp.client.local.shared.NivelConverter;
 import org.jugvale.cfp.client.local.shared.Validador;
 import org.jugvale.cfp.model.impl.Participante;
 import org.jugvale.cfp.rest.EventoResource;
+import org.jugvale.cfp.rest.InscricaoResource;
+
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
@@ -38,6 +43,9 @@ public class PaginaInscricao {
 
 	@Inject
 	Caller<EventoResource> eventoService;
+
+	@Inject
+	Caller<InscricaoResource> inscricaoService;
 
 	@PageState
 	long eventoId;
@@ -86,35 +94,42 @@ public class PaginaInscricao {
 
 	@Inject
 	private Event<Mensagem> event;
-	
+
 	@Inject
 	Validador validador;
 
+	@Inject
+	Validator validator;
+	
+	@Inject
+	TransitionTo<PaginaDetalhesEvento> paginaDetalhesEvento;
+	
 	@PageShown
 	public void init() {
 		txtNomeEvento.textContent = nomeEvento;
 	}
-	
-	@Inject
-	Validator validator;
+
 
 	@EventHandler("btnInscrever")
 	public void irParaPaginaInscricao(final @ForEvent("click") MouseEvent evt) {
 		Participante participante = participanteBinder.getModel();
-		if(validador.validaELancaErroSeInvalido(participante)) {
-			eventoService.call(r -> {
+		if (validador.validaELancaErroSeInvalido(participante)) {
+			inscricaoService.call(r -> {
 				event.fire(Mensagem.nova("Inscrição realizada com sucesso", Tipo.SUCESSO));
-				limpaCampos();
+				limpaCamposTrocaPagina();
 			}, (m, t) -> {
-				event.fire(Mensagem.nova("Erro ao realizar inscrição: " + t.getMessage(), Tipo.ERRO));
+				t.printStackTrace();
+				event.fire(Mensagem.nova("Erro ao realizar inscrição, verifique os dados enviados.", Tipo.ERRO));
 				return false;
-			}).inscreverParticipante(participante, eventoId);
+			}).inscrever(eventoId, participante);
 		}
 	}
 
-
-	private void limpaCampos() {
+	private void limpaCamposTrocaPagina() {
 		participanteBinder.setModel(new Participante());
+		Multimap<String, String> state = HashMultimap.create();
+		state.put("eventoId", String.valueOf(eventoId));
+		paginaDetalhesEvento.go(state);
 	}
 
 }

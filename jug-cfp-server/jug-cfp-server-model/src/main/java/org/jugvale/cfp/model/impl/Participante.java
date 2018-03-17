@@ -6,6 +6,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.jugvale.cfp.model.DefaultModel;
 import org.jugvale.cfp.model.config.Views;

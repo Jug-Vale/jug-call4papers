@@ -42,6 +42,11 @@ public class FormAutor implements IsElement, TakesValue<Autor>{
 	@Bound
 	@Inject
 	@DataField
+	private HTMLInputElement site;
+	
+	@Bound
+	@Inject
+	@DataField
 	private HTMLTextAreaElement miniCurriculo;
 	
 	@Inject

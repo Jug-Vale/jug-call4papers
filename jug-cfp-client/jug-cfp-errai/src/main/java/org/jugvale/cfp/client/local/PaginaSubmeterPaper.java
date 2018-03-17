@@ -74,20 +74,21 @@ public class PaginaSubmeterPaper {
 	@Inject
 	@DataField
 	HTMLButtonElement btnSalvar;
-	
+
 	@Inject
 	@DataField
 	FormAutor formAutor;
 
 	private Evento evento;
-	
+
 	@Inject
 	private Event<Mensagem> eventoMensagem;
-	
+
 	@Inject
 	TransitionTo<PaginaDetalhesEvento> paginaDetalhesEvento;
-	
-	@Inject Validador validador;
+
+	@Inject
+	Validador validador;
 
 	@PageShown
 	public void carregaCoisas() {
@@ -106,11 +107,12 @@ public class PaginaSubmeterPaper {
 		paper.setEvento(evento);
 		paper.setTipo(org.jugvale.cfp.model.enums.Tipo.PALESTRA);
 		paper.setAutores(Collections.singleton(formAutor.getValue()));
-		if(validador.validaELancaErroSeInvalido(paper)) { 
+		if (validador.validaELancaErroSeInvalido(formAutor.getValue()) &&
+			validador.validaELancaErroSeInvalido(paper)) {
 			paperService.call(e -> paperSubmetidoComSucesso(), this::erroSubmeterPaper).criar(paper);
 		}
 	}
-	
+
 	private Object paperSubmetidoComSucesso() {
 		eventoMensagem.fire(Mensagem.nova("Paper submetido com sucesso!", Tipo.SUCESSO));
 		Multimap<String, String> state = HashMultimap.create();
@@ -123,9 +125,11 @@ public class PaginaSubmeterPaper {
 		eventoMensagem.fire(Mensagem.nova("Erro ao carregar evento: " + e.getMessage(), Tipo.ERRO));
 		return false;
 	}
-	
+
 	public boolean erroSubmeterPaper(Object obj, Throwable e) {
-		eventoMensagem.fire(Mensagem.nova("Erro ao submeter paper: " + e.getMessage(), Tipo.ERRO));
+		eventoMensagem.fire(Mensagem.nova(
+				"Erro ao submeter paper. Verifique os dados enviados ou nos contactem pelas redes sociais!",
+				Tipo.ERRO));
 		return false;
 	}
 
