@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 @Path("evento")
 @Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
+@Produces("application/json; charset=UTF-8")
 public interface EventoResource {
 
 	@POST

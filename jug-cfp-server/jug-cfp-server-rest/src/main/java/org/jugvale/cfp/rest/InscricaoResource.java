@@ -14,7 +14,7 @@ import org.jugvale.cfp.model.impl.Participante;
 
 @Path("inscricao")
 @Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
+@Produces("application/json; charset=UTF-8")
 public interface InscricaoResource {
 
 	@POST
@@ -22,8 +22,7 @@ public interface InscricaoResource {
 	public Response inscrever(@PathParam("eventoId") long eventoId, Participante participante);
 	
 	@POST
-	@Path("/admin/{inscricaoId}/presenca")
-	@RolesAllowed({ "ADMINISTRADOR" })
+	@Path("/{inscricaoId}/presenca")
 	public Response mudaPresenca(@PathParam("inscricaoId") long inscricaoId);
 
 	
