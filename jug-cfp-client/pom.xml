@@ -6,14 +6,11 @@
 	  <version>2.1.0-SNAPSHOT</version>
 	  <groupId>org.jugvale.cfp</groupId>
         </parent>
-	<artifactId>jug-cfp-server</artifactId>
-	<groupId>org.jugvale.cfp.server</groupId>
+	<artifactId>jug-cfp-client</artifactId>
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>jug-cfp-server-model</module>
-		<module>jug-cfp-server-rest</module>
-		<module>jug-cfp-server-web</module>
+		<module>jug-cfp-errai</module>
 	</modules>
 
 	<dependencyManagement>
