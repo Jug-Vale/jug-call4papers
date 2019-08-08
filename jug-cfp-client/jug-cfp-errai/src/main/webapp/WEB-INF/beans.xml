@@ -3,10 +3,21 @@
 
   <scan>
     <!-- These exclusions were added by Errai to avoid deploying client-side classes to the server -->
-    <exclude name = "org.jugvale.cfp.client.local.DateConverter" />
+    <exclude name = "org.jugvale.cfp.client.local.PaginaSubmeterPaper" />
+    <exclude name = "org.jugvale.cfp.client.local.shared.DateConverter" />
+    <exclude name = "org.jugvale.cfp.client.local.shared.Mensagem$Tipo" />
+    <exclude name = "org.jugvale.cfp.client.local.shared.NivelConverter" />
+    <exclude name = "org.jugvale.cfp.client.local.shared.Validador" />
+    <exclude name = "org.jugvale.cfp.client.local.shared.TipoConverter" />
+    <exclude name = "org.jugvale.cfp.client.local.shared.Mensagem" />
+    <exclude name = "org.jugvale.cfp.client.local.MensagemWidget$CaixaMensagem" />
+    <exclude name = "org.jugvale.cfp.client.local.FormAutor" />
     <exclude name = "org.jugvale.cfp.client.local.PaginaDetalhesEvento" />
+    <exclude name = "org.jugvale.cfp.client.local.PaginaInscricao" />
     <exclude name = "org.jugvale.cfp.client.local.ListaTodosEventos" />
+    <exclude name = "org.jugvale.cfp.client.local.MensagemWidget" />
     <exclude name = "org.jugvale.cfp.client.local.EventoItemWidget" />
+    <exclude name = "org.jugvale.cfp.client.local.PaperItemWidget" />
     <exclude name = "org.jugvale.cfp.client.local.AppSetup" />
     <!-- End of Errai exclusions -->
   </scan>
