@@ -1,4 +1,4 @@
-package org.jugvale.cfp.client.local;
+package org.jugvale.cfp.client.local.evento;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -12,6 +12,7 @@ import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.ForEvent;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
+import org.jugvale.cfp.client.local.paginas.evento.PaginaDetalhesEvento;
 import org.jugvale.cfp.client.local.shared.DateConverter;
 import org.jugvale.cfp.model.impl.Evento;
 
@@ -23,7 +24,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.MouseEvent;
 
-@Templated("/web/EventoItemWidget.html")
+@Templated
 public class EventoItemWidget implements TakesValue<Evento>, IsElement {
 
 	@Inject

@@ -1,4 +1,4 @@
-package org.jugvale.cfp.client.local;
+package org.jugvale.cfp.client.local.paginas.paper;
 
 import javax.inject.Inject;
 
@@ -17,8 +17,8 @@ import elemental2.dom.HTMLFormElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLTextAreaElement;
 
-@Templated("/web/PaginaNovoPaper.html#formAutor")
-public class FormAutor implements IsElement, TakesValue<Autor>{
+@Templated("PaginaSubmeterPaper.html#formAutor")
+public class FormAutor implements IsElement, TakesValue<Autor> {
 	
 	@Inject
 	@AutoBound

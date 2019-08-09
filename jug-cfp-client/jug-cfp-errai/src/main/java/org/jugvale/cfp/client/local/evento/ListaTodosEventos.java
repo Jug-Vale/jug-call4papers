@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.jugvale.cfp.client.local;
+package org.jugvale.cfp.client.local.evento;
 
 import java.util.Collections;
 import java.util.Date;
@@ -40,8 +40,8 @@ import org.jugvale.cfp.rest.EventoResource;
 
 import elemental2.dom.HTMLDivElement;
 
+@Templated
 @Page(role = DefaultPage.class)
-@Templated("/web/ListaEventos.html")
 public class ListaTodosEventos {
 
 	@Inject

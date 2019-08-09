@@ -1,4 +1,4 @@
-package org.jugvale.cfp.client.local;
+package org.jugvale.cfp.client.local.paginas;
 
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -17,6 +17,7 @@ import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.ForEvent;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
+import org.jugvale.cfp.client.local.paginas.evento.PaginaDetalhesEvento;
 import org.jugvale.cfp.client.local.shared.Mensagem;
 import org.jugvale.cfp.client.local.shared.Mensagem.Tipo;
 import org.jugvale.cfp.client.local.shared.NivelConverter;
@@ -33,7 +34,7 @@ import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLSelectElement;
 import elemental2.dom.MouseEvent;
 
-@Templated("/web/PaginaInscricao.html")
+@Templated
 @Page(path = "evento/{eventoId}/{nomeEvento}/inscricao")
 public class PaginaInscricao {
 

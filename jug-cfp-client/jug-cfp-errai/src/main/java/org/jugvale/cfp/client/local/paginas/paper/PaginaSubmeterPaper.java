@@ -1,4 +1,4 @@
-package org.jugvale.cfp.client.local;
+package org.jugvale.cfp.client.local.paginas.paper;
 
 import java.util.Collections;
 
@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.errai.common.client.api.Caller;
-import org.jboss.errai.common.client.logging.util.Console;
 import org.jboss.errai.databinding.client.api.DataBinder;
 import org.jboss.errai.ui.nav.client.local.Page;
 import org.jboss.errai.ui.nav.client.local.PageShown;
@@ -19,6 +18,7 @@ import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.ForEvent;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
+import org.jugvale.cfp.client.local.paginas.evento.PaginaDetalhesEvento;
 import org.jugvale.cfp.client.local.shared.Mensagem;
 import org.jugvale.cfp.client.local.shared.Mensagem.Tipo;
 import org.jugvale.cfp.client.local.shared.Validador;
@@ -31,13 +31,14 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 import elemental2.dom.HTMLButtonElement;
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLTextAreaElement;
 import elemental2.dom.MouseEvent;
 
+@Templated
 @Page(path = "evento/{eventoId}/{nomeEvento}/submeter")
-@Templated("/web/PaginaNovoPaper.html")
 public class PaginaSubmeterPaper {
 
 	@PageState
@@ -74,7 +75,7 @@ public class PaginaSubmeterPaper {
 	@Inject
 	@DataField
 	HTMLButtonElement btnSalvar;
-
+	
 	@Inject
 	@DataField
 	FormAutor formAutor;

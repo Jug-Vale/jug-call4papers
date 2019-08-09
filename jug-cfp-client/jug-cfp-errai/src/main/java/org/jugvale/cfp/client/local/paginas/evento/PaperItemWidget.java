@@ -1,4 +1,4 @@
-package org.jugvale.cfp.client.local;
+package org.jugvale.cfp.client.local.paginas.evento;
 
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -29,7 +29,7 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
 import elemental2.dom.MouseEvent;
 
-@Templated("/web/PaperItemWidget.html")
+@Templated
 public class PaperItemWidget implements TakesValue<Paper>, IsElement {
 
 	@Inject
