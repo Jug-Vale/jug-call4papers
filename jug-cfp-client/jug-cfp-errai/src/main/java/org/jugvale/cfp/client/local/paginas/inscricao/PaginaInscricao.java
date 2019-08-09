@@ -1,4 +1,4 @@
-package org.jugvale.cfp.client.local.paginas;
+package org.jugvale.cfp.client.local.paginas.inscricao;
 
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
