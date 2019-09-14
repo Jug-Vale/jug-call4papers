@@ -164,7 +164,7 @@ export default {
       })
 
       axios
-        .post(`http://ec2-52-43-198-33.us-west-2.compute.amazonaws.com:8080/jug-cfp-server/rest/inscricao/${participante.id}/presenca`)
+        .post(`/jug-cfp-server/rest/inscricao/${participante.id}/presenca`)
         .then(response => {
           participante.compareceu = true
         })
@@ -172,7 +172,7 @@ export default {
     },
     update () {
       axios
-        .get(`http://ec2-52-43-198-33.us-west-2.compute.amazonaws.com:8080/jug-cfp-server/rest/evento/${this.evento.id}/inscritos`)
+        .get(`/jug-cfp-server/rest/evento/${this.evento.id}/inscritos`)
         .then(response => this.listaParticipantes = response.data)
         .catch(error => console.log(error))  
 

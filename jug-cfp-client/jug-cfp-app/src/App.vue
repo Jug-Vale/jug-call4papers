@@ -78,7 +78,7 @@ export default {
   },
   mounted () {
     axios
-      .get('http://ec2-52-43-198-33.us-west-2.compute.amazonaws.com:8080/jug-cfp-server/rest/evento')
+      .get('/jug-cfp-server/rest/evento')
       .then(response => {
         response.data.sort(function(a, b) {
           let a_match = a.nome.trim().match(/\d+/)
