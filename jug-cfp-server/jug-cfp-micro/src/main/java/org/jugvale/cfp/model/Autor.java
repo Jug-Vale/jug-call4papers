@@ -17,7 +17,7 @@ public class Autor extends PanacheEntity {
 	@NotEmpty(message = "Nome do autor não pode ser em branco")
 	public String nome;
 
-	@Column
+	@Column(unique = true)
 	@NotNull(message = "E-mail do autor não pode ser nulo")
 	@NotEmpty(message = "E-mail do autor não pode ser em branco")
 	public String email;

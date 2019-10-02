@@ -15,26 +15,36 @@ public class Participante extends PanacheEntity {
 	@Column(nullable = false)
 	@NotNull(message = "O nome não pode ser nulo")
 	@NotEmpty(message = "O nome não pode ser vazio")
-	private String nome;
+	public String nome;
 
 	@NotNull(message = "Email não pode ser nulo")
 	@NotEmpty(message = "Forneça um e-mail")
 	@Column(unique = true, nullable = false)
-	private String email;
+	public String email;
 
 	@Column
 	@NotNull(message = "O RG não pode ser nulo")
 	@NotEmpty(message = "Forneça um valor para o RG")
-	private String rg;
+	public String rg;
 
 	@Column
-	private String empresa;
+	public String empresa;
 
 	@Column
-	private String instituicao;
+	public String instituicao;
 
 	@Column
 	@Enumerated(EnumType.STRING)
-	private Nivel nivel;
+	public Nivel nivel;
+
+    public static Participante merge(Participante participante) {
+        return Participante.find("email", participante.email)
+                           .stream()
+                           .map(p -> (Participante) p)
+                           .findFirst().orElseGet(() -> { 
+                               participante.persist();
+                               return participante;
+                           });
+    }
 
 }

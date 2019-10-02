@@ -4,7 +4,9 @@ import static javax.persistence.FetchType.EAGER;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,7 +21,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonView;
+import org.jugvale.cfp.model.dto.ResumoPaper;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
@@ -65,5 +67,12 @@ public class Paper extends PanacheEntity {
 	@Column
 	@Enumerated(EnumType.STRING)
 	public Tipo tipo;
+	
+	public static List<ResumoPaper> porEvento(Evento evento) {
+	    return Paper.find("evento", evento).stream()
+	                                       .map(p -> (Paper) p)
+	                                       .map(ResumoPaper::of)
+	                                       .collect(Collectors.toList());
+	}
 
 }
