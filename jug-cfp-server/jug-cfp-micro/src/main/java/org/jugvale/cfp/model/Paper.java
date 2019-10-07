@@ -74,5 +74,12 @@ public class Paper extends PanacheEntity {
 	                                       .map(ResumoPaper::of)
 	                                       .collect(Collectors.toList());
 	}
+	
+   public static List<ResumoPaper> porAutor(Autor autor) {
+        return Paper.find("autor", autor).stream()
+                                         .map(p -> (Paper) p)
+                                         .map(ResumoPaper::of)
+                                         .collect(Collectors.toList());
+    }
 
 }
