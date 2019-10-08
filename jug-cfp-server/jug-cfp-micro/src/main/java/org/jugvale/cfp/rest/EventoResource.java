@@ -47,6 +47,7 @@ public class EventoResource {
 
 	@DELETE
 	@Path("/{id}")
+	@Transactional
 	@RolesAllowed({ Roles.ADMINISTRADOR })
 	public Response apagaPorId(@PathParam("id") Long id) {
 	    Evento.delete("id", id);
@@ -67,7 +68,15 @@ public class EventoResource {
 	@RolesAllowed({ Roles.ADMINISTRADOR })
 	public Response atualizar(@PathParam("id") long id, Evento evento) {
 		Evento eventoExistente = Evento.findById(id);
-        return RESTUtils.checkNullableEntityAndRemap(eventoExistente, e -> Evento.update(eventoExistente, evento));
+		return RESTUtils.checkEntityAndUpdate(eventoExistente, e -> {
+		      e.descricao = evento.descricao;
+		      e.dataInicio = evento.dataInicio;
+		      e.dataFim = evento.dataFim;
+		      e.local = evento.local;
+		      e.url = evento.url;
+		      e.aceitandoTrabalhos = evento.aceitandoTrabalhos;
+		      e.inscricoesAbertas = evento.inscricoesAbertas;
+		});
 	}
 
 	@GET

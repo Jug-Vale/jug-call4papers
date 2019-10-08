@@ -19,9 +19,7 @@ public class AutorResourceTest extends BaseTest {
 
     @Test
     public void autorCRUDTest() {
-        
         Autor autor = new Autor();
-        
         autor.email = "antonio@email.com";
         autor.nome = "Antônio";
         autor.miniCurriculo = "Java programmer for a long, long, long, long time";

@@ -36,12 +36,13 @@ public class RESTUtils {
         }
     }
 
-    public static <T> Response checkNullableEntityAndRemap(T entity, Function<T, T> remapFunction) {
+    public static <T, Q> Response checkNullableEntityAndRemap(T entity, Function<T, Q> remapFunction) {
         return Optional.ofNullable(entity)
                        .map(remapFunction)
                        .map(RESTUtils::okWithEntity)
                        .orElseGet(RESTUtils::notFound);
     }
+
 
     public static <T> Response checkNullableEntityAndReturn(T entity, Function<T, List<?>> then) {
         return Optional.ofNullable(entity)

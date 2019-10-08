@@ -11,4 +11,6 @@ public class BaseTest {
     public RequestSpecification givenWithAuth() {
         return given().auth().preemptive().basic(ADMIN, PASSWORD);
     }
+    
+    
 }

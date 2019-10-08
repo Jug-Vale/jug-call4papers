@@ -2,11 +2,8 @@ package org.jugvale.cfp.rest;
 
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
-import static org.jugvale.cfp.rest.BaseTest.ADMIN;
-import static org.jugvale.cfp.rest.BaseTest.PASSWORD;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 
@@ -21,10 +18,10 @@ import io.restassured.http.ContentType;
 @QuarkusTest
 public class EventoResourceTest extends BaseTest {
 
-    private static final String URI_EVENTO = "/evento";
-    private static final String URI_EVENTO_PARAM = URI_EVENTO + "/{id}";
-    private static final String URI_EVENTO_PARAM_PAPERS = URI_EVENTO + "/admin/{eventoId}/muda-aceitando-papers";   
-    private static final String URI_EVENTO_PARAM_INSCRICOES = URI_EVENTO + "/admin/{eventoId}/muda-inscricoes-abertas";   
+    public static final String URI_EVENTO = "/evento";
+    public static final String URI_EVENTO_PARAM = URI_EVENTO + "/{id}";
+    public static final String URI_EVENTO_PARAM_PAPERS = URI_EVENTO + "/admin/{eventoId}/muda-aceitando-papers";   
+    public static final String URI_EVENTO_PARAM_INSCRICOES = URI_EVENTO + "/admin/{eventoId}/muda-inscricoes-abertas";   
     
     @Test
     public void testEventoCRUD() {
@@ -53,26 +50,29 @@ public class EventoResourceTest extends BaseTest {
         
         get(URI_EVENTO_PARAM, 123456).then().statusCode(404);
         
-        Evento eventoBuscado = get(URI_EVENTO_PARAM, id).then().statusCode(200).extract().as(Evento.class);
+        get(URI_EVENTO_PARAM, id).then()
+                                 .statusCode(200)
+                                 .body("nome", equalTo(evento.nome))
+                                 .body("aceitandoTrabalhos", equalTo(false))
+                                 .body("inscricoesAbertas", equalTo(false));
         
-        assertEquals(evento.nome, eventoBuscado.nome);
-        assertFalse(eventoBuscado.aceitandoTrabalhos);
-        assertFalse(eventoBuscado.inscricoesAbertas);
         
         given().contentType(ContentType.JSON).post(URI_EVENTO_PARAM_PAPERS, id).then().statusCode(401);
-        eventoBuscado = givenWithAuth().contentType(ContentType.JSON)
-                                       .post(URI_EVENTO_PARAM_PAPERS, id).then()
-                                       .statusCode(200).extract().as(Evento.class);
-        assertTrue(eventoBuscado.aceitandoTrabalhos);
+        
+        givenWithAuth().contentType(ContentType.JSON)
+                       .post(URI_EVENTO_PARAM_PAPERS, id).then()
+                       .statusCode(200).body("aceitandoTrabalhos", equalTo(true));
         
         given().contentType(ContentType.JSON).post(URI_EVENTO_PARAM_INSCRICOES, id).then().statusCode(401);
         
-        eventoBuscado = givenWithAuth()
-                               .contentType(ContentType.JSON)
-                               .post(URI_EVENTO_PARAM_INSCRICOES, id)
-                               .then().statusCode(200).extract().as(Evento.class);
-        assertTrue(eventoBuscado.inscricoesAbertas);
+        givenWithAuth().contentType(ContentType.JSON)
+                       .post(URI_EVENTO_PARAM_INSCRICOES, id)
+                       .then().statusCode(200).body("inscricoesAbertas", equalTo(true));
+        
+        
+        givenWithAuth().delete(URI_EVENTO_PARAM, id).then().statusCode(204);
+        get(URI_EVENTO_PARAM, id).then().statusCode(404);
         
     }
-
+    
 }
