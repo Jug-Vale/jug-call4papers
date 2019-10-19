@@ -1,8 +1,0 @@
-<module>
-	<source path="">
-		<include name="DefaultModel.java" />
-		<include name="impl/*" />
-		<include name="enums/*" />
-		<include name="config/*" />
-	</source>
-</module>

@@ -2,12 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>jug-cfp</artifactId>
-	<version>2.1.0-SNAPSHOT</version>
+	<version>3.0.0-SNAPSHOT</version>
 	<groupId>org.jugvale.cfp</groupId>
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>jug-cfp-server</module>
+		<module>jug-cfp-backend</module>
 		<module>jug-cfp-client</module>
 	</modules>
 </project>
