@@ -1,6 +1,0 @@
-language: java
-
-install: echo "I trust Maven."
-
-jdk:
-  - oraclejdk8
