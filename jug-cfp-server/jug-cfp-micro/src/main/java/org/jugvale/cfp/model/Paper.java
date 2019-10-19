@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,6 +49,7 @@ public class Paper extends PanacheEntity {
 	public String descricao;
 
 	@Column
+	@JsonbDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
 	public Date dataSubmissao = new Date();
 
 	@Column
@@ -74,5 +76,12 @@ public class Paper extends PanacheEntity {
 	                                       .map(ResumoPaper::of)
 	                                       .collect(Collectors.toList());
 	}
+	
+   public static List<ResumoPaper> porAutor(Autor autor) {
+        return Paper.find("autor", autor).stream()
+                                         .map(p -> (Paper) p)
+                                         .map(ResumoPaper::of)
+                                         .collect(Collectors.toList());
+    }
 
 }

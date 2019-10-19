@@ -2,10 +2,8 @@ package org.jugvale.cfp.rest;
 
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.post;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 
@@ -18,17 +16,16 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 
 @QuarkusTest
-public class EventoResourceTest {
+public class EventoResourceTest extends BaseTest {
 
-    private static final String URI_EVENTO = "/evento";
-    private static final String URI_EVENTO_PARAM = URI_EVENTO + "/{id}";
-    private static final String URI_EVENTO_PARAM_PAPERS = URI_EVENTO + "/admin/{eventoId}/muda-aceitando-papers";   
-    private static final String URI_EVENTO_PARAM_INSCRICOES = URI_EVENTO + "/admin/{eventoId}/muda-inscricoes-abertas";   
+    public static final String URI_EVENTO = "/evento";
+    public static final String URI_EVENTO_PARAM = URI_EVENTO + "/{id}";
+    public static final String URI_EVENTO_PARAM_PAPERS = URI_EVENTO + "/admin/{eventoId}/muda-aceitando-papers";   
+    public static final String URI_EVENTO_PARAM_INSCRICOES = URI_EVENTO + "/admin/{eventoId}/muda-inscricoes-abertas";   
     
     @Test
     public void testEventoCRUD() {
-        Evento[] eventos = given().get(URI_EVENTO).as(Evento[].class);
-        assertEquals(0, eventos.length);
+        given().get(URI_EVENTO).then().statusCode(200);
         Evento evento = new Evento();
         evento.dataFim = new Date();
         evento.dataInicio = new Date();
@@ -44,37 +41,37 @@ public class EventoResourceTest {
                .post(URI_EVENTO).then()
                .statusCode(401);
         
-        Long id = given().body(eJson)
-                         .auth().preemptive().basic("admin", "admin")
-                         .contentType(ContentType.JSON)
-                         .post(URI_EVENTO).then()
-                         .statusCode(201)
-                         .extract().as(Long.class);
+        Long id = givenWithAuth().body(eJson)
+                                 .contentType(ContentType.JSON)
+                                 .post(URI_EVENTO).then()
+                                 .statusCode(201)
+                                 .extract().as(Long.class);
         
         get(URI_EVENTO_PARAM, 123456).then().statusCode(404);
         
-        Evento eventoBuscado = get(URI_EVENTO_PARAM, id).then().statusCode(200).extract().as(Evento.class);
-        
-        assertEquals(evento.nome, eventoBuscado.nome);
-        assertFalse(eventoBuscado.aceitandoTrabalhos);
-        assertFalse(eventoBuscado.inscricoesAbertas);
+        get(URI_EVENTO_PARAM, id).then()
+                                 .statusCode(200)
+                                 .body("nome", equalTo(evento.nome))
+                                 .body("aceitandoTrabalhos", equalTo(false))
+                                 .body("inscricoesAbertas", equalTo(false));
         
         
         given().contentType(ContentType.JSON).post(URI_EVENTO_PARAM_PAPERS, id).then().statusCode(401);
-        eventoBuscado = given().contentType(ContentType.JSON)
-                               .auth().preemptive().basic("admin", "admin")
-                               .post(URI_EVENTO_PARAM_PAPERS, id).then()
-                               .statusCode(200).extract().as(Evento.class);
-        assertTrue(eventoBuscado.aceitandoTrabalhos);
+        
+        givenWithAuth().contentType(ContentType.JSON)
+                       .post(URI_EVENTO_PARAM_PAPERS, id).then()
+                       .statusCode(200).body("aceitandoTrabalhos", equalTo(true));
         
         given().contentType(ContentType.JSON).post(URI_EVENTO_PARAM_INSCRICOES, id).then().statusCode(401);
         
-        eventoBuscado = given().contentType(ContentType.JSON)
-                               .auth().preemptive().basic("admin", "admin")
-                               .post(URI_EVENTO_PARAM_INSCRICOES, id)
-                               .then().statusCode(200).extract().as(Evento.class);
-        assertTrue(eventoBuscado.inscricoesAbertas);
+        givenWithAuth().contentType(ContentType.JSON)
+                       .post(URI_EVENTO_PARAM_INSCRICOES, id)
+                       .then().statusCode(200).body("inscricoesAbertas", equalTo(true));
+        
+        
+        givenWithAuth().delete(URI_EVENTO_PARAM, id).then().statusCode(204);
+        get(URI_EVENTO_PARAM, id).then().statusCode(404);
         
     }
-
+    
 }

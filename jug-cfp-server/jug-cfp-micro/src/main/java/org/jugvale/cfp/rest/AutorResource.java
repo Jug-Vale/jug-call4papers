@@ -18,6 +18,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.jugvale.cfp.definitions.Roles;
 import org.jugvale.cfp.model.Autor;
 import org.jugvale.cfp.model.Paper;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
@@ -36,18 +37,17 @@ public class AutorResource {
 	}
 
 	@GET
-	@RolesAllowed({ "ADMINISTRADOR" })
+	@RolesAllowed({ Roles.ADMINISTRADOR })
 	public Response listarTodos(@QueryParam("size") @DefaultValue("100") int size,
-															@QueryParam("page") @DefaultValue("0") int page) {
+								@QueryParam("page") @DefaultValue("0") int page) {
 		List<PanacheEntityBase> autores = Autor.findAll().page(page, size).list();
 		return Response.ok(autores).build();
-
 	}
 
 	@DELETE
 	@Path("/{id}")
 	@Transactional
-	@RolesAllowed({ "ADMINISTRADOR" })
+	@RolesAllowed({ Roles.ADMINISTRADOR })
 	public Response apagaPorId(@PathParam("id") Long id) {
 		Autor.delete("id", id);
 		return Response.noContent().build();
@@ -55,7 +55,7 @@ public class AutorResource {
 
 	@GET
 	@Path("/{id}")
-	@RolesAllowed({ "ADMINISTRADOR" })
+	@RolesAllowed({ Roles.ADMINISTRADOR })
 	public Response buscaPorId(@PathParam("id") Long id) {
 		Autor autor = Autor.findById(id);
 		return RESTUtils.responseForNullableEntity(autor);
@@ -65,14 +65,23 @@ public class AutorResource {
 	@Path("/{autorId}/papers")
 	public Response listaPapersPorAutor(@PathParam("autorId") Long id) {
 		Autor autor = Autor.findById(id);
-		return RESTUtils.checkNullableEntityAndReturn(autor, a -> Paper.find("autor", a).list());
+		return RESTUtils.checkNullableEntityAndReturn(autor, Paper::porAutor);
 	}
 
 	@PUT
 	@Path("/{id}")
-	@RolesAllowed({ "ADMINISTRADOR" })
+	@Transactional
+	@RolesAllowed({ Roles.ADMINISTRADOR })
 	public Response atualizar(@PathParam("id") long id, Autor entidade) {
-		return Response.ok().build();
+	    Autor autor = Autor.findById(id);
+	    return RESTUtils.checkEntityAndUpdate(autor, a -> {
+	        a.miniCurriculo = entidade.miniCurriculo;
+	        a.email = entidade.email;
+	        a.nome = entidade.nome;
+	        a.site = entidade.site;
+	        a.telefone = entidade.telefone;
+	        a.persist();
+	    });
 	}
 
 }
