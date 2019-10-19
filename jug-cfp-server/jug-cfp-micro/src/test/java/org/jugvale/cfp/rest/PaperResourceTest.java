@@ -1,22 +1,13 @@
 package org.jugvale.cfp.rest;
 
 import static io.restassured.RestAssured.get;
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.net.URI;
 import java.util.Date;
 
 import javax.json.bind.JsonbBuilder;
-
-import org.jugvale.cfp.model.Evento;
-import org.junit.jupiter.api.Test;
-
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.http.ContentType;
-import java.util.Date;
 
 import org.jugvale.cfp.model.Autor;
 import org.jugvale.cfp.model.Evento;
@@ -25,6 +16,7 @@ import org.jugvale.cfp.model.Tipo;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.http.ContentType;
 
 @QuarkusTest
 public class PaperResourceTest extends BaseTest {
@@ -52,9 +44,9 @@ public class PaperResourceTest extends BaseTest {
         
         String eJson = JsonbBuilder.create().toJson(evento);
         long eventoId = givenWithAuth().body(eJson)
-                                 .contentType(ContentType.JSON)
-                                 .post(EventoResourceTest.URI_EVENTO)
-                                 .then().extract().as(Long.class);
+                                       .contentType(ContentType.JSON)
+                                       .post(EventoResourceTest.URI_EVENTO)
+                                       .then().extract().as(Long.class);
         evento.id = eventoId;
 
         Paper paper = new Paper();

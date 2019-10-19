@@ -5,6 +5,8 @@ import static org.jugvale.cfp.rest.RESTUtils.checkNullableEntityAndReturn;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -18,17 +20,24 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.jugvale.cfp.definitions.Roles;
+import org.jugvale.cfp.events.EventoNovaInscricao;
 import org.jugvale.cfp.model.Evento;
 import org.jugvale.cfp.model.Inscricao;
 import org.jugvale.cfp.model.Paper;
 import org.jugvale.cfp.model.Participante;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+
 @Path("evento")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces("application/json; charset=UTF-8")
 public class EventoResource {
+    
+    @Inject
+    Event<EventoNovaInscricao> eventoNovaInscricao;
 
 	@POST
 	@Transactional
@@ -105,12 +114,17 @@ public class EventoResource {
 	public Response inscreverParticipante(Participante participante, @PathParam("eventoId") Long id) {
 	    Evento evento = Evento.findById(id);
 	    Participante p1 = Participante.merge(participante);
-	    return RESTUtils.checkNullableEntitiesAndRemap(evento, p1, (e, p) -> {
-	       Inscricao inscricao = Inscricao.of(p, e); 
-	       inscricao.persist();
-	       // TODO: Fire event
-	       return inscricao;
-	    });
+	    PanacheEntityBase i = Inscricao.find("evento = ?1 and participante = ?2", evento, p1).firstResult();
+	    if (i != null) {
+	        return Response.status(Status.CONFLICT).entity("Participante com email já inscrito!").build();
+	    } else {
+	        return RESTUtils.checkNullableEntitiesAndRemap(evento, p1, (e, p) -> {
+	            Inscricao inscricao = Inscricao.of(p, e); 
+	            inscricao.persist();
+	            eventoNovaInscricao.fire(new EventoNovaInscricao(inscricao));
+	            return inscricao;
+	        });
+	    }
 	}
 
 	@GET

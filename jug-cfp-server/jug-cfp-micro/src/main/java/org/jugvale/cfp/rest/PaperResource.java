@@ -59,7 +59,6 @@ public class PaperResource {
 	        p.descricao = newPaper.descricao;
 	        p.tipo = newPaper.tipo;
 	        p.titulo = newPaper.titulo;
-	        p.persist();
 	    });
 	}
 	

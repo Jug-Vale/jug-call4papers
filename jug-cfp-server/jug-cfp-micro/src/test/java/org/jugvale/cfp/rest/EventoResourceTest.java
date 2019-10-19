@@ -25,8 +25,7 @@ public class EventoResourceTest extends BaseTest {
     
     @Test
     public void testEventoCRUD() {
-        Evento[] eventos = given().get(URI_EVENTO).as(Evento[].class);
-        assertEquals(0, eventos.length);
+        given().get(URI_EVENTO).then().statusCode(200);
         Evento evento = new Evento();
         evento.dataFim = new Date();
         evento.dataInicio = new Date();
