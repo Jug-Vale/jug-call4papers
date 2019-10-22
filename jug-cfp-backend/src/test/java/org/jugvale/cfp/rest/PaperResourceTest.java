@@ -27,6 +27,7 @@ public class PaperResourceTest extends BaseTest {
 
     @Test
     public void testPaperCrud() {
+    	
         Autor autor = new Autor();
         autor.email = "antonio@email.com";
         autor.nome = "Antônio";
@@ -101,6 +102,7 @@ public class PaperResourceTest extends BaseTest {
         get(URI_PAPER_PARAM, paperId).then().statusCode(404);
         
         givenWithAuth().delete(EventoResourceTest.URI_EVENTO_PARAM, eventoId);
+        
     }
 
 }

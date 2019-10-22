@@ -5,10 +5,11 @@ import static io.restassured.RestAssured.given;
 import io.restassured.specification.RequestSpecification;
 
 public class BaseTest {
-    private final String ADMIN = "admin";
-    private final String PASSWORD = "admin";
+	
+    private final static String ADMIN = "admin";
+    private final static String PASSWORD = "admin";
     
-    public RequestSpecification givenWithAuth() {
+    public static RequestSpecification givenWithAuth() {
         return given().auth().preemptive().basic(ADMIN, PASSWORD);
     }
     
