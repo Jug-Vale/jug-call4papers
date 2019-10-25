@@ -13,5 +13,4 @@ public class BaseTest {
         return given().auth().preemptive().basic(ADMIN, PASSWORD);
     }
     
-    
 }

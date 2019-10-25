@@ -13,7 +13,9 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 public class RESTUtils {
 
-    public static Response created(Class<?> resource, Long id) {
+    private static final String NÃO_ENCONTRADO = "Não encontrado";
+
+	public static Response created(Class<?> resource, Long id) {
         return Response.created(UriBuilder.fromResource(resource)
                        .path(String.valueOf(id)).build())
                        .entity(id).build();
@@ -61,7 +63,7 @@ public class RESTUtils {
     }
 
     private static Response notFound() {
-        return Response.status(404).entity("Não encontrado").build();
+        return Response.status(404).entity(NÃO_ENCONTRADO).build();
     }
 
 }

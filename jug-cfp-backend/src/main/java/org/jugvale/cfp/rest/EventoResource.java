@@ -49,8 +49,8 @@ public class EventoResource {
 
 	@GET
 	@PermitAll
-	public Response listarTodos(@QueryParam("size") @DefaultValue("100") int size,
-									@QueryParam("page") @DefaultValue("0") int page) {
+	public Response listarTodos( @QueryParam("size") @DefaultValue("100") int size,
+								 @QueryParam("page") @DefaultValue("0") int page ) {
 		return Response.ok(Evento.findAll().page(page, size).list()).build();
 	}
 
@@ -112,9 +112,11 @@ public class EventoResource {
 	@Transactional
 	@Path("/{eventoId}/inscrever")
 	public Response inscreverParticipante(Participante participante, @PathParam("eventoId") Long id) {
-	    Evento evento = Evento.findById(id);
+	    
+		Evento evento = Evento.findById(id);
 	    Participante p1 = Participante.merge(participante);
 	    PanacheEntityBase i = Inscricao.find("evento = ?1 and participante = ?2", evento, p1).firstResult();
+	    
 	    if (i != null) {
 	        return Response.status(Status.CONFLICT).entity("Participante com email já inscrito!").build();
 	    } else {

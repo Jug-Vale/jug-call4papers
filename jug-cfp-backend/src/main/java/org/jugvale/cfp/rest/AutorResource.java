@@ -60,6 +60,7 @@ public class AutorResource {
 		Autor autor = Autor.findById(id);
 		return RESTUtils.responseForNullableEntity(autor);
 	}
+	
 	@GET
 	@PermitAll
 	@Path("/{autorId}/papers")

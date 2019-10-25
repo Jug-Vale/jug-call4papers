@@ -1,18 +1,20 @@
 package org.jugvale.cfp.rest;
 
 import static io.restassured.RestAssured.get;
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 
 import javax.json.bind.JsonbBuilder;
+import javax.transaction.Transactional;
 
+import org.hamcrest.Matchers;
 import org.jugvale.cfp.model.Autor;
 import org.jugvale.cfp.model.Evento;
 import org.jugvale.cfp.model.Paper;
 import org.jugvale.cfp.model.Tipo;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -24,11 +26,17 @@ public class PaperResourceTest extends BaseTest {
     private static final String URI_PAPER = "/paper";
     private static final String URI_PAPER_PARAM = URI_PAPER + "/{id}";
     private static final String URI_PAPER_VOTO = URI_PAPER_PARAM + "/votar";
-
-    @Test
-    public void testPaperCrud() {
+	private String paperJson;
+    
+    @BeforeEach
+	@Transactional
+	public void limpaDadosECria() {
     	
-        Autor autor = new Autor();
+    	Paper.deleteAll();
+    	Autor.deleteAll();
+    	Evento.deleteAll();
+    	
+    	Autor autor = new Autor();
         autor.email = "antonio@email.com";
         autor.nome = "Antônio";
         autor.miniCurriculo = "Java programmer for a long, long, long, long time";
@@ -43,66 +51,132 @@ public class PaperResourceTest extends BaseTest {
         evento.nome = "Super evento";
         evento.url = "http://jugvale.com";
         
-        String eJson = JsonbBuilder.create().toJson(evento);
-        long eventoId = givenWithAuth().body(eJson)
-                                       .contentType(ContentType.JSON)
-                                       .post(EventoResourceTest.URI_EVENTO)
-                                       .then().extract().as(Long.class);
-        evento.id = eventoId;
+        long eventoId = givenWithAuth().body(JsonbBuilder.create().toJson(evento))
+                					   .contentType(ContentType.JSON)
+                					   .post(EventoResourceTest.URI_EVENTO)
+                					   .then().extract()
+                					   .as(Long.class);
+        
+		evento.id = eventoId;
+		
+		Paper paper = new Paper();
+		
+		paper.evento = evento;
+		paper.descricao = "Super talk for super guys with a super description that makes everything more super!";
+		paper.titulo = "Super talk";
+		paper.autores.add(autor);
+		paper.tipo = Tipo.PALESTRA;
+		paper.dataSubmissao = new Date();
+		
+		paperJson = JsonbBuilder.create().toJson(paper);
+    	
+    }
+    
+    @Test
+    public void deveRetornarStatus201AoCriarPaper() {
+    	given().body(paperJson).contentType(ContentType.JSON)
+							           .post(URI_PAPER)
+							           .then().statusCode(201);
+    }
+    
+    @Test
+    public void deveBuscarPaperIdERetornar200() {
+    	
+    	long paperId = givenWithAuth().body(paperJson)
+                					  .contentType(ContentType.JSON)
+                					  .post(URI_PAPER)
+                					  .then().statusCode(201)
+                					  .extract().as(Long.class);
 
-        Paper paper = new Paper();
+    	get(URI_PAPER_PARAM, paperId).then().statusCode(200);
+    	
+    }
 
-        paper.evento = evento;
-        paper.descricao = "Super talk for super guys with a super description that makes everything more super!";
-        paper.titulo = "Super talk";
-        paper.autores.add(autor);
-        paper.tipo = Tipo.PALESTRA;
-        paper.dataSubmissao = new Date();
-        
-        String pJson = JsonbBuilder.create().toJson(paper);
-        long paperId = givenWithAuth().body(pJson)
-                                      .contentType(ContentType.JSON)
-                                      .post(URI_PAPER)
-                                      .then().statusCode(201)
-                                      .extract().as(Long.class);
-        
-        get(URI_PAPER_PARAM, paperId).then().statusCode(200);
-        get(URI_PAPER_PARAM, 123456l).then().statusCode(404);
-        
-        String tituloNovo = "Titulo novo";
+    @Test
+    public void deveRetornar404EmBuscaPorPaperId() {
+    	get(URI_PAPER_PARAM, Long.MAX_VALUE).then().statusCode(404);
+    }
+    
+    @Test
+    public void deveRetornar401ParaAtualizarPaper() {
+    	
+    	given().contentType(ContentType.JSON)
+				       .body(paperJson)
+				       .put(URI_PAPER_PARAM, Long.MAX_VALUE)
+				       .then().statusCode(401);
+    }
+    
+    @Test
+    public void deveRetornar200ParaAtualizarPaper() {
+    	
+    	long paperId = givenWithAuth().body(paperJson)
+									  .contentType(ContentType.JSON)
+									  .post(URI_PAPER)
+									  .then().statusCode(201)
+									  .extract().as(Long.class);
+    	
+    	Paper paper = JsonbBuilder.create().fromJson(paperJson, Paper.class);
+    	
+    	String tituloNovo = "Titulo novo";
         String descricaoNova = paper.descricao + "nova";
         Tipo novoTipo = Tipo.MINI_CURSO;
+        
         paper.titulo = tituloNovo;
         paper.descricao = descricaoNova;
         paper.tipo = novoTipo;
         paper.aceito = true;
         
-        String paperStr = JsonbBuilder.create().toJson(paper);
         givenWithAuth().contentType(ContentType.JSON)
-                       .body(paperStr)
+                       .body(JsonbBuilder.create().toJson(paper))
                        .put(URI_PAPER_PARAM, paperId)
                        .then().statusCode(200)
                        .body("titulo", equalTo(tituloNovo))
                        .body("aceito", equalTo(true))
                        .body("descricao", equalTo(descricaoNova))
                        .body("tipo", equalTo(novoTipo.name()));
-        
-        assertTrue(paper.aceito);
-        
-        long nota = paper.nota;
-        paper = givenWithAuth().contentType(ContentType.JSON)
-                               .post(URI_PAPER_VOTO, paperId)
-                               .then().statusCode(200)
-                               .extract().as(Paper.class);
-        
-        assertEquals(nota + 1, paper.nota);
-        
-        givenWithAuth().delete(URI_PAPER_PARAM, paperId).then().statusCode(204);
-        
-        get(URI_PAPER_PARAM, paperId).then().statusCode(404);
-        
-        givenWithAuth().delete(EventoResourceTest.URI_EVENTO_PARAM, eventoId);
-        
     }
+    
+    @Test
+    public void validaVoto() {
+    	
+    	long paperId = givenWithAuth().body(paperJson)
+									  .contentType(ContentType.JSON)
+									  .post(URI_PAPER)
+									  .then().statusCode(201)
+									  .extract().as(Long.class);
+    	
+    	given().contentType(ContentType.JSON).post(URI_PAPER_VOTO, paperId)
+			           						 .then().statusCode(200)
+			           						 .body("nota", Matchers.equalTo(1));
+    	
+    	given().contentType(ContentType.JSON).post(URI_PAPER_VOTO, paperId)
+			        						 .then().statusCode(200)
+			        						 .body("nota", Matchers.equalTo(2));
+    }
+    
+    @Test
+    public void deveDeletarPaperERetornar204() {
+    	long paperId = givenWithAuth().body(paperJson)
+									  .contentType(ContentType.JSON)
+									  .post(URI_PAPER)
+									  .then().statusCode(201)
+									  .extract().as(Long.class);
 
+    	givenWithAuth().delete(URI_PAPER_PARAM, paperId).then().statusCode(204);
+    	get(URI_PAPER_PARAM, paperId).then().statusCode(404);
+    }
+    
+    @Test
+    public void deveDeletarPaperERetornar401() {
+    	
+    	long paperId = givenWithAuth().body(paperJson)
+									  .contentType(ContentType.JSON)
+									  .post(URI_PAPER)
+									  .then().statusCode(201)
+									  .extract().as(Long.class);
+
+    	given().delete(URI_PAPER_PARAM, paperId).then().statusCode(401);
+    	get(URI_PAPER_PARAM, paperId).then().statusCode(200);
+    }
+    
 }

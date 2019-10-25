@@ -7,7 +7,7 @@ import javax.ws.rs.core.Response;
 import org.junit.jupiter.api.Test;
 
 public class RESTUtilsTest {
-    
+	
     @Test
     public void checkNullableEntitiesAndRemapTest() {
         Response response = RESTUtils.checkNullableEntitiesAndRemap(1l, null, (a, b) -> "");
