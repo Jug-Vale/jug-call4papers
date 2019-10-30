@@ -9,19 +9,4 @@
 	<artifactId>jug-cfp-client</artifactId>
 	<packaging>pom</packaging>
 
-	<modules>
-		<module>jug-cfp-errai</module>
-	</modules>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.jboss.spec</groupId>
-				<artifactId>jboss-javaee-all-7.0</artifactId>
-				<version>1.0.0.Final</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 </project>

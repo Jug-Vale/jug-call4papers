@@ -1,0 +1,24 @@
+html, body, #root {
+  height: 100%;
+  --pf-c-page__header-nav--BackgroundColor: white;
+}
+
+.cfp-card-body-text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+ 
+}
+.pf-c-card:hover {
+  border: 1px inset blue;
+  cursor: pointer;
+}
+.detalhes-evento_titulo {
+  border-bottom: 1px dashed lightgrey;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+.detalhes-evento {
+  margin: 10px 50px 50px 50px;
+  padding: 20px;
+}
