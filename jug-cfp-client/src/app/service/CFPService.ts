@@ -1,6 +1,9 @@
 import {Evento} from '../model/Evento'
+import { Paper } from '@app/model/Paper';
 
 class CFPService {
+
+  papers : Paper[] = [];
 
   evts : Evento[] = [
     new Evento(1,
@@ -36,9 +39,15 @@ class CFPService {
       setTimeout(() => resolve(this.evts), 1000)
     });
   }
-  public evento(id: Number) : Promise<Evento> {
+  public evento(id: number) : Promise<Evento> {
     return new Promise(resolve => {
       setTimeout(() => resolve(this.evts.filter(e => e.id == id)[0]), 1000)
+    });
+  }
+
+  public papersPorEvento(id: number): Promise<Paper[]> {
+    return new Promise(resolve => {
+      setTimeout(() => resolve(this.papers.filter(p => p.eventoId == id)), 1000)
     });
   }
 
