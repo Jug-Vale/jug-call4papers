@@ -16,6 +16,7 @@ import org.jugvale.cfp.model.Evento;
 import org.jugvale.cfp.model.Inscricao;
 import org.jugvale.cfp.model.Nivel;
 import org.jugvale.cfp.model.Participante;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -42,12 +43,10 @@ public class InscricaoResourceTest extends BaseTest {
     @Transactional
     void init() {
         
+        limpa();
+        
     	mailbox.clear();
     	
-        Inscricao.deleteAll();
-        Participante.deleteAll();
-        Evento.deleteAll();
-        
         Evento evento = new Evento();
         evento.dataFim = new Date();
         evento.dataInicio = new Date();
@@ -67,6 +66,14 @@ public class InscricaoResourceTest extends BaseTest {
         eventoJson = JsonbBuilder.create().toJson(evento);
         participanteJson = JsonbBuilder.create().toJson(participante);
         
+    }
+    
+    @AfterEach
+    @Transactional
+    public void limpa() {
+        Inscricao.deleteAll();
+        Participante.deleteAll();
+        Evento.deleteAll();
     }
 
     @Test
@@ -90,7 +97,7 @@ public class InscricaoResourceTest extends BaseTest {
     }
     
     @Test
-    public void nãoDeveRealizarAInscNoMesmoEventoERetornar406() {
+    public void naoDeveRealizarAInscNoMesmoEventoERetornar406() {
     	
     	Long eventoId = givenWithAuth().body(eventoJson)
                 					   .contentType(ContentType.JSON)

@@ -14,6 +14,7 @@ import org.jugvale.cfp.model.Autor;
 import org.jugvale.cfp.model.Evento;
 import org.jugvale.cfp.model.Paper;
 import org.jugvale.cfp.model.Tipo;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,9 +33,7 @@ public class PaperResourceTest extends BaseTest {
 	@Transactional
 	public void limpaDadosECria() {
     	
-    	Paper.deleteAll();
-    	Autor.deleteAll();
-    	Evento.deleteAll();
+    	limpa();
     	
     	Autor autor = new Autor();
         autor.email = "antonio@email.com";
@@ -70,6 +69,14 @@ public class PaperResourceTest extends BaseTest {
 		
 		paperJson = JsonbBuilder.create().toJson(paper);
     	
+    }
+
+    @AfterEach
+    @Transactional
+    public void limpa() {
+        Paper.deleteAll();
+    	Autor.deleteAll();
+    	Evento.deleteAll();
     }
     
     @Test

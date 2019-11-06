@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 
 import org.hamcrest.Matchers;
 import org.jugvale.cfp.model.Evento;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +32,7 @@ public class EventoResourceTest extends BaseTest {
 	@Transactional
 	public void limpaDadosECria() {
 		
-		Evento.deleteAll();
+		limpa();
 				
 		Evento evento = new Evento();
 		evento.dataFim = new Date();
@@ -43,6 +44,12 @@ public class EventoResourceTest extends BaseTest {
 
 		eventoJson = JsonbBuilder.create().toJson(evento);
 	}
+    
+    @AfterEach
+    @Transactional
+    public void limpa() {
+        Evento.deleteAll();
+    } 
 
     @Test
     public void deveBuscarEventosERetornarStatus200() {

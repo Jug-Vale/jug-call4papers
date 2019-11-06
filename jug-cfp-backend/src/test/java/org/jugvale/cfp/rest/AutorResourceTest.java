@@ -9,6 +9,7 @@ import org.hamcrest.Matchers;
 import org.jugvale.cfp.model.Autor;
 import org.jugvale.cfp.model.Evento;
 import org.jugvale.cfp.model.Paper;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,11 +26,9 @@ public class AutorResourceTest extends BaseTest {
 	@BeforeEach
 	@Transactional
 	public void limpaAutoresECria() {
+	    
+	    limpa();
 		
-		Paper.deleteAll();
-    	Autor.deleteAll();
-    	Evento.deleteAll();
-				
 		Autor autor = new Autor();
 		autor.email = "antonio@email.com";
 		autor.nome = "Antônio";
@@ -39,6 +38,14 @@ public class AutorResourceTest extends BaseTest {
 		
 		autorJson = JsonbBuilder.create().toJson(autor);
 	}
+	
+    @AfterEach
+    @Transactional
+    public void limpa() {
+        Paper.deleteAll();
+        Autor.deleteAll();
+        Evento.deleteAll();
+    }
 	
 	@Test
 	public void deveRetornarStatus401ParaListarTodos( ) {
@@ -70,7 +77,7 @@ public class AutorResourceTest extends BaseTest {
 			   .contentType(ContentType.JSON)
 			   .post(URI_AUTOR).then()
 			   .statusCode(201)
-			   .content(Matchers.notNullValue());
+			   .body(Matchers.notNullValue());
 	}
 	
 	@Test
@@ -82,14 +89,14 @@ public class AutorResourceTest extends BaseTest {
 				 .statusCode(201).extract()
 				 .as(Long.class);
 
-		givenWithAuth().get(URI_AUTOR_PARAM, id).then().statusCode(200).content(Matchers.notNullValue());
+		givenWithAuth().get(URI_AUTOR_PARAM, id).then().statusCode(200).body(Matchers.notNullValue());
 	}
 	
 	@Test
 	public void deveBuscarAutorPorIdERetornarStatus404() {
 		givenWithAuth().get(URI_AUTOR_PARAM, Long.MAX_VALUE)
 					   .then().statusCode(404)
-					   .content(Matchers.containsString("Não encontrado"));
+					   .body(Matchers.containsString("Não encontrado"));
 	}
 	
 	@Test
