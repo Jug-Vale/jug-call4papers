@@ -54,7 +54,7 @@ class PaginaEventos extends React.Component  {
             <Gallery gutter="lg">
                 {eventos.map((evento, i) => (
                   <GalleryItem key={i}>
-                    <Card isCompact={true} onClick={() => this.selecionaEvento(evento)}> 
+                    <Card isCompact={true} onClick={() => this.selecionaEvento(evento)} className="pf-c-card-eventos"> 
                       <CardHeader>{evento.nome}</CardHeader>
                       <CardBody><Text className="cfp-card-body-text">{evento.descricao}</Text></CardBody>
                       <CardFooter>

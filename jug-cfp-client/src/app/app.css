@@ -9,7 +9,7 @@ html, body, #root {
   overflow: hidden;
  
 }
-.pf-c-card:hover {
+.pf-c-card-eventos:hover {
   border: 1px inset blue;
   cursor: pointer;
 }
@@ -21,4 +21,14 @@ html, body, #root {
 .detalhes-evento {
   margin: 10px 50px 50px 50px;
   padding: 20px;
+}
+
+.cfp-paper-card {
+  height: 250px;
+}
+
+.cfp-paper-descricao {
+  text-overflow: ellipsis;
+  height: 100px;
+  overflow: hidden;
 }
